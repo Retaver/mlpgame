@@ -74,6 +74,25 @@ namespace MyGameNamespace
             root = pauseDocument != default ? pauseDocument.rootVisualElement : null;
             if (root == default)
             {
+                // Try to find any UIDocument in the scene that contains known pause menu buttons
+                var docs = UnityEngine.Object.FindObjectsOfType<UIDocument>(FindObjectsSortMode.None);
+                foreach (var d in docs)
+                {
+                    if (d == default || d.rootVisualElement == default) continue;
+                    // quick heuristic: does this document contain a PauseResume/Resume button?
+                    var any = d.rootVisualElement.Query<Button>().ToList();
+                    if (any.Exists(b => (b.name != null && (b.name.Equals("PauseResume", StringComparison.OrdinalIgnoreCase) || b.name.Equals("Resume", StringComparison.OrdinalIgnoreCase))) ||
+                                        (!string.IsNullOrEmpty(b.text) && b.text.ToLowerInvariant().Contains("resume"))))
+                    {
+                        pauseDocument = d;
+                        root = d.rootVisualElement;
+                        if (verboseLogging) Debug.Log("[PauseMenuController] Found UIDocument with pause controls in scene.");
+                        break;
+                    }
+                }
+            }
+            if (root == default)
+            {
                 Debug.LogWarning("[PauseMenuController] Missing UIDocument/root.");
                 return;
             }

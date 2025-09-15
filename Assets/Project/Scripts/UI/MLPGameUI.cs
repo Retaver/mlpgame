@@ -40,8 +40,31 @@ namespace MyGameNamespace
                           ?? root.Q<Button>(className: "character-button")
                           ?? root.Q<Button>("Character");  // fallback
 
+            // If not found in this UIDocument, search other documents in scene
+            if (characterBtn == default)
+            {
+                var docs = UnityEngine.Object.FindObjectsOfType<UIDocument>(FindObjectsSortMode.None);
+                foreach (var d in docs)
+                {
+                    if (d == default || d.rootVisualElement == default) continue;
+                    var b = d.rootVisualElement.Q<Button>("CharacterButton") ?? d.rootVisualElement.Q<Button>(className: "character-button") ?? d.rootVisualElement.Q<Button>("Character");
+                    if (b != default) { characterBtn = b; break; }
+                }
+            }
+
             menuBtn = root.Q<Button>("MenuButton")
                       ?? root.Q<Button>(className: "menu-button");
+
+            if (menuBtn == default)
+            {
+                var docs = UnityEngine.Object.FindObjectsOfType<UIDocument>(FindObjectsSortMode.None);
+                foreach (var d in docs)
+                {
+                    if (d == default || d.rootVisualElement == default) continue;
+                    var b = d.rootVisualElement.Q<Button>("MenuButton") ?? d.rootVisualElement.Q<Button>(className: "menu-button") ?? d.rootVisualElement.Q<Button>("Menu");
+                    if (b != default) { menuBtn = b; break; }
+                }
+            }
 
             optionsBtn = root.Q<Button>("OptionsButton")
                          ?? root.Q<Button>(className: "options-button");

@@ -62,6 +62,24 @@ namespace MyGameNamespace
             _doc = sheetDocument;
             if (_doc == null) TryGetComponent(out _doc);
             if (_doc == null) _doc = GetComponentInChildren<UIDocument>(true);
+            // If still null, search the scene for any UIDocument that contains character sheet elements
+            if (_doc == null)
+            {
+                var docs = UnityEngine.Object.FindObjectsOfType<UIDocument>(FindObjectsSortMode.None);
+                foreach (var d in docs)
+                {
+                    if (d == default || d.rootVisualElement == default) continue;
+                    var found = d.rootVisualElement.Q<VisualElement>(className: "character-sheet")
+                                ?? d.rootVisualElement.Q<VisualElement>("character-sheet-container")
+                                ?? d.rootVisualElement.Q<VisualElement>("CharacterSheet")
+                                ?? d.rootVisualElement.Q<VisualElement>("CharacterSheetRoot");
+                    if (found != default)
+                    {
+                        _doc = d;
+                        break;
+                    }
+                }
+            }
             _root = _doc != null ? _doc.rootVisualElement : null;
         }
 
