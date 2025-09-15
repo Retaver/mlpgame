@@ -10,6 +10,8 @@ namespace MyGameNamespace
         [SerializeField] private UIDocument pauseDocument;
         [Header("Overlay order (int)")]
         [SerializeField] private int desiredSortingOrder = 200;
+        [Header("Debug")]
+        [SerializeField] private bool verboseLogging = false;
 
         private VisualElement root, panel;
         private Button closeBtn;
@@ -75,7 +77,7 @@ namespace MyGameNamespace
             if (root == default)
             {
                 // Try to find any UIDocument in the scene that contains known pause menu buttons
-                var docs = UnityEngine.Object.FindObjectsOfType<UIDocument>(FindObjectsSortMode.None);
+                var docs = UnityEngine.Object.FindObjectsOfType<UIDocument>(true);
                 foreach (var d in docs)
                 {
                     if (d == default || d.rootVisualElement == default) continue;

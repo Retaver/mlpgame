@@ -43,7 +43,7 @@ namespace MyGameNamespace
             // If not found in this UIDocument, search other documents in scene
             if (characterBtn == default)
             {
-                var docs = UnityEngine.Object.FindObjectsOfType<UIDocument>(FindObjectsSortMode.None);
+                var docs = UnityEngine.Object.FindObjectsOfType<UIDocument>(true);
                 foreach (var d in docs)
                 {
                     if (d == default || d.rootVisualElement == default) continue;
@@ -57,7 +57,7 @@ namespace MyGameNamespace
 
             if (menuBtn == default)
             {
-                var docs = UnityEngine.Object.FindObjectsOfType<UIDocument>(FindObjectsSortMode.None);
+                var docs = UnityEngine.Object.FindObjectsOfType<UIDocument>(true);
                 foreach (var d in docs)
                 {
                     if (d == default || d.rootVisualElement == default) continue;

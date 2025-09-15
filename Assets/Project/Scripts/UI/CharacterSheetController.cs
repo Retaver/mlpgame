@@ -65,7 +65,8 @@ namespace MyGameNamespace
             // If still null, search the scene for any UIDocument that contains character sheet elements
             if (_doc == null)
             {
-                var docs = UnityEngine.Object.FindObjectsOfType<UIDocument>(FindObjectsSortMode.None);
+                // Note: Unity's FindObjectsOfType overload here expects a bool (includeInactive)
+                var docs = UnityEngine.Object.FindObjectsOfType<UIDocument>(true);
                 foreach (var d in docs)
                 {
                     if (d == default || d.rootVisualElement == default) continue;
