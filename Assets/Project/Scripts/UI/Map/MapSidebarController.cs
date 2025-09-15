@@ -132,7 +132,6 @@ namespace MyGameNamespace.UI
 
         private void RefreshGrid()
         {
-            int size = ViewRadius*2 + 1;
             Vector2Int center = _map.PlayerPosition;
             int rowIndex = 0;
             foreach (var row in _grid.Children())

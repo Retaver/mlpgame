@@ -1,9 +1,9 @@
-/* CharacterCreation.uss — single stylesheet (palette + compact + parity) */
+/* CharacterCreation.uss ï¿½ single stylesheet (palette + compact + parity) */
 
 /* Layout */
 .cc-screen { flex-direction: column; flex-grow: 1; padding: 12px 14px; background-color: #111317; color: #E9EDF1; }
 .cc-header { flex-direction: column; margin-bottom: 8px; }
-.cc-title { unity-font-style: bold; font-size: 22px; margin-bottom: 2px; }
+.cc-title { -unity-font-style: bold; font-size: 22px; margin-bottom: 2px; }
 .cc-sub   { color: #9BA3AE; font-size: 12px; }
 
 .cc-grid { flex-direction: row; flex-grow: 1; gap: 10px; }
@@ -29,7 +29,7 @@
 .cc-section-label { margin-top: 6px; color: #9BA3AE; }
 .cc-field-row { flex-direction: row; align-items: center; gap: 6px; }
 
-/* TextField — strong parity so Play Mode matches Builder */
+/* TextField ï¿½ strong parity so Play Mode matches Builder */
 .cc-input { flex-grow: 1; background-color: #232833; color: #E9EDF1;
     border-left-color: #2F3744; border-right-color: #2F3744; border-top-color: #2F3744; border-bottom-color: #2F3744;
     border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px;
@@ -39,6 +39,8 @@
 TextField.cc-input { background-color: #232833; } /* specificity bump */
 TextField.cc-input > .unity-text-input { background-color: #232833; color: #E9EDF1; }
 .cc-input:focus-within {
+    /* NOTE: ':focus-within' may not be supported in all Unity versions. Keep for newer UI Toolkit; if unsupported,
+       consider toggling a '.focus-within' class from C# when needed. */
     border-left-color: #3B82F6; border-right-color: #3B82F6; border-top-color: #3B82F6; border-bottom-color: #3B82F6;
 }
 

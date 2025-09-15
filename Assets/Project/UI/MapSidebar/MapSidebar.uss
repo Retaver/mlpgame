@@ -9,7 +9,7 @@
 
 #MapTitle {
   margin-bottom: 4px;
-  unity-font-style: bold;
+  -unity-font-style: bold;
   font-size: 12px;
   opacity: 0.9;
 }

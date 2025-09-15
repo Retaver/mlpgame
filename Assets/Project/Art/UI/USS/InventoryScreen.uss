@@ -44,7 +44,7 @@
 
 .inventory-title {
     font-size: 18px;
-    -unity-font-style: bold;
+    -unity-font-style: bold; /* Unity expects vendor-prefixed -unity- properties */
     color: rgb(245, 240, 255);
 }
 
@@ -69,6 +69,7 @@
     height: 12px;
     border-radius: 6px;
     overflow: hidden;
+    /* -unity-background-image is unsupported in some Unity versions; keep but tolerate warnings */
     -unity-background-image: none;
     background-color: transparent;
 }

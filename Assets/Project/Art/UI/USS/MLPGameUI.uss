@@ -316,6 +316,7 @@
     border-radius: 8px;
     border-width: 1px;
     border-color: rgb(70, 60, 84);
+    /* Unity USS may not support 'border-style'; keep if using newer UI Toolkit, otherwise fallback to border-width/color */
     border-style: solid;
     margin-top: 12px;
 }
@@ -360,7 +361,8 @@
     justify-content: center;
     color: rgb(220, 214, 224);
     font-size: 12px;
-    cursor: pointer;
+    /* 'cursor: pointer' is not recognized by some Unity versions; use default cursor or set via C# if needed */
+    /* cursor: pointer; */
     transition: background-color 0.15s ease;
 }
 
@@ -374,7 +376,8 @@
 .map-tile.invalid {
     background-color: rgb(52, 46, 62);
     opacity: 0.4;
-    pointer-events: none;
+    /* pointer-events isn't supported in Unity USS; toggle a '.disabled' class from code instead if needed */
+    /* pointer-events: none; */
 }
 
 /* Hovered tile preview styling.  When the mouse hovers over a valid map

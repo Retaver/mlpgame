@@ -59,7 +59,7 @@
     justify-content: center;
     color: #dcd6f5;
     font-size: 12px;
-    cursor: pointer;
+    /* cursor: pointer; */
     transition: background-color 0.15s ease;
 }
 
@@ -71,7 +71,7 @@
 .map-tile.invalid {
     background-color: #362b55;
     opacity: 0.4;
-    pointer-events: none;
+    /* pointer-events: none; */
 }
 
 .map-description {
