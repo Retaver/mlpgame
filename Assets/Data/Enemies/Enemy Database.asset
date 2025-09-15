@@ -1,0 +1,181 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d662c5b71a8f684d9f2dde1733b4e45, type: 3}
+  m_Name: Enemy Database
+  m_EditorClassIdentifier: 
+  enemies:
+  - id: Parasprite_basic
+    name: Parasprite
+    baseLevel: 1
+    baseHealth: 10
+    baseAttack: 5
+    baseDefense: 0
+    baseTalkDefense: 300
+    xpReward: 5
+    bitsReward: 2
+    defaultDisposition: 0
+    baseMorale: 0
+    baseWillpower: 10
+    portraitPath: 
+    description: "Tiny, colorful, and deceptively cute, parasprites are small flying
+      insects that seem harmless at first. With their big eyes and buzzing wings,
+      many ponies mistake them for adorable companions. But behind that innocent
+      appearance lies an insatiable hunger \u2014 parasprites can devour crops, buildings,
+      and supplies at terrifying speed, multiplying as they go."
+    moves: []
+  - id: timberwolf_basic
+    name: Timberwolf
+    baseLevel: 1
+    baseHealth: 35
+    baseAttack: 10
+    baseDefense: 2
+    baseTalkDefense: 300
+    xpReward: 10
+    bitsReward: 12
+    defaultDisposition: 0
+    baseMorale: 0
+    baseWillpower: 10
+    portraitPath: images/enemies/Timberwolf
+    description: "Timberwolves are wolf‑like creatures made entirely of wood, twigs and leaves.  When shattered they quickly reassemble and can even merge into a towering pack alpha.  Their foul, sap‑laden breath heralds their approach, and they relentlessly pursue any intruders who disturb the Everfree Forest【209013350399758†L178-L190】."
+    moves:
+    - timberwolf_bite
+
+  # A fearsome predator from the Everfree Forest.  The manticore resembles
+  # a massive lion with a scorpion tail and bat‑like wings.  When the Mane
+  # Six encountered one, it was enraged by Nightmare Moon until Fluttershy
+  # calmed it by removing a thorn from its paw【122014944113244†L165-L170】.
+  - id: manticore_basic
+    name: Manticore
+    baseLevel: 3
+    baseHealth: 50
+    baseAttack: 14
+    baseDefense: 4
+    baseTalkDefense: 300
+    xpReward: 20
+    bitsReward: 20
+    defaultDisposition: 0
+    baseMorale: 0
+    baseWillpower: 10
+    portraitPath: images/enemies/Manticore
+    description: "This imposing beast has the body of a lion, a pair of leathery wings and a scorpion’s tail tipped with a venomous stinger.  It prowls the Everfree Forest and can be calmed only by gentleness, as when a thorn was pulled from its paw【122014944113244†L165-L170】."
+    moves:
+    - manticore_claw
+    - manticore_tail_sting
+
+  # A gigantic four‑headed beast that dwells in Froggy Bottom Bog.  Each head
+  # has a distinct personality and they have trouble coordinating, often
+  # bickering as they chase their prey【123388941834927†L160-L167】.  The hydra
+  # is orange and dragon‑like with a snake‑like neck and only two legs【123388941834927†L175-L176】.
+  - id: hydra_basic
+    name: Hydra
+    baseLevel: 4
+    baseHealth: 60
+    baseAttack: 18
+    baseDefense: 6
+    baseTalkDefense: 300
+    xpReward: 35
+    bitsReward: 30
+    defaultDisposition: 0
+    baseMorale: 0
+    baseWillpower: 12
+    portraitPath: images/enemies/Hydra
+    description: "An enormous orange beast with four serpent‑like heads and a powerful body.  Emerging from the mists of Froggy Bottom Bog, it roars and licks its lips before charging, each head arguing with the others【123388941834927†L160-L167】【123388941834927†L175-L176】."
+    moves:
+    - hydra_head_swipe
+
+  # A young cosmic bear – the offspring of the mighty Ursa Major.  Its
+  # translucent blue body is dotted with star‑like spots that form the
+  # constellation of the Little Dipper near its tail, and a brilliant star
+  # gleams on its forehead like Polaris【638131476001133†L165-L174】.  It
+  # resides in a cave deep within the Everfree Forest【638131476001133†L176-L178】.
+  - id: ursa_minor_basic
+    name: Ursa Minor
+    baseLevel: 5
+    baseHealth: 80
+    baseAttack: 20
+    baseDefense: 8
+    baseTalkDefense: 400
+    xpReward: 40
+    bitsReward: 40
+    defaultDisposition: 0
+    baseMorale: 0
+    baseWillpower: 15
+    portraitPath: images/enemies/UrsaMinor
+    description: "A colossal cub of starry blue light.  Translucent skin reveals constellations, with the Little Dipper gleaming near its tail and a brilliant star on its brow【638131476001133†L165-L174】.  It calls a cave in the Everfree Forest home【638131476001133†L176-L178】."
+    moves:
+    - ursa_minor_roar
+
+  # Chimera – a three-headed beast with a tiger, goat and snake head.  It lives
+  # in a fire geyser swamp and threatens Apple Bloom; each head views the
+  # others as sisters and argues constantly【7167784490093†L1108-L1113】【7167784490093†L1137-L1139】.  The goat head can breathe fire【7167784490093†L1118-L1126】.
+  - id: chimera_basic
+    name: Chimera
+    baseLevel: 4
+    baseHealth: 65
+    baseAttack: 19
+    baseDefense: 5
+    baseTalkDefense: 300
+    xpReward: 35
+    bitsReward: 35
+    defaultDisposition: 0
+    baseMorale: 0
+    baseWillpower: 12
+    portraitPath: images/enemies/Chimera
+    description: "A ferocious monster with the body of a tiger, goat and snake.  It dwells in a fire geyser swamp and menaces anyone who crosses its territory, including Apple Bloom【7167784490093†L1108-L1113】.  Each head has its own personality and they spend much of their time arguing like sisters【7167784490093†L1137-L1139】.  The goat head can unleash a breath of fire at its prey【7167784490093†L1118-L1126】."
+    moves:
+    - chimera_fire_breath
+    - chimera_multi_bite
+
+  # Orthros – a giant two‑headed dog used as a dangerous guard animal.  These
+  # enormous hounds can snap steel chains and are intractable to most handlers
+  # except Fluttershy【7167784490093†L1168-L1174】.  They stand between twice as tall
+  # as a pony and as tall as a tree and have two distinct heads【7167784490093†L1177-L1187】.
+  - id: orthros_basic
+    name: Orthros
+    baseLevel: 3
+    baseHealth: 55
+    baseAttack: 16
+    baseDefense: 4
+    baseTalkDefense: 200
+    xpReward: 25
+    bitsReward: 25
+    defaultDisposition: 0
+    baseMorale: 0
+    baseWillpower: 10
+    portraitPath: images/enemies/Orthros
+    description: "A massive two‑headed hound bred to guard treasures and prisoners.  Capable of snapping steel chains and frightening even seasoned handlers, only Fluttershy’s kindness can tame it【7167784490093†L1168-L1174】.  Each head has its own personality and they often disagree over who gets the next bite."
+    moves:
+    - orthros_bite
+    - orthros_double_bark
+
+  # Twittermites – tiny, lightning‑generating insects that swarm in large
+  # numbers.  They can cause devastation through their collective ability to
+  # generate and direct lightning【7167784490093†L1196-L1203】.  When attacking the
+  # Apple Family barn, they formed a ring and combined their bolts into a
+  # single massive strike【7167784490093†L1207-L1209】.
+  - id: twittermites_basic
+    name: Twittermites
+    baseLevel: 2
+    baseHealth: 25
+    baseAttack: 12
+    baseDefense: 1
+    baseTalkDefense: 200
+    xpReward: 15
+    bitsReward: 10
+    defaultDisposition: 0
+    baseMorale: 0
+    baseWillpower: 8
+    portraitPath: images/enemies/Twittermites
+    description: "A swarm of tiny, glowing insects that can generate lightning.  In large numbers they can devastate farms and barns by combining their electric discharge into a single massive bolt【7167784490093†L1196-L1203】【7167784490093†L1207-L1209】.  Only specialized pest ponies know how to deal with them."
+    moves:
+    - twittermites_lightning
+    - twittermites_swarm

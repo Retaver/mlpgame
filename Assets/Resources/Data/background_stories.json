@@ -1,0 +1,147 @@
+{
+  "story_name": "Background Stories",
+  "nodes": [
+    {
+      "id": "background_scholar_story",
+      "title": "Memories of the Library",
+      "content": "The Great Library of Canterlot: towering shelves, endless corridors of knowledge. You became known for your analytical mind and curiosity.",
+      "imagePath": "images/library_memories",
+      "choices": [
+        {
+          "id": "scholar_discovery",
+          "text": "I discovered something that challenged everything I believed",
+          "resultText": "The revelation shook your understanding...",
+          "effects": [
+            { "type": "personality", "target": "curiosity", "value": 15 },
+            { "type": "personality", "target": "honesty", "value": 8 },
+            { "type": "flag", "target": "scholar_revelation", "stringValue": "true" }
+          ],
+          "targetNodeId": "town_square"
+        },
+        {
+          "id": "scholar_helper",
+          "text": "I used my knowledge to help others",
+          "resultText": "Your expertise made a difference.",
+          "effects": [
+            { "type": "personality", "target": "kindness", "value": 12 },
+            { "type": "personality", "target": "confidence", "value": 10 }
+          ],
+          "targetNodeId": "town_square"
+        }
+      ]
+    },
+    {
+      "id": "background_guard_story",
+      "title": "Duty and Honor",
+      "content": "Patrol routes, a polished badge, the trust of your community. You took your oath to protect and serve seriously.",
+      "imagePath": "images/guard_memories",
+      "choices": [
+        {
+          "id": "guard_corruption",
+          "text": "I exposed corruption despite the risk",
+          "resultText": "You chose what was right over what was easy.",
+          "effects": [
+            { "type": "personality", "target": "honesty", "value": 18 },
+            { "type": "personality", "target": "assertiveness", "value": 12 }
+          ],
+          "targetNodeId": "town_square"
+        },
+        {
+          "id": "guard_rescue",
+          "text": "I risked everything to save innocents",
+          "resultText": "That day defined you as a protector.",
+          "effects": [
+            { "type": "personality", "target": "kindness", "value": 15 },
+            { "type": "personality", "target": "confidence", "value": 12 }
+          ],
+          "targetNodeId": "town_square"
+        }
+      ]
+    },
+    {
+      "id": "background_merchant_story",
+      "title": "The Road and the Deal",
+      "content": "The open road, the jingle of bits, and the thrill of a successful negotiation. You learned to read ponies and situations expertly.",
+      "imagePath": "images/merchant_memories",
+      "choices": [
+        {
+          "id": "merchant_honest",
+          "text": "I built my reputation on fair deals",
+          "resultText": "Your word became your bond.",
+          "effects": [
+            { "type": "personality", "target": "honesty", "value": 15 },
+            { "type": "personality", "target": "kindness", "value": 10 }
+          ],
+          "targetNodeId": "town_square"
+        },
+        {
+          "id": "merchant_shrewd",
+          "text": "I was cunning and always looked for advantage",
+          "resultText": "You stayed one step ahead.",
+          "effects": [
+            { "type": "personality", "target": "assertiveness", "value": 15 },
+            { "type": "personality", "target": "confidence", "value": 10 },
+            { "type": "personality", "target": "honesty", "value": -5 }
+          ],
+          "targetNodeId": "town_square"
+        }
+      ]
+    },
+    {
+      "id": "background_farmer_story",
+      "title": "Working the Land",
+      "content": "Rich soil under your hooves, the satisfaction of a hard day's work, the quiet joy of a good harvest.",
+      "imagePath": "images/farm_memories",
+      "choices": [
+        {
+          "id": "farmer_community",
+          "text": "I learned the value of community in hard seasons",
+          "resultText": "Neighbors helped neighbors.",
+          "effects": [
+            { "type": "personality", "target": "kindness", "value": 18 },
+            { "type": "personality", "target": "honesty", "value": 10 }
+          ],
+          "targetNodeId": "town_square"
+        },
+        {
+          "id": "farmer_innovation",
+          "text": "I developed new methods to improve farming",
+          "resultText": "Your innovations helped many.",
+          "effects": [
+            { "type": "personality", "target": "curiosity", "value": 15 },
+            { "type": "personality", "target": "confidence", "value": 12 }
+          ],
+          "targetNodeId": "town_square"
+        }
+      ]
+    },
+    {
+      "id": "background_entertainer_story",
+      "title": "Life on the Stage",
+      "content": "The spotlight, the music, the cheers of the crowd. You brought joy through performance.",
+      "imagePath": "images/entertainer_memories",
+      "choices": [
+        {
+          "id": "entertainer_joy",
+          "text": "I brought happiness during dark times",
+          "resultText": "Your shows were beacons of hope.",
+          "effects": [
+            { "type": "personality", "target": "kindness", "value": 15 },
+            { "type": "personality", "target": "optimism", "value": 10 }
+          ],
+          "targetNodeId": "town_square"
+        },
+        {
+          "id": "entertainer_fame",
+          "text": "I loved the attention and fame",
+          "resultText": "The spotlight was addictive.",
+          "effects": [
+            { "type": "personality", "target": "confidence", "value": 15 },
+            { "type": "personality", "target": "assertiveness", "value": 8 }
+          ],
+          "targetNodeId": "town_square"
+        }
+      ]
+    }
+  ]
+}

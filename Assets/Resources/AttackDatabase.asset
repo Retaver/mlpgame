@@ -1,0 +1,534 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 055364d0826c7e94c86f048d809aa241, type: 3}
+  m_Name: AttackDatabase
+  m_EditorClassIdentifier: 
+  attacks:
+  - id: basic
+    displayName: Strike
+    description: 
+    baseDamage: 15
+    energyCost: 5
+    magicCost: 0
+    accuracy: 0.95
+    critChance: 0.036
+    critMultiplier: 2
+    allowedRaces: 00000000010000000200000003000000040000000500000006000000
+    attackType: 0
+    statusEffects: []
+  - id: Shadow_Strike
+    displayName: Shadow Strike
+    description: 
+    baseDamage: 22
+    energyCost: 12
+    magicCost: 0
+    accuracy: 0.9
+    critChance: 0.036
+    critMultiplier: 2
+    allowedRaces: 03000000
+    attackType: 0
+    statusEffects:
+    - effectType: 0
+      chance: 0.035
+      duration: 2
+      value: 0
+  - id: earth_stomp
+    displayName: Stomp
+    description: 
+    baseDamage: 20
+    energyCost: 15
+    magicCost: 0
+    accuracy: 0.9
+    critChance: 0.036
+    critMultiplier: 2
+    allowedRaces: 00000000
+    attackType: 0
+    statusEffects:
+    - effectType: 3
+      chance: 0.015
+      duration: 3
+      value: 0
+  - id: vampiric_bite
+    displayName: Vampiric Bite
+    description: 
+    baseDamage: 18
+    energyCost: 10
+    magicCost: 0
+    accuracy: 0.88
+    critChance: 0
+    critMultiplier: 2
+    allowedRaces: 03000000
+    attackType: 2
+    statusEffects:
+    - effectType: 6
+      chance: 1
+      duration: 1
+      value: 50
+  - id: Sonic_Screech
+    displayName: Sonic Screech
+    description: 
+    baseDamage: 12
+    energyCost: 15
+    magicCost: 0
+    accuracy: 0.88
+    critChance: 0
+    critMultiplier: 2
+    allowedRaces: 03000000
+    attackType: 2
+    statusEffects:
+    - effectType: 4
+      chance: 1
+      duration: 2
+      value: -5
+
+  # Timberwolf bite – a basic melee attack used by timberwolves.  It has
+  # moderate damage and no special effects.
+  - id: timberwolf_bite
+    displayName: Bite
+    description: "The timberwolf lunges forward and bites with its wooden jaws."
+    baseDamage: 8
+    energyCost: 5
+    magicCost: 0
+    accuracy: 0.85
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 00000000
+    attackType: 0
+    statusEffects: []
+
+  # Manticore claw swipe – sharp claws rake across the target.
+  - id: manticore_claw
+    displayName: Claw Swipe
+    description: "The manticore slashes with its powerful claws."
+    baseDamage: 12
+    energyCost: 6
+    magicCost: 0
+    accuracy: 0.9
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 00000000
+    attackType: 0
+    statusEffects: []
+
+  # Manticore tail sting – a venomous sting from the scorpion tail.
+  - id: manticore_tail_sting
+    displayName: Tail Sting
+    description: "The manticore’s scorpion tail strikes, delivering a painful sting."
+    baseDamage: 10
+    energyCost: 8
+    magicCost: 0
+    accuracy: 0.85
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 00000000
+    attackType: 0
+    statusEffects: []
+
+  # Hydra head swipe – multiple heads attack in quick succession.
+  - id: hydra_head_swipe
+    displayName: Head Swipe
+    description: "The hydra’s heads dart forward, snapping at the foe."
+    baseDamage: 14
+    energyCost: 10
+    magicCost: 0
+    accuracy: 0.88
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 00000000
+    attackType: 0
+    statusEffects: []
+
+  # Ursa Minor roar – a cosmic roar that shakes the foe.
+  - id: ursa_minor_roar
+    displayName: Cosmic Roar
+    description: "The Ursa Minor emits a deafening cosmic roar."
+    baseDamage: 16
+    energyCost: 12
+    magicCost: 0
+    accuracy: 0.8
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 00000000
+    attackType: 2
+    statusEffects: []
+
+  # New racial attacks for Earth Ponies
+  - id: earth_shoulderslam
+    displayName: Shoulder Slam
+    description: "An Earth pony charges forward and slams their shoulder into the foe."
+    baseDamage: 14
+    energyCost: 8
+    magicCost: 0
+    accuracy: 0.9
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 00000000
+    attackType: 0
+    statusEffects: []
+
+  - id: earth_gallop_charge
+    displayName: Gallop Charge
+    description: "Building up speed, the Earth pony barrels into the enemy."
+    baseDamage: 16
+    energyCost: 10
+    magicCost: 0
+    accuracy: 0.88
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 00000000
+    attackType: 0
+    statusEffects: []
+
+  - id: earth_tremor
+    displayName: Ground Tremor
+    description: "The Earth pony stomps the ground, causing a small tremor underfoot."
+    baseDamage: 18
+    energyCost: 12
+    magicCost: 0
+    accuracy: 0.85
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 00000000
+    attackType: 0
+    statusEffects: []
+
+  # New racial attacks for Unicorns
+  - id: unicorn_magic_missile
+    displayName: Magic Missile
+    description: "A focused bolt of arcane energy fired from the unicorn’s horn."
+    baseDamage: 12
+    energyCost: 0
+    magicCost: 8
+    accuracy: 0.92
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 01000000
+    attackType: 2
+    statusEffects: []
+
+  - id: unicorn_arcane_blast
+    displayName: Arcane Blast
+    description: "The unicorn unleashes a burst of raw magic."
+    baseDamage: 18
+    energyCost: 0
+    magicCost: 12
+    accuracy: 0.88
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 01000000
+    attackType: 2
+    statusEffects: []
+
+  - id: unicorn_telekinetic_push
+    displayName: Telekinetic Push
+    description: "Telekinetic force shoves the enemy backwards."
+    baseDamage: 10
+    energyCost: 6
+    magicCost: 4
+    accuracy: 0.9
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 01000000
+    attackType: 0
+    statusEffects: []
+
+  # New racial attacks for Pegasi
+  - id: pegasus_flying_kick
+    displayName: Flying Kick
+    description: "A swift kick delivered from the air."
+    baseDamage: 14
+    energyCost: 8
+    magicCost: 0
+    accuracy: 0.9
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 02000000
+    attackType: 0
+    statusEffects: []
+
+  - id: pegasus_wind_gust
+    displayName: Wind Gust
+    description: "Beating their wings, the pegasus generates a gust of wind to buffet foes."
+    baseDamage: 12
+    energyCost: 6
+    magicCost: 4
+    accuracy: 0.92
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 02000000
+    attackType: 2
+    statusEffects: []
+
+  - id: pegasus_divebomb
+    displayName: Dive Bomb
+    description: "The pegasus ascends briefly before diving at high speed into their target."
+    baseDamage: 16
+    energyCost: 12
+    magicCost: 0
+    accuracy: 0.85
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 02000000
+    attackType: 0
+    statusEffects: []
+
+  # New racial attacks for Bat Ponies
+  - id: bat_dark_dive
+    displayName: Dark Dive
+    description: "A stealthy dive from the shadows."
+    baseDamage: 14
+    energyCost: 8
+    magicCost: 0
+    accuracy: 0.9
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 03000000
+    attackType: 0
+    statusEffects: []
+
+  # New racial attacks for Griffons
+  - id: griffon_talon_slash
+    displayName: Talon Slash
+    description: "The griffon lunges with razor‑sharp talons."
+    baseDamage: 16
+    energyCost: 8
+    magicCost: 0
+    accuracy: 0.9
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 04000000
+    attackType: 0
+    statusEffects: []
+
+  - id: griffon_aerial_tackle
+    displayName: Aerial Tackle
+    description: "Taking to the air, the griffon tackles its opponent with great force."
+    baseDamage: 18
+    energyCost: 12
+    magicCost: 0
+    accuracy: 0.86
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 04000000
+    attackType: 0
+    statusEffects: []
+
+  - id: griffon_wind_scythe
+    displayName: Wind Scythe
+    description: "With a powerful beat of its wings, the griffon sends a slicing gust of wind."
+    baseDamage: 14
+    energyCost: 6
+    magicCost: 4
+    accuracy: 0.9
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 04000000
+    attackType: 2
+    statusEffects: []
+
+  - id: griffon_harsh_caw
+    displayName: Harsh Caw
+    description: "A piercing screech that disorients foes."
+    baseDamage: 10
+    energyCost: 6
+    magicCost: 0
+    accuracy: 0.9
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 04000000
+    attackType: 2
+    statusEffects: []
+
+  # New racial attacks for Dragons
+  - id: dragon_fire_breath
+    displayName: Fire Breath
+    description: "A gout of searing dragon fire."
+    baseDamage: 20
+    energyCost: 0
+    magicCost: 15
+    accuracy: 0.88
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 05000000
+    attackType: 2
+    statusEffects: []
+
+  - id: dragon_tail_whip
+    displayName: Tail Whip
+    description: "A sweeping strike using the dragon's powerful tail."
+    baseDamage: 16
+    energyCost: 8
+    magicCost: 0
+    accuracy: 0.9
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 05000000
+    attackType: 0
+    statusEffects: []
+
+  - id: dragon_claw_slash
+    displayName: Claw Slash
+    description: "Sharp claws rake across the foe."
+    baseDamage: 18
+    energyCost: 10
+    magicCost: 0
+    accuracy: 0.88
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 05000000
+    attackType: 0
+    statusEffects: []
+
+  - id: dragon_wing_buffet
+    displayName: Wing Buffet
+    description: "The dragon strikes with a heavy flap of its wings."
+    baseDamage: 12
+    energyCost: 6
+    magicCost: 0
+    accuracy: 0.92
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 05000000
+    attackType: 0
+    statusEffects: []
+
+  # New racial attacks for Humans
+  - id: human_sword_slash
+    displayName: Sword Slash
+    description: "A quick cut with a sword."
+    baseDamage: 14
+    energyCost: 8
+    magicCost: 0
+    accuracy: 0.9
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 06000000
+    attackType: 0
+    statusEffects: []
+
+  - id: human_arrow_shot
+    displayName: Arrow Shot
+    description: "The human nocks an arrow and lets it fly."
+    baseDamage: 12
+    energyCost: 6
+    magicCost: 0
+    accuracy: 0.92
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 06000000
+    attackType: 0
+    statusEffects: []
+
+  - id: human_shield_bash
+    displayName: Shield Bash
+    description: "A forceful bash with a shield."
+    baseDamage: 10
+    energyCost: 8
+    magicCost: 0
+    accuracy: 0.9
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 06000000
+    attackType: 0
+    statusEffects: []
+
+  - id: human_inspiring_shout
+    displayName: Inspiring Shout
+    description: "A rousing shout that emboldens allies and unnerves foes."
+    baseDamage: 8
+    energyCost: 10
+    magicCost: 0
+    accuracy: 0.9
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 06000000
+    attackType: 2
+    statusEffects: []
+
+  # Enemy attacks for new creatures
+  - id: chimera_fire_breath
+    displayName: Fire Breath
+    description: "The chimera's goat head exhales a stream of fire."
+    baseDamage: 20
+    energyCost: 10
+    magicCost: 0
+    accuracy: 0.85
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 00000000
+    attackType: 2
+    statusEffects: []
+
+  - id: chimera_multi_bite
+    displayName: Triple Bite
+    description: "All three of the chimera's heads bite at once."
+    baseDamage: 16
+    energyCost: 8
+    magicCost: 0
+    accuracy: 0.88
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 00000000
+    attackType: 0
+    statusEffects: []
+
+  - id: orthros_bite
+    displayName: Ferocious Bite
+    description: "One of the orthros' heads lunges to bite."
+    baseDamage: 14
+    energyCost: 8
+    magicCost: 0
+    accuracy: 0.88
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 00000000
+    attackType: 0
+    statusEffects: []
+
+  - id: orthros_double_bark
+    displayName: Double Bark
+    description: "Both heads bark loudly to disorient foes."
+    baseDamage: 10
+    energyCost: 6
+    magicCost: 0
+    accuracy: 0.9
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 00000000
+    attackType: 2
+    statusEffects: []
+
+  - id: twittermites_lightning
+    displayName: Lightning Bolt
+    description: "The twittermites channel electricity into a lightning strike."
+    baseDamage: 15
+    energyCost: 8
+    magicCost: 0
+    accuracy: 0.9
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 00000000
+    attackType: 2
+    statusEffects: []
+
+  - id: twittermites_swarm
+    displayName: Swarm Bite
+    description: "The twittermites swarm over the enemy, biting and shocking."
+    baseDamage: 10
+    energyCost: 5
+    magicCost: 0
+    accuracy: 0.9
+    critChance: 0.05
+    critMultiplier: 2
+    allowedRaces: 00000000
+    attackType: 0
+    statusEffects: []

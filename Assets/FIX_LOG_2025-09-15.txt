@@ -1,0 +1,30 @@
+Crossworlds of Friendship – Unity 6.2 Fix Pass (2025-09-15)
+
+✅ What I verified (no changes needed):
+- Obsolete API calls are gated behind UNITY_2023_1_OR_NEWER and use FindFirst/FindAny variants in 6.2.
+- Pause Menu: static PauseMenuController.OpenPauseMenu() is present and used from UIController & MainMenuController.
+- Character Sheet: CharacterSheetController includes ToggleCharacterSheet() and proper show/hide.
+- "Changeling" content removed; PortraitLoader allows EarthPony/Unicorn/Pegasus/Griffon/Dragon/Human/BatPony only.
+- UI bottom bar buttons wire up with .clicked handlers and call the correct methods.
+- UIController_BarsPatch simulates 'gap' with child margins (Unity 6.2 IStyle has no gap property).
+
+🛠 What I changed:
+- Added placeholder portraits for BatPony (Female/Male) by copying the BatPony silhouette so all race/gender
+  folders contain a portrait.png (prevents missing-resource issues at runtime):
+    Assets/Resources/Portraits/BatPony/Female/portrait.png
+    Assets/Resources/Portraits/BatPony/Male/portrait.png
+
+📌 Notes:
+- GlobalAdapters.cs provides legacy global-type names (CharacterSheetController, PauseMenuController) that derive
+  from the namespaced implementations. This is intentional for older call sites; current code references the
+  adapters explicitly where needed (e.g., `global::PauseMenuController.OpenPauseMenu()`).
+- Scene and script organization appear consistent with current code. Recovery scenes under Assets/_Recovery/ are
+  editor crash recovery backups and can be removed from source control if not needed.
+- TextMesh Pro, URP settings, and SceneTemplate assets are stock and safe to keep; they do not affect build size
+  significantly in development.
+
+If you hit any remaining compiler errors/warnings, send the full Unity console output (copy text)
+and I’ll zero in on those specific files next.
+
+- Rewrote CharacterSheetController.cs to avoid fullscreen behavior, add robust close (overlay click + ESC),
+  and provide static helpers (Open/Close/Toggle). Starts hidden by default and relies on USS for sizing.

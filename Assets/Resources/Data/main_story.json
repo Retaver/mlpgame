@@ -1,0 +1,108 @@
+{
+  "story_name": "Everfree Isekai Adventure",
+  "start_node_id": "prologue_fall",
+  "nodes": [
+    {
+      "id": "prologue_fall",
+      "title": "Falling Through the Breathing Forest",
+      "content": "[img=images/everfree/forest_intro align=right width=400]\nThe night air moves like a living thing, drawing with the forest and exhaling with the trees.  The ground hums back with a hush of leaves and unseen paws.  In the Everfree Forest, plants grow on their own, animals take care of themselves, and even the clouds wander without any pony guiding them.\n\nYou wake up groggy, confused and cold.  This isn't your bed, or even your world.  The earth smells like rain, and your hands—no, hooves—sink into moss.  Twisted branches block most of the sky.  Somewhere distant, a howl cuts through the trees and unseen creatures rustle in the brush.\n\nWhat do you do?",
+      "choices": [
+        { "id": "call_for_help", "text": "Call out for help", "targetNodeId": "prologue_call_out" },
+        { "id": "stay_quiet", "text": "Stay quiet and listen", "targetNodeId": "prologue_listen" }
+      ]
+    },
+    {
+      "id": "prologue_call_out",
+      "title": "Echoes in the Trees",
+      "content": "Your voice echoes through the Everfree, sounding strange in the darkness.  The fog drinks the sound, and leaves whisper back.  In the distance another voice answers—careful and warm: \"Easy.  You're not alone.\"\n\nBefore you can search for the source, a pair of green lights blink between the roots.  Not eyes—knots.  Timberwolves, creatures made entirely of twigs, logs and leaves, step into the clearing.  Their jaws creak when they grin and their breath is foul.  You can hear wood scraping wood as they move.\n\nThere's no time to think.  The nearest one lunges.",
+      "choices": [
+        { "id": "prologue_fight", "text": "Stand your ground", "targetNodeId": "timberwolf_combat", "effects": [ { "type": "combat", "target": "timberwolf_basic" } ] },
+        { "id": "prologue_run",  "text": "Run toward the sound of water", "targetNodeId": "lake_arrival" }
+      ]
+    },
+    {
+      "id": "prologue_listen",
+      "title": "Things With Teeth",
+      "content": "You hold your breath, hoping to hear something familiar.  The Everfree holds its breath longer.  Then the creaking returns—closer, layered—*bark, knuckle, hinge.*  Light leaks through the gaps of assembled logs.  Timberwolves emerge, bodies of wood and leaves.  In legend their howls mark the zap apple harvest, but now they mark you.\n\nThey are said to reassemble even after being shattered.  The pack spreads out, and one leaps toward you.",
+      "choices": [
+        { "id": "prologue_fight2", "text": "Fight the wooden wolf", "targetNodeId": "timberwolf_combat", "effects": [ { "type": "combat", "target": "timberwolf_basic" } ] },
+        { "id": "prologue_escape2", "text": "Dash toward the sound of water", "targetNodeId": "lake_arrival" }
+      ]
+    },
+    {
+      "id": "timberwolf_combat",
+      "title": "Timberwolf Tangle",
+      "content": "This isn't a fight you win by hitting harder; these creatures break apart and knit themselves back together.  You remember reading somewhere that loud noises can drive them off.\n\n[Combat UI launches here]",
+      "choices": [
+        { "id": "timberwolf_loudnoise", "text": "Use a loud noise to scare it", "targetNodeId": "lake_arrival" },
+        { "id": "timberwolf_outsmart", "text": "Outsmart and evade", "targetNodeId": "lake_arrival" }
+      ]
+    },
+    {
+      "id": "lake_arrival",
+      "title": "Moon-Mirror Lake",
+      "content": "You break through brambles and burst onto the shore of a lake that looks like the night peeled up its skin to make a mirror.  The surface holds its breath.  Your reflection holds yours.  A muzzle.  Not yours.  {race}.  Your mane and ears do not match your memories.  {gender}.  Your name, {name}, takes on a new shape in your mouth.\n\nYou kneel to touch the water.  Ripples rewrite the moon and then settle, keeping your secret.  You hear hoofsteps behind you.",
+      "choices": [
+        { "id": "meet_kirin", "text": "Turn around to face the newcomer", "targetNodeId": "meet_kirin" }
+      ]
+    },
+    {
+      "id": "meet_kirin",
+      "title": "Unexpected Company",
+      "content": "[img=images/kirin/emberglow align=left width=320]\nA gentle Kirin stands on the shore, mane like autumn leaves and eyes full of curiosity.  Her curved horn is striped and branch-like, and scales pattern her hooves.  When she speaks her voice is musical.\n\n\"Oh!  Sorry—I didn't mean to startle you.  My name is Emberglow.  Are you... new to the forest?\"\n\nYou remember stories about Kirin: they are known for kindness and truth-speaking, but when angered they become fiery Niriks with black fur and flames streaming from eyes and hooves.  Long ago their leader Rain Shine led them into the Stream of Silence after a quarrel destroyed their village.\n\nWhat do you ask?",
+      "choices": [
+        { "id": "ask_where", "text": "Ask where you are", "targetNodeId": "explain_everfree" },
+        { "id": "ask_kirin", "text": "Ask about her people", "targetNodeId": "explain_kirin" },
+        { "id": "follow_emberglow", "text": "Follow Emberglow silently", "targetNodeId": "castle_ruins" }
+      ]
+    },
+    {
+      "id": "explain_everfree",
+      "title": "Name for a Wild Place",
+      "content": "\"Everfree Forest,\" Emberglow says.  \"Things grow and move here by their own rules.  Ponies call it unnatural because nopony controls it, but it has its own harmony.\" She glances at the shadows.  \"We should move.\"",
+      "choices": [
+        { "id": "to_kirin_story", "text": "Ask her to tell you more as you walk", "targetNodeId": "explain_kirin" },
+        { "id": "to_castle", "text": "Follow her toward a ruin among the trees", "targetNodeId": "castle_ruins" }
+      ]
+    },
+    {
+      "id": "explain_kirin",
+      "title": "Kirin Tales",
+      "content": "\"We used to live in peace near the Peaks of Peril, known for kindness and truth,\" Emberglow says.  \"But once we lost our temper and transformed into Niriks—fire and rage.  Our leader Rain Shine made us step through the Stream of Silence so we couldn't speak or feel.  We lived like that until Autumn Blaze found a cure with foal's-breath flowers and convinced Applejack and Fluttershy to help us.\n\n\"Now we try to balance feeling with control.\"  She smiles sadly.  \"I hope we get it right.\"",
+      "choices": [
+        { "id": "to_castle", "text": "Continue toward the ruins", "targetNodeId": "castle_ruins" }
+      ]
+    },
+    {
+      "id": "castle_ruins",
+      "title": "Ruins Between Trees",
+      "content": "The first glimpse is not of stone but of absence—the place where trees refuse to grow.  As you step through, you realize it's a clearing around an ancient castle.  Everfree avoids it the way the sky avoids lightning.\n\nIf you befriended Emberglow, she whispers: \"This is older than Canterlot.  Some say the Two Sisters once lived here.  Be careful.\"\n\nYou feel a strange pull toward the ruins.",
+      "choices": [
+        { "id": "enter_ruins", "text": "Enter the moonlit hall", "targetNodeId": "moon_circle" },
+        { "id": "circle_ruins", "text": "Circle the ruins cautiously", "targetNodeId": "moon_circle" }
+      ]
+    },
+    {
+      "id": "moon_circle",
+      "title": "A Debt to the Moon",
+      "content": "At the highest room, where the roof is a story the sky tells itself, a beam of moonlight settles like a decree.  Dust dances in its path, forming a pattern: a circle, four lines, a missing fifth.\n\nIf Emberglow is present she warns: \"Magic lingers here.  It can bless or curse.\"\n\nWhat do you do?",
+      "choices": [
+        { "id": "accept_moon", "text": "Step into the circle and accept the moon's gift", "targetNodeId": "everfree_exit" },
+        { "id": "resist_moon", "text": "Resist the pull and step away", "targetNodeId": "everfree_exit" }
+      ]
+    },
+    {
+      "id": "everfree_exit",
+      "title": "Edges of the Everfree",
+      "content": "With the castle behind you and Moon-Mirror Lake far below, the breathing forest loosens its grip.  A footpath, more rumor than road, runs toward distant mountains and shining towers.  Whether you carry a blessing or a secret, you know the journey is just beginning.",
+      "choices": [
+        { "id": "end", "text": "Leave the forest", "targetNodeId": "end" }
+      ]
+    },
+    {
+      "id": "end",
+      "title": "To Be Continued",
+      "content": "You step out of the Everfree and into the unknown.  Your journey through Equestria has only begun."
+    }
+  ]
+}

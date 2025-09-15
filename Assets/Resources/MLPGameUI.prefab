@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7603826574391439383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 309687311457913939}
+  - component: {fileID: 6198320447771725572}
+  - component: {fileID: 614499083690062206}
+  m_Layer: 0
+  m_Name: MLPGameUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &309687311457913939
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7603826574391439383}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6198320447771725572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7603826574391439383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: a1a8869f6b8c3c246a42c5deecca30ad, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: a5e6e82a134c0a04481f3080ca4584cf, type: 3}
+  m_SortingOrder: 10
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
+--- !u!114 &614499083690062206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7603826574391439383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb1f9d7c9fcb474186e310c88feac6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIController
+  gameUIDocument: {fileID: 6198320447771725572}
+  earthPonyPortrait: {fileID: 0}
+  unicornPortrait: {fileID: 0}
+  pegasusPortrait: {fileID: 0}
+  batPonyPortrait: {fileID: 0}
+  griffonPortrait: {fileID: 0}
+  dragonPortrait: {fileID: 0}
+  humanPortrait: {fileID: 0}
+  headerFontSize: 22
+  storyFontSize: 18
+  choiceFontSize: 16
+  barAnimationDuration: 0.6
+  enableBarPulse: 1
+  enableColorTransitions: 1
+  healthColor: {r: 0.86, g: 0.2, b: 0.2, a: 1}
+  healthLowColor: {r: 0.7, g: 0.12, b: 0.12, a: 1}
+  energyColor: {r: 0.2, g: 0.59, b: 0.86, a: 1}
+  magicColor: {r: 0.59, g: 0.2, b: 0.86, a: 1}
+  friendshipColor: {r: 0.86, g: 0.59, b: 0.2, a: 1}
+  discordColor: {r: 0.47, g: 0.2, b: 0.59, a: 1}
+  discordHighColor: {r: 0.31, g: 0.12, b: 0.39, a: 1}
+  verboseLogging: 1

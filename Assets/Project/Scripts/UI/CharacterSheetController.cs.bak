@@ -1,0 +1,290 @@
+﻿using System;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+namespace MyGameNamespace
+{
+    public class CharacterSheetController : MonoBehaviour
+    {
+        [Header("Overlay order (int)")]
+        [SerializeField] private int desiredSortingOrder = 500;
+        [SerializeField] private UIDocument sheetDocument;
+
+        private VisualElement sheetRoot;
+        private VisualElement panel;
+        private Button closeBtn;
+
+        // Tabs
+        private Button statsTab, skillsTab, perksTab, effectsTab;
+        // Tab content panels
+        private VisualElement statsPanel, skillsPanel, perksPanel, effectsPanel;
+
+        private bool initialized;
+
+        private void Awake()
+        {
+            if (sheetDocument == default) sheetDocument = GetComponent<UIDocument>();
+        }
+
+        private void OnEnable()
+        {
+            TryInitialize();
+        }
+
+        private void TryInitialize()
+        {
+            if (initialized) return;
+
+            if (sheetDocument == default) sheetDocument = GetComponent<UIDocument>();
+            if (sheetDocument == default)
+            {
+                Debug.LogWarning("[CharacterSheetController] Missing UIDocument.");
+                return;
+            }
+
+            sheetRoot = sheetDocument.rootVisualElement;
+            if (sheetRoot == default)
+            {
+                Debug.LogWarning("[CharacterSheetController] Missing rootVisualElement.");
+                return;
+            }
+
+            // Main container: try common ids/classes, then fallback to root
+            panel =
+                sheetRoot.Q<VisualElement>("character-sheet-container") ??
+                sheetRoot.Q<VisualElement>("character-sheet-modal") ??
+                sheetRoot.Q<VisualElement>("CharacterSheet") ??
+                sheetRoot.Q<VisualElement>(className: "character-sheet") ??
+                sheetRoot;
+
+            // Close button
+            closeBtn =
+                sheetRoot.Q<Button>("CharacterClose") ??
+                sheetRoot.Q<Button>("character-close") ??
+                sheetRoot.Q<Button>("CloseButton") ??
+                sheetRoot.Q<Button>("close-button");
+
+            if (closeBtn != default)
+            {
+                closeBtn.clicked -= Hide;
+                closeBtn.clicked += Hide;
+            }
+
+            // Tabs (add your exact ids here if different)
+            statsTab = sheetRoot.Q<Button>("stats-tab");
+            skillsTab = sheetRoot.Q<Button>("skills-tab");
+            perksTab = sheetRoot.Q<Button>("perks-tab");
+            effectsTab = sheetRoot.Q<Button>("effects-tab");
+
+            // Tab content panels
+            statsPanel = sheetRoot.Q<VisualElement>("stats-panel");
+            skillsPanel = sheetRoot.Q<VisualElement>("skills-panel");
+            perksPanel = sheetRoot.Q<VisualElement>("perks-panel");
+            effectsPanel = sheetRoot.Q<VisualElement>("effects-panel");
+
+            // Wire tab clicks (debounce by removing first)
+            if (statsTab != default) { statsTab.clicked -= OnStatsTab; statsTab.clicked += OnStatsTab; }
+            if (skillsTab != default) { skillsTab.clicked -= OnSkillsTab; skillsTab.clicked += OnSkillsTab; }
+            if (perksTab != default) { perksTab.clicked -= OnPerksTab; perksTab.clicked += OnPerksTab; }
+            if (effectsTab != default) { effectsTab.clicked -= OnEffectsTab; effectsTab.clicked += OnEffectsTab; }
+
+            // Start hidden
+            ForceHidden();
+            initialized = true;
+        }
+
+        // ---------- Helpers ----------
+        private static void SetDisplay(VisualElement ve, DisplayStyle style)
+        {
+            if (ve != default) ve.style.display = style;
+        }
+        private static void SetVisible(VisualElement ve)
+        {
+            if (ve == default) return;
+            ve.style.visibility = Visibility.Visible;
+            ve.style.opacity = 1f;
+        }
+        private static void MakeFullScreen(VisualElement ve)
+        {
+            if (ve == default) return;
+            ve.style.position = Position.Absolute;
+            ve.style.left = 0; ve.style.right = 0;
+            ve.style.top = 0; ve.style.bottom = 0;
+            SetVisible(ve);
+        }
+
+        private void ForceTopMost()
+        {
+            try
+            {
+                // Get highest sortingOrder across all UI docs (INT ONLY)
+                int maxOrder = 0;
+                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None);
+                foreach (var d in docs)
+                {
+                    if (d == default || d.panelSettings == default) continue;
+                    int so;
+                    try { so = (int)d.panelSettings.sortingOrder; } catch { so = 0; }
+                    if (so > maxOrder) maxOrder = so;
+                }
+
+                var ps = sheetDocument != default ? sheetDocument.panelSettings : null;
+                if (ps != default)
+                {
+                    // If shared, clone before raising order
+                    bool shared = false;
+                    foreach (var d in docs)
+                    {
+                        if (d != default && d != sheetDocument && d.panelSettings == ps) { shared = true; break; }
+                    }
+
+                    // Target order: above both desiredSortingOrder and maxOrder+10
+                    int targetOrder = desiredSortingOrder;
+                    int candidate = maxOrder + 10;
+                    if (candidate > targetOrder) targetOrder = candidate;
+
+                    if (shared)
+                    {
+                        var clone = ScriptableObject.Instantiate(ps);
+                        clone.sortingOrder = targetOrder;          // int → int
+                        sheetDocument.panelSettings = clone;
+                    }
+                    else if (ps.sortingOrder < targetOrder)
+                    {
+                        ps.sortingOrder = targetOrder;             // int → int
+                    }
+                }
+
+                // Ensure we receive clicks and sit atop our own doc
+                if (sheetRoot != default) sheetRoot.pickingMode = PickingMode.Position;
+                if (panel != default) panel.pickingMode = PickingMode.Position;
+                sheetRoot?.BringToFront();
+                panel?.BringToFront();
+
+                // Fill the screen to avoid dead click zones
+                MakeFullScreen(sheetRoot);
+                MakeFullScreen(panel);
+            }
+            catch { /* defensive */ }
+        }
+
+        private void ForceVisible()
+        {
+            if (sheetRoot != default)
+            {
+                SetDisplay(sheetRoot, DisplayStyle.Flex);
+                SetVisible(sheetRoot);
+            }
+            if (panel != default)
+            {
+                SetDisplay(panel, DisplayStyle.Flex);
+                SetVisible(panel);
+            }
+            ForceTopMost();
+        }
+
+        private void ForceHidden()
+        {
+            SetDisplay(panel, DisplayStyle.None);
+        }
+
+        public void Show()
+        {
+            TryInitialize();
+            if (panel == default)
+            {
+                Debug.LogWarning("[CharacterSheetController] Panel not found; cannot Show().");
+                return;
+            }
+            ForceVisible();
+            Debug.Log("[CharacterSheet] Shown.");
+        }
+
+        public void Hide()
+        {
+            TryInitialize();
+            if (panel == default) return;
+            ForceHidden();
+            Debug.Log("[CharacterSheet] Hidden.");
+        }
+
+        public void ToggleCharacterSheet()
+        {
+            TryInitialize();
+            if (panel == default)
+            {
+                Debug.LogWarning("[CharacterSheetController] Panel not found; cannot ToggleCharacterSheet().");
+                return;
+            }
+
+            bool isHidden = panel.resolvedStyle.display == DisplayStyle.None;
+            if (isHidden) { ForceVisible(); Debug.Log("[CharacterSheet] Toggled -> Visible"); }
+            else { ForceHidden(); Debug.Log("[CharacterSheet] Toggled -> Hidden"); }
+        }
+
+        // Aliases
+        public void ShowCharacterSheet() => Show();
+        public void HideCharacterSheet() => Hide();
+
+        // ===== Tab Handlers =====
+        private void OnStatsTab()
+        {
+            if (statsPanel == default) return;
+
+            SetDisplay(statsPanel, DisplayStyle.Flex);
+            SetDisplay(skillsPanel, DisplayStyle.None);
+            SetDisplay(perksPanel, DisplayStyle.None);
+            SetDisplay(effectsPanel, DisplayStyle.None);
+
+            statsTab?.AddToClassList("active");
+            skillsTab?.RemoveFromClassList("active");
+            perksTab?.RemoveFromClassList("active");
+            effectsTab?.RemoveFromClassList("active");
+        }
+
+        private void OnSkillsTab()
+        {
+            if (skillsPanel == default) return;
+
+            SetDisplay(statsPanel, DisplayStyle.None);
+            SetDisplay(skillsPanel, DisplayStyle.Flex);
+            SetDisplay(perksPanel, DisplayStyle.None);
+            SetDisplay(effectsPanel, DisplayStyle.None);
+
+            skillsTab?.AddToClassList("active");
+            statsTab?.RemoveFromClassList("active");
+            perksTab?.RemoveFromClassList("active");
+            effectsTab?.RemoveFromClassList("active");
+        }
+
+        private void OnPerksTab()
+        {
+            if (perksPanel == default) return;
+
+            SetDisplay(statsPanel, DisplayStyle.None);
+            SetDisplay(skillsPanel, DisplayStyle.None);
+            SetDisplay(perksPanel, DisplayStyle.Flex);
+            SetDisplay(effectsPanel, DisplayStyle.None);
+
+            perksTab?.AddToClassList("active");
+            statsTab?.RemoveFromClassList("active");
+            skillsTab?.RemoveFromClassList("active");
+            effectsTab?.RemoveFromClassList("active");
+        }
+
+        private void OnEffectsTab()
+        {
+            if (effectsPanel == default) return;
+
+            SetDisplay(statsPanel, DisplayStyle.None);
+            SetDisplay(skillsPanel, DisplayStyle.None);
+            SetDisplay(perksPanel, DisplayStyle.None);
+            SetDisplay(effectsPanel, DisplayStyle.Flex);
+
+            effectsTab?.AddToClassList("active");
+            statsTab?.RemoveFromClassList("active");
+            skillsTab?.RemoveFromClassList("active");
+            perksTab?.RemoveFromClassList("active");
+        }
+    }
+}

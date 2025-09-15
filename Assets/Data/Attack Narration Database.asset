@@ -1,0 +1,391 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4e4d5b9ec40b142af33ea8309a8216, type: 3}
+  m_Name: Attack Narration Database
+  m_EditorClassIdentifier: 
+  entries:
+  - id: 
+    shortDescription: 
+    useLines: []
+    hitLines: []
+    missLines: []
+    critLines: []
+
+  # Timberwolf bite narration
+  - id: timberwolf_bite
+    shortDescription: Bite
+    useLines:
+    - "The timberwolf lunges forward, snapping its wooden jaws."
+    hitLines:
+    - "Its wooden teeth clamp down on you, splinters digging into your flesh!"
+    missLines:
+    - "You dodge just in time, hearing the snap of wooden teeth biting air."
+    critLines:
+    - "The timberwolf bites deep, its wooden jaws cracking with extra force!"
+
+  # Manticore claw narration
+  - id: manticore_claw
+    shortDescription: Claw Swipe
+    useLines:
+    - "The manticore rears back, raising its massive claws."
+    hitLines:
+    - "Sharp claws rake across your body, leaving painful streaks!"
+    missLines:
+    - "The manticore swipes, but you duck under its broad claws."
+    critLines:
+    - "With a feral roar, the manticore tears into you, its claws finding a weak spot!"
+
+  # Manticore tail sting narration
+  - id: manticore_tail_sting
+    shortDescription: Tail Sting
+    useLines:
+    - "The manticore's tail whips forward, scorpion stinger glistening."
+    hitLines:
+    - "The stinger pierces your hide, injecting venom that burns through your veins!"
+    missLines:
+    - "You twist away just before the scorpion tail can strike."
+    critLines:
+    - "The stinger strikes true, pumping a potent dose of venom into you!"
+
+  # Hydra head swipe narration
+  - id: hydra_head_swipe
+    shortDescription: Head Swipe
+    useLines:
+    - "The hydra's many heads rear back in unison."
+    hitLines:
+    - "Multiple jaws slam into you one after another, sending you tumbling!"
+    missLines:
+    - "The hydra's heads snap, but you slip between them."
+    critLines:
+    - "All four heads connect at once, crushing you with overwhelming force!"
+
+  # Ursa Minor roar narration
+  - id: ursa_minor_roar
+    shortDescription: Cosmic Roar
+    useLines:
+    - "The Ursa Minor rises up, its constellation-like body glowing."
+    hitLines:
+    - "A deafening roar shakes the earth and reverberates inside your chest, stunning you!"
+    missLines:
+    - "You brace yourself and withstand the cosmic roar."
+    critLines:
+    - "The roar is otherworldly, tearing through you like a shockwave from the stars!"
+
+  # Narration for new racial attacks
+  - id: earth_shoulderslam
+    shortDescription: Shoulder Slam
+    useLines:
+    - "You lower your shoulder and charge."
+    hitLines:
+    - "Your shoulder slam drives the air from your foe's lungs!"
+    missLines:
+    - "Your opponent sidesteps your shoulder slam."
+    critLines:
+    - "You slam with such force that your foe staggers backward, dazed!"
+
+  - id: earth_gallop_charge
+    shortDescription: Gallop Charge
+    useLines:
+    - "You break into a gallop, aiming straight for your opponent."
+    hitLines:
+    - "Your full‑body charge sends your foe tumbling!"
+    missLines:
+    - "Your target leaps aside just in time to avoid your charge."
+    critLines:
+    - "You hit with unstoppable momentum, knocking the wind from your foe!"
+
+  - id: earth_tremor
+    shortDescription: Ground Tremor
+    useLines:
+    - "You stomp the earth with all your might."
+    hitLines:
+    - "The ground trembles and cracks, tripping your opponent!"
+    missLines:
+    - "Your stomp shakes the ground, but your opponent keeps their footing."
+    critLines:
+    - "A seismic jolt throws your foe off balance and leaves them vulnerable!"
+
+  - id: unicorn_magic_missile
+    shortDescription: Magic Missile
+    useLines:
+    - "You focus your magic into a shimmering bolt."
+    hitLines:
+    - "The magic missile strikes true, exploding with arcane energy!"
+    missLines:
+    - "Your missile whizzes past your target and dissipates harmlessly."
+    critLines:
+    - "The bolt surges with extra power, dealing devastating arcane damage!"
+
+  - id: unicorn_arcane_blast
+    shortDescription: Arcane Blast
+    useLines:
+    - "You gather a dense ball of magical energy."
+    hitLines:
+    - "The arcane blast erupts against your foe, sending them reeling!"
+    missLines:
+    - "The energy fizzles out when it misses its mark."
+    critLines:
+    - "A burst of raw magic engulfs your foe, leaving them scorched and stunned!"
+
+  - id: unicorn_telekinetic_push
+    shortDescription: Telekinetic Push
+    useLines:
+    - "You extend your telekinesis outward."
+    hitLines:
+    - "Invisible force slams into your foe, knocking them backwards!"
+    missLines:
+    - "Your push goes wide, stirring dust but hitting nothing."
+    critLines:
+    - "The telekinetic blast launches your opponent through the air!"
+
+  - id: pegasus_flying_kick
+    shortDescription: Flying Kick
+    useLines:
+    - "You leap into the air, hooves aimed forward."
+    hitLines:
+    - "Your kick connects mid-flight, driving your foe back!"
+    missLines:
+    - "Your flying kick sails past as your foe dodges."
+    critLines:
+    - "Your airborne kick strikes with bone‑rattling impact!"
+
+  - id: pegasus_wind_gust
+    shortDescription: Wind Gust
+    useLines:
+    - "You flap your wings hard, stirring up a gust."
+    hitLines:
+    - "A blast of wind buffets your foe, staggering them!"
+    missLines:
+    - "The gust blows dust around but fails to reach your target."
+    critLines:
+    - "The gale you conjure nearly lifts your foe off their hooves!"
+
+  - id: pegasus_divebomb
+    shortDescription: Dive Bomb
+    useLines:
+    - "You soar upward then plummet toward your foe."
+    hitLines:
+    - "You crash into your opponent with tremendous force!"
+    missLines:
+    - "You pull up at the last second as your foe rolls aside."
+    critLines:
+    - "Your dive bomb hits perfectly, leaving your foe sprawled on the ground!"
+
+  - id: bat_dark_dive
+    shortDescription: Dark Dive
+    useLines:
+    - "You melt into the shadows and launch a surprise attack."
+    hitLines:
+    - "You slam into your foe from the darkness!"
+    missLines:
+    - "Your target senses you at the last moment and evades your strike."
+    critLines:
+    - "Your unseen assault catches your foe completely off guard!"
+
+  - id: griffon_talon_slash
+    shortDescription: Talon Slash
+    useLines:
+    - "You lunge forward with talons extended."
+    hitLines:
+    - "Your talons rake deep grooves across your foe!"
+    missLines:
+    - "Your opponent ducks under your sweeping talons."
+    critLines:
+    - "Your claws find a vulnerable spot, tearing through armour with ease!"
+
+  - id: griffon_aerial_tackle
+    shortDescription: Aerial Tackle
+    useLines:
+    - "You take to the skies, then dive at your opponent."
+    hitLines:
+    - "You collide mid-air, knocking your foe off balance!"
+    missLines:
+    - "Your target sidesteps, and you swoop past harmlessly."
+    critLines:
+    - "Your aerial tackle slams your opponent into the dirt with stunning force!"
+
+  - id: griffon_wind_scythe
+    shortDescription: Wind Scythe
+    useLines:
+    - "You whip your wings to conjure a slicing gust."
+    hitLines:
+    - "The cutting wind slices your foe’s skin!"
+    missLines:
+    - "The gust whips by without striking your foe."
+    critLines:
+    - "The wind scythe hits with razor‑sharp precision, leaving deep cuts!"
+
+  - id: griffon_harsh_caw
+    shortDescription: Harsh Caw
+    useLines:
+    - "You emit an earsplitting caw."
+    hitLines:
+    - "The harsh cry leaves your foe reeling!"
+    missLines:
+    - "Your caw echoes unanswered as your opponent shrugs it off."
+    critLines:
+    - "The piercing scream rattles your foe, leaving them dazed!"
+
+  - id: dragon_fire_breath
+    shortDescription: Fire Breath
+    useLines:
+    - "You inhale and unleash a stream of flame."
+    hitLines:
+    - "The searing fire engulfs your foe in a blaze!"
+    missLines:
+    - "The flames wash over empty space as your opponent dodges."
+    critLines:
+    - "An intense blaze scorches your foe, leaving lasting burns!"
+
+  - id: dragon_tail_whip
+    shortDescription: Tail Whip
+    useLines:
+    - "You swing your powerful tail in a broad arc."
+    hitLines:
+    - "Your tail smashes into your foe with a resounding thump!"
+    missLines:
+    - "Your tail whips through the air, missing by inches."
+    critLines:
+    - "The whip catches your foe squarely, sending them flying!"
+
+  - id: dragon_claw_slash
+    shortDescription: Claw Slash
+    useLines:
+    - "You slash with razor‑sharp claws."
+    hitLines:
+    - "Your claws carve painful gashes into your foe!"
+    missLines:
+    - "Your opponent leaps back, avoiding your claws."
+    critLines:
+    - "Your claws dig deep, leaving savage wounds!"
+
+  - id: dragon_wing_buffet
+    shortDescription: Wing Buffet
+    useLines:
+    - "You batter your wings forcefully."
+    hitLines:
+    - "The wing strike batters your foe with surprising force!"
+    missLines:
+    - "Your wingbeat creates only a mild breeze as your foe ducks."
+    critLines:
+    - "Your wings slam into your foe, knocking them off their hooves!"
+
+  - id: human_sword_slash
+    shortDescription: Sword Slash
+    useLines:
+    - "You swing your sword with practiced skill."
+    hitLines:
+    - "Your blade slices into your foe!"
+    missLines:
+    - "Your sword whistles through the air, hitting nothing."
+    critLines:
+    - "Your slash finds a weak point, causing extra damage!"
+
+  - id: human_arrow_shot
+    shortDescription: Arrow Shot
+    useLines:
+    - "You draw back your bowstring and loose an arrow."
+    hitLines:
+    - "The arrow thunks into your foe with precision!"
+    missLines:
+    - "Your arrow misses and lodges itself in a nearby log."
+    critLines:
+    - "The arrow pierces deep, striking a vital spot!"
+
+  - id: human_shield_bash
+    shortDescription: Shield Bash
+    useLines:
+    - "You charge forward, shield raised."
+    hitLines:
+    - "Your shield bashes into your foe, staggering them!"
+    missLines:
+    - "You swing wide, missing with your shield bash."
+    critLines:
+    - "You slam your shield with such force that your foe drops their guard!"
+
+  - id: human_inspiring_shout
+    shortDescription: Inspiring Shout
+    useLines:
+    - "You let out a rousing shout."
+    hitLines:
+    - "Your shout rallies your allies and unnerves your foe!"
+    missLines:
+    - "Your shout has little effect this time."
+    critLines:
+    - "Your booming shout inspires courage in your allies and dread in your enemies!"
+
+  # Enemy attack narration
+  - id: chimera_fire_breath
+    shortDescription: Fire Breath
+    useLines:
+    - "The chimera's goat head inhales deeply."
+    hitLines:
+    - "It spits a blast of fire that scorches you!"
+    missLines:
+    - "The flames wash harmlessly aside."
+    critLines:
+    - "The fire breath engulfs you in searing flames!"
+
+  - id: chimera_multi_bite
+    shortDescription: Triple Bite
+    useLines:
+    - "All three heads lunge forward, snapping their jaws."
+    hitLines:
+    - "Three sets of teeth sink into you!"
+    missLines:
+    - "You duck between the snapping heads."
+    critLines:
+    - "The combined bite leaves deep, painful wounds!"
+
+  - id: orthros_bite
+    shortDescription: Ferocious Bite
+    useLines:
+    - "One of the orthros' heads snaps at you."
+    hitLines:
+    - "Its jaws clamp down with crushing force!"
+    missLines:
+    - "You dodge the snapping jaws."
+    critLines:
+    - "Both heads bite at once, tearing at you!"
+
+  - id: orthros_double_bark
+    shortDescription: Double Bark
+    useLines:
+    - "Both heads inhale before releasing a thunderous bark."
+    hitLines:
+    - "The twin bark rattles your bones and disorients you!"
+    missLines:
+    - "You brace yourself, shrugging off the bark."
+    critLines:
+    - "The resonant barks echo painfully, leaving you stunned!"
+
+  - id: twittermites_lightning
+    shortDescription: Lightning Bolt
+    useLines:
+    - "The swarm crackles with electrical energy."
+    hitLines:
+    - "Bolts of lightning surge through you, shocking you!"
+    missLines:
+    - "The lightning arcs harmlessly into the ground."
+    critLines:
+    - "A concentrated bolt from the swarm jolts you violently!"
+
+  - id: twittermites_swarm
+    shortDescription: Swarm Bite
+    useLines:
+    - "The twittermites swarm around you."
+    hitLines:
+    - "Tiny bites and shocks prick your skin!"
+    missLines:
+    - "You swat them away before they can land."
+    critLines:
+    - "The swarm envelops you, biting and shocking relentlessly!"
