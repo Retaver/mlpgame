@@ -327,8 +327,20 @@ namespace MyGameNamespace
 
             if (verboseLogging)
             {
-                Debug.Log($"[PauseMenuController] WireButtons: resume={(resumeBtn!=default?resumeBtn.name:"null")}, save={(saveBtn!=default?saveBtn.name:"null")}, load={(loadBtn!=default?loadBtn.name:"null")}, options={(optionsBtn!=default?optionsBtn.name:"null")}, mainmenu={(mainMenuBtn!=default?mainMenuBtn.name:"null")}, quit={(quitBtn!=default?quitBtn.name:"null")}, savePanel={(saveLoadPanel!=default?saveLoadPanel.name:"null")}");
+                Debug.Log($"[PauseMenuController] WireButtons in UIDocument: {(pauseDocument != default ? pauseDocument.name : "null")} - resume={(resumeBtn!=default?resumeBtn.name + " enabled:" + resumeBtn.enabledSelf:"null")}, save={(saveBtn!=default?saveBtn.name + " enabled:" + saveBtn.enabledSelf:"null")}, load={(loadBtn!=default?loadBtn.name + " enabled:" + loadBtn.enabledSelf:"null")}, options={(optionsBtn!=default?optionsBtn.name + " enabled:" + optionsBtn.enabledSelf:"null")}, mainmenu={(mainMenuBtn!=default?mainMenuBtn.name + " enabled:" + mainMenuBtn.enabledSelf:"null")}, quit={(quitBtn!=default?quitBtn.name + " enabled:" + quitBtn.enabledSelf:"null")}, savePanel={(saveLoadPanel!=default?saveLoadPanel.name:"null")}");
             }
+
+            // Ensure buttons are enabled
+            if (resumeBtn != default) resumeBtn.SetEnabled(true);
+            if (optionsBtn != default) optionsBtn.SetEnabled(true);
+            if (saveBtn != default) saveBtn.SetEnabled(true);
+            if (loadBtn != default) loadBtn.SetEnabled(true);
+            if (mainMenuBtn != default) mainMenuBtn.SetEnabled(true);
+            if (quitBtn != default) quitBtn.SetEnabled(true);
+            if (confirmSaveBtn != default) confirmSaveBtn.SetEnabled(true);
+            if (confirmLoadBtn != default) confirmLoadBtn.SetEnabled(true);
+            if (backSaveBtn != default) backSaveBtn.SetEnabled(true);
+            if (clearAllSavesBtn != default) clearAllSavesBtn.SetEnabled(true);
         }
 
         private void OnResume() { HidePauseMenu(); Debug.Log("[PauseMenu] Resume clicked -> HidePauseMenu"); }

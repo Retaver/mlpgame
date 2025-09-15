@@ -509,18 +509,27 @@ private void WireBottomBarButtons()
                                        ?? FindButtonInDocumentByText(d, "pause");
 
                 if (bottomCharacterButton != default && bottomItemsButton != default && bottomMenuButton != default)
+                {
+                    if (verboseLogging) Debug.Log($"[UIController] Found bottom buttons in UIDocument: {d.name}");
                     break;
+                }
             }
         }
 
         // Wire handlers (guard against double-binding with MLPGameUI)
         bool mlpOwnsBottomBar = MyGameNamespace.MLPGameUI.Instance != default;
+        if (verboseLogging) Debug.Log($"[UIController] MLPGameUI.Instance present: {mlpOwnsBottomBar}");
         if (mlpOwnsBottomBar && verboseLogging) Debug.Log("[UIController] Skipping Character/Menu wiring (MLPGameUI owns buttons).");
 
         if (verboseLogging)
         {
-            Debug.Log($"[UIController] Bottom buttons found - Character: {(bottomCharacterButton!=default? bottomCharacterButton.name+"/"+bottomCharacterButton.text : "null")}, Items: {(bottomItemsButton!=default? bottomItemsButton.name+"/"+bottomItemsButton.text : "null")}, Menu: {(bottomMenuButton!=default? bottomMenuButton.name+"/"+bottomMenuButton.text : "null")}");
+            Debug.Log($"[UIController] Bottom buttons found - Character: {(bottomCharacterButton!=default? bottomCharacterButton.name+"/"+bottomCharacterButton.text + " enabled:" + bottomCharacterButton.enabledSelf : "null")}, Items: {(bottomItemsButton!=default? bottomItemsButton.name+"/"+bottomItemsButton.text + " enabled:" + bottomItemsButton.enabledSelf : "null")}, Menu: {(bottomMenuButton!=default? bottomMenuButton.name+"/"+bottomMenuButton.text + " enabled:" + bottomMenuButton.enabledSelf : "null")}");
         }
+
+        // Ensure buttons are enabled
+        if (bottomCharacterButton != default) bottomCharacterButton.SetEnabled(true);
+        if (bottomItemsButton != default) bottomItemsButton.SetEnabled(true);
+        if (bottomMenuButton != default) bottomMenuButton.SetEnabled(true);
 
         // Character
         if (!mlpOwnsBottomBar)
