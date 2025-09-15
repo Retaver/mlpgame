@@ -299,9 +299,9 @@
     padding: 8px; 
 }
 
-.bottom-action-category:last-child { 
+/* .bottom-action-category:last-child { 
     margin-right: 0; 
-}
+} */
 
 .bottom-category-title {
     font-size: 12px;

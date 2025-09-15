@@ -84,7 +84,7 @@ namespace MyGameNamespace
             if (root == default)
             {
                 // Try to find any UIDocument in the scene that contains known pause menu buttons
-                var docs = UnityEngine.Object.FindObjectsOfType<UIDocument>(true);
+                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None, FindObjectsInactive.Include);
                 foreach (var d in docs)
                 {
                     if (d == default || d.rootVisualElement == default) continue;
@@ -194,7 +194,7 @@ namespace MyGameNamespace
             if (root == default)
             {
                 // Try to locate any UIDocument that contains a Resume/ PauseResume button
-                var docs = UnityEngine.Object.FindObjectsOfType<UIDocument>(true);
+                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None, FindObjectsInactive.Include);
                 foreach (var d in docs)
                 {
                     if (d == default || d.rootVisualElement == default) continue;

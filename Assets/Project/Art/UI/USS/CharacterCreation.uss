@@ -38,11 +38,11 @@
 .cc-input .unity-text-input { background-color: #232833; color: #E9EDF1; }
 TextField.cc-input { background-color: #232833; } /* specificity bump */
 TextField.cc-input > .unity-text-input { background-color: #232833; color: #E9EDF1; }
-.cc-input:focus-within {
+/* .cc-input:focus-within {
     /* NOTE: ':focus-within' may not be supported in all Unity versions. Keep for newer UI Toolkit; if unsupported,
        consider toggling a '.focus-within' class from C# when needed. */
     border-left-color: #3B82F6; border-right-color: #3B82F6; border-top-color: #3B82F6; border-bottom-color: #3B82F6;
-}
+} */
 
 /* Portrait */
 .cc-portrait {

@@ -25,12 +25,12 @@
 }
 
 /* Focus ring */
-.cc-input:focus-within {
+/* .cc-input:focus-within {
     border-left-color: #3B82F6;
     border-right-color: #3B82F6;
     border-top-color: #3B82F6;
     border-bottom-color: #3B82F6;
-}
+} */
 
 /* Pills/Buttons parity just in case */
 .pill, .stat-btn, .cc-nav {

@@ -17,11 +17,7 @@ namespace MyGameNamespace
             const int Display1 = 0;
 
             // Find any active camera already targeting Display 1.
-#if UNITY_2023_1_OR_NEWER
             var cams = UnityEngine.Object.FindObjectsByType<Camera>(FindObjectsSortMode.None);
-#else
-            var cams = UnityEngine.Object.FindObjectsOfType<Camera>();
-#endif
             foreach (var cam in cams)
             {
                 if (cam != default && cam.isActiveAndEnabled && cam.targetDisplay == Display1)
