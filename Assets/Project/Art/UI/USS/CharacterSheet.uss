@@ -1,6 +1,8 @@
-/* Font hooks (drop fonts in Assets/Resources/Fonts/) */
-.font--title { -unity-font: resource("Fonts/MLPTitle"); }
-.font--ui    { -unity-font: resource("Fonts/UIFont"); }
+/* Font hooks (drop fonts in Assets/Resources/Fonts/)
+    Uncomment and provide font resources under Assets/Resources/Fonts/ to enable.
+*/
+/* .font--title { -unity-font: resource("Fonts/MLPTitle"); }
+    .font--ui    { -unity-font: resource("Fonts/UIFont"); } */
 
 /* Modal overlay - covers full screen but centers content */
 .sheet-modal-overlay {

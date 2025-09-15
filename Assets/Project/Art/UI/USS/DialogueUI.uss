@@ -1,8 +1,10 @@
 
-/* Optional font helpers (drop fonts in Assets/Resources/Fonts/) */
-.font--title { -unity-font: resource("Fonts/MLPTitle"); }
-.font--story { -unity-font: resource("Fonts/StoryText"); }
-.font--ui    { -unity-font: resource("Fonts/UIFont"); }
+/* Optional font helpers (drop fonts in Assets/Resources/Fonts/)
+    If you re-add fonts to Assets/Resources/Fonts/, uncomment these lines.
+*/
+/* .font--title { -unity-font: resource("Fonts/MLPTitle"); }
+    .font--story { -unity-font: resource("Fonts/StoryText"); }
+    .font--ui    { -unity-font: resource("Fonts/UIFont"); } */
 
 /* Root container */
 .dialogue-container {

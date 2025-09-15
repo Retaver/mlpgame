@@ -1,6 +1,8 @@
-﻿/* Fonts */
-.font--title { -unity-font: resource("Fonts/MLPTitle"); }
-.font--ui    { -unity-font: resource("Fonts/UIFont"); }
+﻿/* Fonts
+    Provide fonts under Assets/Resources/Fonts/ and uncomment the lines below if you want USS to reference them.
+*/
+/* .font--title { -unity-font: resource("Fonts/MLPTitle"); }
+    .font--ui    { -unity-font: resource("Fonts/UIFont"); } */
 
 /* Modal overlay - covers full screen but centers content */
 .inventory-modal-overlay {

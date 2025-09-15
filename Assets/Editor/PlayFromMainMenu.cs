@@ -71,7 +71,11 @@ public static class PlayFromMainMenu
             {
                 var sceneAsset = AssetDatabase.LoadAssetAtPath<SceneAsset>(first.path);
                 EditorSceneManager.playModeStartScene = sceneAsset;
-                Debug.LogWarning($"[PlayFromMainMenu] Couldn’t find a scene named 'MainMenu'. Using first build scene: {first.path}");
+                    // When this runs automatically on editor load, prefer a regular Log to avoid noisy warnings.
+                    if (auto)
+                        Debug.Log($"[PlayFromMainMenu] Using first build scene: {first.path}");
+                    else
+                        Debug.LogWarning($"[PlayFromMainMenu] Couldn’t find a scene named 'MainMenu'. Using first build scene: {first.path}");
                 return;
             }
         }
