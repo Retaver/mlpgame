@@ -24,6 +24,13 @@ namespace MyGameNamespace
         private Button mainMenuBtn;
         private Button quitBtn;
 
+    // Save/Load subpanel controls
+    private VisualElement saveLoadPanel;
+    private Button confirmSaveBtn;
+    private Button confirmLoadBtn;
+    private Button backSaveBtn;
+    private Button clearAllSavesBtn;
+
         // Events for other systems (save/load/menu/quit)
         public static Action SaveRequested;
         public static Action LoadRequested;
@@ -115,6 +122,22 @@ namespace MyGameNamespace
 
             WireButtons();
             HidePauseMenu();  // start hidden
+        }
+
+        private void ShowSaveLoadMenu()
+        {
+            if (saveLoadPanel == default) return;
+            // Hide main pause menu panel and show the save-load panel
+            panel?.style.display = DisplayStyle.None;
+            saveLoadPanel.style.display = DisplayStyle.Flex;
+            saveLoadPanel.BringToFront();
+        }
+
+        private void HideSaveLoadMenu()
+        {
+            if (saveLoadPanel == default) return;
+            saveLoadPanel.style.display = DisplayStyle.None;
+            panel?.style.display = DisplayStyle.Flex;
         }
 
         private void ForceTopMost()
@@ -256,6 +279,18 @@ namespace MyGameNamespace
             if (loadBtn != default) { loadBtn.clicked -= OnLoad; loadBtn.clicked += OnLoad; }
             if (mainMenuBtn != default) { mainMenuBtn.clicked -= OnMainMenu; mainMenuBtn.clicked += OnMainMenu; }
             if (quitBtn != default) { quitBtn.clicked -= OnQuit; quitBtn.clicked += OnQuit; }
+
+            // Wire save-load subpanel controls if present
+            saveLoadPanel = root.Q<VisualElement>("save-load-menu") ?? root.Q<VisualElement>(className: "save-load-menu");
+            confirmSaveBtn = saveLoadPanel?.Q<Button>("confirm-save");
+            confirmLoadBtn = saveLoadPanel?.Q<Button>("confirm-load");
+            backSaveBtn = saveLoadPanel?.Q<Button>("back-save") ?? saveLoadPanel?.Q<Button>("back");
+            clearAllSavesBtn = saveLoadPanel?.Q<Button>("clear-all-saves");
+
+            if (confirmSaveBtn != default) { confirmSaveBtn.clicked -= OnConfirmSave; confirmSaveBtn.clicked += OnConfirmSave; }
+            if (confirmLoadBtn != default) { confirmLoadBtn.clicked -= OnConfirmLoad; confirmLoadBtn.clicked += OnConfirmLoad; }
+            if (backSaveBtn != default) { backSaveBtn.clicked -= OnBackFromSave; backSaveBtn.clicked += OnBackFromSave; }
+            if (clearAllSavesBtn != default) { clearAllSavesBtn.clicked -= OnClearAllSaves; clearAllSavesBtn.clicked += OnClearAllSaves; }
         }
 
         private void OnResume() { HidePauseMenu(); Debug.Log("[PauseMenu] Resume clicked -> HidePauseMenu"); }
@@ -270,6 +305,37 @@ namespace MyGameNamespace
 #if !UNITY_EDITOR
             Application.Quit();
 #endif
+        }
+
+        // Subpanel handlers
+        private void OnConfirmSave()
+        {
+            // Optionally read a save name field
+            var saveNameField = saveLoadPanel?.Q<TextField>("save-name-field");
+            var saveName = saveNameField != default ? saveNameField.value : "quicksave";
+            Debug.Log($"[PauseMenu] Confirm Save -> '{saveName}'");
+            SaveRequested?.Invoke();
+            // After saving, return to main pause panel
+            HideSaveLoadMenu();
+        }
+
+        private void OnConfirmLoad()
+        {
+            Debug.Log("[PauseMenu] Confirm Load");
+            LoadRequested?.Invoke();
+            HideSaveLoadMenu();
+        }
+
+        private void OnBackFromSave()
+        {
+            HideSaveLoadMenu();
+        }
+
+        private void OnClearAllSaves()
+        {
+            Debug.Log("[PauseMenu] Clear All Saves requested");
+            // Raise events or call SaveManager if present
+            // Example: SaveManager.Instance?.ClearAllSaves();
         }
     }
 }

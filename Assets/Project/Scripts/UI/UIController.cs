@@ -628,16 +628,32 @@ private void WireBottomBarButtons()
     {
         if (currentPlayer == default || characterPortrait == default) return;
 
+        // Prefer centralized portrait loader (handles Sprites and multiple folder conventions)
+        try
+        {
+            // Try to load a Sprite via PortraitLoader (returns Sprite -> use its texture)
+            if (MyGameNamespace.UI.PortraitLoader.TryLoadPortrait(currentPlayer.race.ToString(), currentPlayer.gender ?? string.Empty, out var sprite))
+            {
+                if (sprite != null && sprite.texture != null)
+                {
+                    characterPortrait.scaleMode = ScaleMode.ScaleToFit;
+                    characterPortrait.image = sprite.texture;
+                    return;
+                }
+            }
+        }
+        catch { /* don't fail UI if loader misbehaves */ }
+
+        // Fallback: check any manually-assigned Texture2D fields first
         var portraitTexture = GetPortraitForRace(currentPlayer.race);
         if (portraitTexture != default)
         {
-            // Ensure the portrait maintains aspect ratio by using ScaleToFit
             characterPortrait.scaleMode = ScaleMode.ScaleToFit;
             characterPortrait.image = portraitTexture;
             return;
         }
 
-        // Try to load from Resources
+        // Final fallback: try direct Resources lookups (race_gender, race)
         string raceLower = currentPlayer.race.ToString().ToLowerInvariant();
         string genderLower = string.IsNullOrEmpty(currentPlayer.gender) ? "unknown" : currentPlayer.gender.ToLowerInvariant();
 

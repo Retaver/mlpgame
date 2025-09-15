@@ -542,12 +542,25 @@ namespace MyGameNamespace
                 // Finalize stats
                 pc.CalculateAllStats();
                 // Persist the chosen portrait resource path on the player so
-                // that the same image is shown in the HUD and combat UI. If
-                // currentPortraitResourcePath is empty, the UIController will
-                // fall back to race/gender-based portraits.
+                // that the same image is shown in the HUD and combat UI.
                 if (!string.IsNullOrEmpty(currentPortraitResourcePath))
                 {
                     pc.portraitResourcePath = currentPortraitResourcePath;
+                }
+                else
+                {
+                    // Derive a canonical resource path using the centralized PortraitLoader
+                    try
+                    {
+                        var race = data.Race.ToString();
+                        var gender = data.Gender == Gender.Male ? "Male" : "Female";
+                        pc.portraitResourcePath = MyGameNamespace.UI.PortraitLoader.GetPortraitResourcePath(race, gender);
+                    }
+                    catch
+                    {
+                        // If PortraitLoader is unavailable or fails, leave portraitResourcePath empty
+                        pc.portraitResourcePath = string.Empty;
+                    }
                 }
                 // Store player globally via PlayerState
                 MyGameNamespace.PlayerState.Current = pc;
