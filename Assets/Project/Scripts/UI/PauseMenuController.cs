@@ -128,7 +128,7 @@ namespace MyGameNamespace
         {
             if (saveLoadPanel == default) return;
             // Hide main pause menu panel and show the save-load panel
-            panel?.style.display = DisplayStyle.None;
+            if (panel != default) panel.style.display = DisplayStyle.None;
             saveLoadPanel.style.display = DisplayStyle.Flex;
             saveLoadPanel.BringToFront();
         }
@@ -137,7 +137,7 @@ namespace MyGameNamespace
         {
             if (saveLoadPanel == default) return;
             saveLoadPanel.style.display = DisplayStyle.None;
-            panel?.style.display = DisplayStyle.Flex;
+            if (panel != default) panel.style.display = DisplayStyle.Flex;
         }
 
         private void ForceTopMost()
