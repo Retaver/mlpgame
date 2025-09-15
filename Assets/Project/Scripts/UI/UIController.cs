@@ -448,14 +448,35 @@ private void WireBottomBarButtons()
         if (root == default && gameUIDocument != default) root = gameUIDocument.rootVisualElement;
 
         // Attempt 1: look for well-known IDs/classes/text inside this UIDocument root
-        bottomCharacterButton = (root != default ? (root.Q<Button>("CharacterButton") ?? root.Q<Button>(className: "character-button")) : null)
-                                ?? FindButtonInRootByNames(new[] { "Character", "character" });
+        if (root != default)
+        {
+            // Try common IDs first
+            bottomCharacterButton = root.Q<Button>("CharacterButton")
+                                    ?? root.Q<Button>("Character")
+                                    ?? root.Q<Button>("character-button");
+            // Try common class names used in different UXML variants
+            bottomCharacterButton ??= root.Q<Button>(className: "character-button");
+            bottomCharacterButton ??= root.Q<Button>(className: "nav-btn--character");
 
-        bottomItemsButton     = (root != default ? (root.Q<Button>("ItemsButton") ?? root.Q<Button>(className: "items-button")) : null)
-                                ?? FindButtonInRootByNames(new[] { "Items", "items", "inventory", "Inventory" });
+            bottomItemsButton = root.Q<Button>("ItemsButton")
+                                ?? root.Q<Button>("InventoryButton")
+                                ?? root.Q<Button>("Items")
+                                ?? root.Q<Button>("Inventory");
+            bottomItemsButton ??= root.Q<Button>(className: "items-button");
+            bottomItemsButton ??= root.Q<Button>(className: "nav-btn--inventory");
 
-        bottomMenuButton      = (root != default ? (root.Q<Button>("MenuButton") ?? root.Q<Button>(className: "menu-button")) : null)
-                                ?? FindButtonInRootByNames(new[] { "Menu", "menu", "pause" });
+            bottomMenuButton = root.Q<Button>("MenuButton")
+                               ?? root.Q<Button>("Menu")
+                               ?? root.Q<Button>("Pause")
+                               ?? root.Q<Button>("pause");
+            bottomMenuButton ??= root.Q<Button>(className: "menu-button");
+            bottomMenuButton ??= root.Q<Button>(className: "nav-btn--settings");
+        }
+
+        // Fallback: look by button text within this root (contains match)
+        bottomCharacterButton ??= FindButtonInRootByNames(new[] { "Character", "character" });
+        bottomItemsButton ??= FindButtonInRootByNames(new[] { "Items", "items", "inventory", "Inventory" });
+        bottomMenuButton ??= FindButtonInRootByNames(new[] { "Menu", "menu", "pause" });
 
         // Attempt 2: if any not found in this doc, search across all UIDocuments in the scene
         if (bottomCharacterButton == default || bottomItemsButton == default || bottomMenuButton == default)
@@ -466,18 +487,24 @@ private void WireBottomBarButtons()
                 if (d == default || d.rootVisualElement == default) continue;
                 if (bottomCharacterButton == default)
                     bottomCharacterButton = d.rootVisualElement.Q<Button>("CharacterButton")
+                                             ?? d.rootVisualElement.Q<Button>("Character")
                                              ?? d.rootVisualElement.Q<Button>(className: "character-button")
+                                             ?? d.rootVisualElement.Q<Button>(className: "nav-btn--character")
                                              ?? FindButtonInDocumentByText(d, "character");
 
                 if (bottomItemsButton == default)
                     bottomItemsButton = d.rootVisualElement.Q<Button>("ItemsButton")
+                                        ?? d.rootVisualElement.Q<Button>("InventoryButton")
                                         ?? d.rootVisualElement.Q<Button>(className: "items-button")
+                                        ?? d.rootVisualElement.Q<Button>(className: "nav-btn--inventory")
                                         ?? FindButtonInDocumentByText(d, "items")
                                         ?? FindButtonInDocumentByText(d, "inventory");
 
                 if (bottomMenuButton == default)
                     bottomMenuButton = d.rootVisualElement.Q<Button>("MenuButton")
+                                       ?? d.rootVisualElement.Q<Button>("Menu")
                                        ?? d.rootVisualElement.Q<Button>(className: "menu-button")
+                                       ?? d.rootVisualElement.Q<Button>(className: "nav-btn--settings")
                                        ?? FindButtonInDocumentByText(d, "menu")
                                        ?? FindButtonInDocumentByText(d, "pause");
 
@@ -834,7 +861,8 @@ private void WireBottomBarButtons()
             if (button != default)
             {
                 int idx = i - 1;
-                button.clicked += () => OnChoiceClicked(idx);
+                int capturedIdx = idx; // capture for lambda
+                button.clicked += () => OnChoiceClicked(capturedIdx);
                 choiceButtons.Add(button);
             }
         }

@@ -1,5 +1,0 @@
-Patches applied:
-1) Character Creator: removed 'Changeling' from UXML/JSON and filtered from C# population.
-2) Pause Menu: auto-wired buttons in PauseMenuController.cs based on names found in pause UXML.
-   Handlers provided: OnResume, OnOptions, OnSave, OnLoad, OnQuit, OnClose (safe defaults).
-   Show/Hide/Toggle implemented; UI Toolkit compatible for Unity 6.2.

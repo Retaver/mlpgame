@@ -13,28 +13,28 @@
             </ui:VisualElement>
 
             <!-- Primary options -->
-            <ui:Button name="resume-button" class="pause-button primary">
+            <ui:Button name="PauseResume" text="Resume" class="pause-button resume-button primary">
                 <ui:Label class="unity-button__text" text="Resume" />
             </ui:Button>
 
-            <ui:Button name="save-button" class="pause-button">
+            <ui:Button name="PauseSave" text="Save Game" class="pause-button save-button">
                 <ui:Label class="unity-button__text" text="Save Game" />
             </ui:Button>
 
-            <ui:Button name="load-button" class="pause-button">
+            <ui:Button name="PauseLoad" text="Load Game" class="pause-button load-button">
                 <ui:Label class="unity-button__text" text="Load Game" />
             </ui:Button>
 
-            <ui:Button name="settings-button" class="pause-button">
+            <ui:Button name="PauseOptions" text="Settings" class="pause-button options-button pause-options">
                 <ui:Label class="unity-button__text" text="Settings" />
             </ui:Button>
 
-            <ui:Button name="mainmenu-button" class="pause-button">
+            <ui:Button name="PauseMainMenu" text="Return to Main Menu" class="pause-button mainmenu-button pause-mainmenu">
                 <ui:Label class="unity-button__text" text="Return to Main Menu" />
             </ui:Button>
 
             <!-- NOTE: name changed to match PauseMenuController field 'quit-button' -->
-            <ui:Button name="quit-button" class="pause-button pause-button--danger">
+            <ui:Button name="QuitButton" text="Exit Game" class="pause-button pause-button--danger quit-button">
                 <ui:Label class="unity-button__text" text="Exit Game" />
             </ui:Button>
 

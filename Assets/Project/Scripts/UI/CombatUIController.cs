@@ -168,7 +168,10 @@ public class CombatUIController : MonoBehaviour
             var attacks = attackDb.GetAttacksForRace(player?.race ?? RaceType.EarthPony);
             foreach (var atk in attacks)
             {
-                var btn = new Button(() => OnAttackClicked(atk.id)) { text = string.IsNullOrEmpty(atk.displayName) ? atk.id : atk.displayName };
+                // Capture id locally to avoid closure issues when creating lambdas in a loop
+                var atkId = atk.id;
+                var display = string.IsNullOrEmpty(atk.displayName) ? atk.id : atk.displayName;
+                var btn = new Button(() => OnAttackClicked(atkId)) { text = display };
                 btn.AddToClassList("simple-action-button");
                 attackList?.Add(btn);
             }
@@ -185,7 +188,9 @@ public class CombatUIController : MonoBehaviour
             var magicAttacks = attackDb.attacks.Where(a => a.attackType == AttackDatabase.AttackType.Magical).ToArray();
             foreach (var m in magicAttacks)
             {
-                var btn = new Button(() => OnMagicClicked(m.id)) { text = string.IsNullOrEmpty(m.displayName) ? m.id : m.displayName };
+                var mId = m.id;
+                var display = string.IsNullOrEmpty(m.displayName) ? m.id : m.displayName;
+                var btn = new Button(() => OnMagicClicked(mId)) { text = display };
                 btn.AddToClassList("simple-action-button");
                 specialList?.Add(btn);
             }
@@ -202,7 +207,8 @@ public class CombatUIController : MonoBehaviour
             foreach (var name in actButtons)
             {
                 var idLower = name.ToLowerInvariant().Replace(" ", "_");
-                var btn = new Button(() => OnActClicked(idLower)) { text = name };
+                var capturedId = idLower;
+                var btn = new Button(() => OnActClicked(capturedId)) { text = name };
                 btn.AddToClassList("simple-action-button");
                 actList?.Add(btn);
             }

@@ -19,10 +19,12 @@ namespace MyGameNamespace
         [SerializeField] private UIDocument sheetDocument;
 
         [Header("Optional element lookups (leave blank to auto-detect)")]
-        [SerializeField] private string[] rootIds = new[] { "CharacterSheetRoot", "character-sheet-root", "CharacterSheet", "character-sheet" };
-        [SerializeField] private string[] rootClasses = new[] { "character-sheet", "panel--character", "sheet--character" };
-        [SerializeField] private string[] closeIds = new[] { "CloseCharacterSheet", "close-character-sheet", "CloseButton", "close" };
-        [SerializeField] private string[] closeClasses = new[] { "close", "btn-close", "sheet__close" };
+    // Accept more variants commonly used in UXML files (lowercase, hyphenated, modal/container names)
+    [SerializeField] private string[] rootIds = new[] { "CharacterSheetRoot", "character-sheet-root", "CharacterSheet", "character-sheet", "character-sheet-container", "character-sheet-modal" };
+    [SerializeField] private string[] rootClasses = new[] { "character-sheet", "panel--character", "sheet--character", "sheet-container", "sheet-modal-overlay" };
+    // Include common close button names used in UXML (close-button, CloseButton)
+    [SerializeField] private string[] closeIds = new[] { "CloseCharacterSheet", "close-character-sheet", "CloseButton", "close", "close-button" };
+    [SerializeField] private string[] closeClasses = new[] { "close", "btn-close", "sheet__close", "sheet-button", "close-btn" };
 
         [Header("Behavior")]
         [Tooltip("Hide the sheet on Awake so it doesn't pop in during scene load.")]

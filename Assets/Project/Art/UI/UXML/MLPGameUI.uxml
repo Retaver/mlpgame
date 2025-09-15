@@ -80,9 +80,9 @@
             <ui:Button name="Choice8" text="[8]" class="choice-btn font--ui" />
         </ui:VisualElement>
         <ui:VisualElement name="BottomNav" class="bottom-nav">
-            <ui:Button name="CharacterButton" text="Character" class="nav-btn nav-btn--character" />
-            <ui:Button name="InventoryButton" text="Items" class="nav-btn nav-btn--inventory" />
-            <ui:Button name="MenuButton" text="Menu" class="nav-btn nav-btn--settings" />
+            <ui:Button name="CharacterButton" text="Character" class="nav-btn nav-btn--character character-button" />
+            <ui:Button name="InventoryButton" text="Items" class="nav-btn nav-btn--inventory items-button" />
+            <ui:Button name="MenuButton" text="Menu" class="nav-btn nav-btn--settings menu-button" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
