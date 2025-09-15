@@ -517,6 +517,11 @@ private void WireBottomBarButtons()
         bool mlpOwnsBottomBar = MyGameNamespace.MLPGameUI.Instance != default;
         if (mlpOwnsBottomBar && verboseLogging) Debug.Log("[UIController] Skipping Character/Menu wiring (MLPGameUI owns buttons).");
 
+        if (verboseLogging)
+        {
+            Debug.Log($"[UIController] Bottom buttons found - Character: {(bottomCharacterButton!=default? bottomCharacterButton.name+"/"+bottomCharacterButton.text : "null")}, Items: {(bottomItemsButton!=default? bottomItemsButton.name+"/"+bottomItemsButton.text : "null")}, Menu: {(bottomMenuButton!=default? bottomMenuButton.name+"/"+bottomMenuButton.text : "null")}");
+        }
+
         // Character
         if (!mlpOwnsBottomBar)
         {

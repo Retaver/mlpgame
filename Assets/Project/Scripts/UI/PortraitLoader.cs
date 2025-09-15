@@ -98,7 +98,27 @@ namespace MyGameNamespace.UI
                 return true;
             }
 
-            return false;
+            // Last resort: generate a small solid-color sprite at runtime so the UI
+            // never receives a null sprite. This prevents empty portraits when the
+            // Resources folder hasn't been populated during tests or early imports.
+            try
+            {
+                int size = 64;
+                var tex = new Texture2D(size, size, TextureFormat.RGBA32, false);
+                // Choose a color based on race/gender hash to provide visual variety
+                System.Random rnd = new System.Random((race ?? "").GetHashCode() ^ (gender ?? "").GetHashCode());
+                Color c = new Color((float)rnd.NextDouble() * 0.6f + 0.2f, (float)rnd.NextDouble() * 0.6f + 0.2f, (float)rnd.NextDouble() * 0.6f + 0.2f, 1f);
+                var cols = new Color[size * size];
+                for (int i = 0; i < cols.Length; i++) cols[i] = c;
+                tex.SetPixels(cols);
+                tex.Apply();
+                sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100f);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

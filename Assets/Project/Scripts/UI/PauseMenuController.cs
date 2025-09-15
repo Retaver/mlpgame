@@ -324,6 +324,11 @@ namespace MyGameNamespace
             if (confirmLoadBtn != default) { confirmLoadBtn.clicked -= OnConfirmLoad; confirmLoadBtn.clicked += OnConfirmLoad; }
             if (backSaveBtn != default) { backSaveBtn.clicked -= OnBackFromSave; backSaveBtn.clicked += OnBackFromSave; }
             if (clearAllSavesBtn != default) { clearAllSavesBtn.clicked -= OnClearAllSaves; clearAllSavesBtn.clicked += OnClearAllSaves; }
+
+            if (verboseLogging)
+            {
+                Debug.Log($"[PauseMenuController] WireButtons: resume={(resumeBtn!=default?resumeBtn.name:"null")}, save={(saveBtn!=default?saveBtn.name:"null")}, load={(loadBtn!=default?loadBtn.name:"null")}, options={(optionsBtn!=default?optionsBtn.name:"null")}, mainmenu={(mainMenuBtn!=default?mainMenuBtn.name:"null")}, quit={(quitBtn!=default?quitBtn.name:"null")}, savePanel={(saveLoadPanel!=default?saveLoadPanel.name:"null")}");
+            }
         }
 
         private void OnResume() { HidePauseMenu(); Debug.Log("[PauseMenu] Resume clicked -> HidePauseMenu"); }
