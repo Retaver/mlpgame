@@ -187,6 +187,39 @@ namespace MyGameNamespace
 
         public void ShowPauseMenu()
         {
+            // Re-resolve the UIDocument and panel in case the pause menu UI resides in
+            // a different UIDocument than the serialized `pauseDocument` or if documents
+            // were added/changed at runtime. This ensures all buttons are wired when
+            // the menu is shown from other systems (e.g. MLPGameUI.OnMenu()).
+            if (root == default)
+            {
+                // Try to locate any UIDocument that contains a Resume/ PauseResume button
+                var docs = UnityEngine.Object.FindObjectsOfType<UIDocument>(true);
+                foreach (var d in docs)
+                {
+                    if (d == default || d.rootVisualElement == default) continue;
+                    var any = d.rootVisualElement.Query<Button>().ToList();
+                    if (any.Exists(b => (b.name != null && (b.name.Equals("PauseResume", StringComparison.OrdinalIgnoreCase) || b.name.Equals("Resume", StringComparison.OrdinalIgnoreCase))) ||
+                                        (!string.IsNullOrEmpty(b.text) && b.text.ToLowerInvariant().Contains("resume"))))
+                    {
+                        pauseDocument = d;
+                        root = d.rootVisualElement;
+                        break;
+                    }
+                }
+            }
+
+            if (root != default)
+            {
+                // Ensure panel reference is current
+                panel = root.Q<VisualElement>("PauseMenu")
+                      ?? root.Q<VisualElement>("PauseMenuRoot")
+                      ?? root;
+
+                // Re-wire buttons to ensure handlers are attached to the visible elements
+                WireButtons();
+            }
+
             if (panel == default) return;
             panel.style.display = DisplayStyle.Flex;
             ForceTopMost();
