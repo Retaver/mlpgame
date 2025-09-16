@@ -168,6 +168,8 @@ namespace MyGameNamespace
             perksPanel = root.Q<VisualElement>("perks-panel");
             effectsPanel = root.Q<VisualElement>("effects-panel");
 
+            Debug.Log($"[MLPGameUI] Panel initialization - statsPanel: {(statsPanel != null ? "found" : "null")}, skillsPanel: {(skillsPanel != null ? "found" : "null")}, perksPanel: {(perksPanel != null ? "found" : "null")}, effectsPanel: {(effectsPanel != null ? "found" : "null")}");
+
             // Wire tab buttons
             if (statsTabBtn != default)
             {
@@ -331,12 +333,31 @@ namespace MyGameNamespace
                 return;
             }
 
+            Debug.Log($"[MLPGameUI] Found player: {player.name}, Level {player.level}, Skills: {player.skillPoints}, Perks: {player.perks?.Count ?? 0}");
+
             // Update character name and level in header
             var nameLabel = root.Q<Label>("character-name");
             var levelLabel = root.Q<Label>("character-level");
 
-            if (nameLabel != default) nameLabel.text = player.name ?? "Unknown";
-            if (levelLabel != default) levelLabel.text = $"Level {player.level}";
+            if (nameLabel != default)
+            {
+                nameLabel.text = player.name ?? "Unknown";
+                Debug.Log($"[MLPGameUI] Updated character name to: {nameLabel.text}");
+            }
+            else
+            {
+                Debug.LogWarning("[MLPGameUI] character-name label not found");
+            }
+
+            if (levelLabel != default)
+            {
+                levelLabel.text = $"Level {player.level}";
+                Debug.Log($"[MLPGameUI] Updated character level to: {levelLabel.text}");
+            }
+            else
+            {
+                Debug.LogWarning("[MLPGameUI] character-level label not found");
+            }
 
             // Populate skills panel
             PopulateSkillsPanel(player);
@@ -347,7 +368,11 @@ namespace MyGameNamespace
 
         private void PopulateSkillsPanel(PlayerCharacter player)
         {
-            if (skillsPanel == default) return;
+            if (skillsPanel == default)
+            {
+                Debug.LogWarning("[MLPGameUI] skillsPanel is null");
+                return;
+            }
 
             Debug.Log("[MLPGameUI] Populating skills panel");
 
@@ -355,7 +380,21 @@ namespace MyGameNamespace
             var skillsGrid = skillsPanel.Q<VisualElement>("skills-grid");
             if (skillsGrid != default)
             {
+                Debug.Log($"[MLPGameUI] Found skills-grid, clearing {skillsGrid.childCount} existing elements");
+
+                // Remove specific sample elements by name if they exist
+                var sampleSkill = skillsGrid.Q<VisualElement>("sample-skill");
+                if (sampleSkill != default)
+                {
+                    Debug.Log("[MLPGameUI] Removing sample-skill element");
+                    skillsGrid.Remove(sampleSkill);
+                }
+
                 skillsGrid.Clear();
+            }
+            else
+            {
+                Debug.LogWarning("[MLPGameUI] skills-grid not found in skillsPanel");
             }
 
             // Update skill points label
@@ -398,6 +437,7 @@ namespace MyGameNamespace
                         skillCard.Add(skillValueLabel);
 
                         skillsGrid.Add(skillCard);
+                        Debug.Log($"[MLPGameUI] Added fallback skill: {skillName}");
                     }
                 }
                 return;
@@ -406,6 +446,8 @@ namespace MyGameNamespace
             // Get all skills and filter to learned ones
             var allSkills = skillTree.GetAllSkills();
             var learnedSkills = allSkills.Where(s => s.IsUnlocked).ToList();
+
+            Debug.Log($"[MLPGameUI] Found {allSkills.Count} total skills, {learnedSkills.Count} learned skills");
 
             if (learnedSkills.Count == 0)
             {
@@ -416,6 +458,7 @@ namespace MyGameNamespace
                 {
                     skillsGrid.Add(noSkillsLabel);
                 }
+                Debug.Log("[MLPGameUI] No learned skills found, showing message");
             }
             else
             {
@@ -426,6 +469,8 @@ namespace MyGameNamespace
                 {
                     foreach (var categoryGroup in skillsByCategory.OrderBy(g => g.Key.ToString()))
                     {
+                        Debug.Log($"[MLPGameUI] Adding category: {categoryGroup.Key} with {categoryGroup.Count()} skills");
+
                         // Create category header
                         var categoryHeader = new Label(categoryGroup.Key.ToString());
                         categoryHeader.AddToClassList("skill-category-header");
@@ -434,6 +479,8 @@ namespace MyGameNamespace
                         // Add skills in this category
                         foreach (var skill in categoryGroup.OrderBy(s => s.name))
                         {
+                            Debug.Log($"[MLPGameUI] Adding skill: {skill.name} (Rank {skill.currentRank}/{skill.maxRank})");
+
                             var skillCard = new VisualElement();
                             skillCard.AddToClassList("skill-card");
 
@@ -454,7 +501,11 @@ namespace MyGameNamespace
 
         private void PopulatePerksPanel(PlayerCharacter player)
         {
-            if (perksPanel == default) return;
+            if (perksPanel == default)
+            {
+                Debug.LogWarning("[MLPGameUI] perksPanel is null");
+                return;
+            }
 
             Debug.Log("[MLPGameUI] Populating perks panel");
 
@@ -462,14 +513,32 @@ namespace MyGameNamespace
             var perksGrid = perksPanel.Q<VisualElement>("perks-grid");
             if (perksGrid != default)
             {
+                Debug.Log($"[MLPGameUI] Found perks-grid, clearing {perksGrid.childCount} existing elements");
+
+                // Remove specific sample elements by name if they exist
+                var samplePerk = perksGrid.Q<VisualElement>("sample-perk");
+                if (samplePerk != default)
+                {
+                    Debug.Log("[MLPGameUI] Removing sample-perk element");
+                    perksGrid.Remove(samplePerk);
+                }
+
                 perksGrid.Clear();
+            }
+            else
+            {
+                Debug.LogWarning("[MLPGameUI] perks-grid not found in perksPanel");
             }
 
             // Populate with player's actual perks
             if (player.perks != null && player.perks.Count > 0)
             {
+                Debug.Log($"[MLPGameUI] Found {player.perks.Count} perks to populate");
+
                 foreach (var perkType in player.perks)
                 {
+                    Debug.Log($"[MLPGameUI] Adding perk: {perkType} -> {FormatPerkName(perkType)}");
+
                     var perkCard = new VisualElement();
                     perkCard.AddToClassList("perk-card");
 
@@ -490,6 +559,8 @@ namespace MyGameNamespace
             }
             else
             {
+                Debug.Log("[MLPGameUI] No perks found to populate");
+
                 // Show message if no perks
                 var emptyLabel = new Label("No perks learned yet.");
                 emptyLabel.AddToClassList("perks-empty");
@@ -502,20 +573,49 @@ namespace MyGameNamespace
 
         private PlayerCharacter GetCurrentPlayerCharacter()
         {
+            Debug.Log("[MLPGameUI] Getting current player character");
+
             // Try to get player from various sources
             var gameManager = UnityEngine.Object.FindFirstObjectByType<GameManager>();
             if (gameManager != null)
             {
-                return gameManager.GetPlayer();
+                var player = gameManager.GetPlayer();
+                if (player != null)
+                {
+                    Debug.Log($"[MLPGameUI] Found player via GameManager: {player.name}");
+                    return player;
+                }
+                else
+                {
+                    Debug.Log("[MLPGameUI] GameManager found but GetPlayer() returned null");
+                }
+            }
+            else
+            {
+                Debug.Log("[MLPGameUI] GameManager not found");
             }
 
             // Try UIController
             var uiController = UnityEngine.Object.FindFirstObjectByType<UIController>();
             if (uiController != null && uiController.GetType().GetField("currentPlayer", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance) != null)
             {
-                return uiController.GetType().GetField("currentPlayer", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(uiController) as PlayerCharacter;
+                var player = uiController.GetType().GetField("currentPlayer", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(uiController) as PlayerCharacter;
+                if (player != null)
+                {
+                    Debug.Log($"[MLPGameUI] Found player via UIController reflection: {player.name}");
+                    return player;
+                }
+                else
+                {
+                    Debug.Log("[MLPGameUI] UIController found but currentPlayer field is null");
+                }
+            }
+            else
+            {
+                Debug.Log("[MLPGameUI] UIController not found or currentPlayer field not accessible");
             }
 
+            Debug.Log("[MLPGameUI] No player character found");
             return null;
         }
 
