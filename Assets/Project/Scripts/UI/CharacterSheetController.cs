@@ -66,7 +66,7 @@ namespace MyGameNamespace
             if (_doc == null)
             {
                 // Note: Unity's FindObjectsOfType overload here expects a bool (includeInactive)
-                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None, FindObjectsInactive.Include);
+                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsInactive.Include, FindObjectsSortMode.None);
                 foreach (var d in docs)
                 {
                     if (d == default || d.rootVisualElement == default) continue;

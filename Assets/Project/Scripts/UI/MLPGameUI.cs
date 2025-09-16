@@ -41,7 +41,7 @@ namespace MyGameNamespace
             // If not found in this UIDocument, search other documents in scene
             if (characterBtn == default)
             {
-                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None, FindObjectsInactive.Include);
+                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsInactive.Include, FindObjectsSortMode.None);
                 foreach (var d in docs)
                 {
                     if (d == default || d.rootVisualElement == default || d == uiDocument) continue;
@@ -54,7 +54,7 @@ namespace MyGameNamespace
 
             if (menuBtn == default)
             {
-                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None, FindObjectsInactive.Include);
+                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsInactive.Include, FindObjectsSortMode.None);
                 foreach (var d in docs)
                 {
                     if (d == default || d.rootVisualElement == default || d == uiDocument) continue;
@@ -67,7 +67,7 @@ namespace MyGameNamespace
 
             if (inventoryBtn == default)
             {
-                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None, FindObjectsInactive.Include);
+                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsInactive.Include, FindObjectsSortMode.None);
                 foreach (var d in docs)
                 {
                     if (d == default || d.rootVisualElement == default || d == uiDocument) continue;
