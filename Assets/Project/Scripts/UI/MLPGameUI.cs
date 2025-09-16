@@ -2,9 +2,11 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace MyGameNamespace
 {
+    [DefaultExecutionOrder(-40)] // Run after MLPGameUIBootstrap (-50)
     public class MLPGameUI : MonoBehaviour
     {
         // Singleton instance (optional)
@@ -43,17 +45,30 @@ namespace MyGameNamespace
 
         private void OnEnable()
         {
+            // Wait a frame to ensure UXML is loaded by MLPGameUIBootstrap
+            StartCoroutine(InitializeUIAfterDelay());
+        }
+
+        private System.Collections.IEnumerator InitializeUIAfterDelay()
+        {
+            yield return null; // Wait one frame
+            
+            Debug.Log("[MLPGameUI] Starting UI initialization after delay");
+            
             root = uiDocument != default ? uiDocument.rootVisualElement : null;
             if (root == default)
             {
-                Debug.LogWarning("[MLPGameUI] Missing UIDocument/root.");
-                return;
+                Debug.LogWarning("[MLPGameUI] Missing UIDocument/root after delay.");
+                yield break;
             }
+
+            Debug.Log($"[MLPGameUI] Root visual element found with {root.childCount} children");
 
             // Initialize HUD with current player data
             UpdateHUD();
 
             // Locate buttons by various possible names or class for compatibility
+            Debug.Log($"[MLPGameUI] Looking for CharacterButton in root with {root.childCount} children");
             characterBtn = FindButtonRobust("CharacterButton", "Character", "character-button");
 
             // If not found in this UIDocument, search other documents in scene
@@ -208,17 +223,33 @@ namespace MyGameNamespace
 
         private Button FindButtonRobust(params string[] namesAndClasses)
         {
-            if (root == default) return null;
+            if (root == default) 
+            {
+                Debug.LogError("[MLPGameUI] FindButtonRobust: root is null!");
+                return null;
+            }
+
+            Debug.Log($"[MLPGameUI] FindButtonRobust: Searching for buttons with names/classes: {string.Join(", ", namesAndClasses)}");
 
             foreach (var name in namesAndClasses)
             {
                 var btn = root.Q<Button>(name);
-                if (btn != default) return btn;
+                if (btn != default) 
+                {
+                    Debug.Log($"[MLPGameUI] FindButtonRobust: Found button by name '{name}': {btn}");
+                    return btn;
+                }
 
                 // Try as class name
                 btn = root.Q<Button>(className: name);
-                if (btn != default) return btn;
+                if (btn != default) 
+                {
+                    Debug.Log($"[MLPGameUI] FindButtonRobust: Found button by class '{name}': {btn}");
+                    return btn;
+                }
             }
+            
+            Debug.LogWarning($"[MLPGameUI] FindButtonRobust: No button found with names/classes: {string.Join(", ", namesAndClasses)}");
             return null;
         }
 
@@ -413,6 +444,8 @@ namespace MyGameNamespace
             var levelLabel = root.Q<Label>("LevelLabel");
             var raceLabel = root.Q<Label>("RaceLabel");
             var bitsLabel = root.Q<Label>("BitsValue");
+
+            Debug.Log($"[MLPGameUI] Found HUD elements - Name: {nameLabel != null}, Level: {levelLabel != null}, Race: {raceLabel != null}, Bits: {bitsLabel != null}");
 
             if (nameLabel != default)
             {
