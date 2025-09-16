@@ -519,7 +519,7 @@ private void WireBottomBarButtons()
         // Wire handlers (guard against double-binding with MLPGameUI)
         bool mlpOwnsBottomBar = MyGameNamespace.MLPGameUI.Instance != default;
         if (verboseLogging) Debug.Log($"[UIController] MLPGameUI.Instance present: {mlpOwnsBottomBar}");
-        if (mlpOwnsBottomBar && verboseLogging) Debug.Log("[UIController] Skipping Character/Menu wiring (MLPGameUI owns buttons).");
+        if (mlpOwnsBottomBar && verboseLogging) Debug.Log("[UIController] MLPGameUI owns all bottom buttons - UIController will not wire Character/Menu buttons but will still wire Items for redundancy.");
 
         if (verboseLogging)
         {
@@ -531,7 +531,7 @@ private void WireBottomBarButtons()
         if (bottomItemsButton != default) bottomItemsButton.SetEnabled(true);
         if (bottomMenuButton != default) bottomMenuButton.SetEnabled(true);
 
-        // Character
+        // Character - only wire if MLPGameUI is not present
         if (!mlpOwnsBottomBar)
         {
             if (bottomCharacterButton != default)
@@ -543,7 +543,7 @@ private void WireBottomBarButtons()
             else if (verboseLogging) Debug.LogWarning("[UIController] Character bottom button not found.");
         }
 
-        // Items (UIController remains owner)
+        // Items - always wire as fallback (MLPGameUI may not handle this)
         if (bottomItemsButton != default)
         {
             bottomItemsButton.clicked -= OnBottomItemsClicked;
@@ -552,7 +552,7 @@ private void WireBottomBarButtons()
         }
         else if (verboseLogging) Debug.LogWarning("[UIController] Items bottom button not found.");
 
-        // Menu
+        // Menu - only wire if MLPGameUI is not present
         if (!mlpOwnsBottomBar)
         {
             if (bottomMenuButton != default)

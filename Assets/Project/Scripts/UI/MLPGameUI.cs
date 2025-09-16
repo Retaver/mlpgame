@@ -12,7 +12,7 @@ namespace MyGameNamespace
 
         // Cached UI elements
         private VisualElement root;
-        private Button characterBtn, menuBtn, optionsBtn;
+        private Button characterBtn, menuBtn, optionsBtn, inventoryBtn;
 
         private void Awake()
         {
@@ -66,6 +66,22 @@ namespace MyGameNamespace
                 }
             }
 
+            inventoryBtn = root.Q<Button>("InventoryButton")
+                          ?? root.Q<Button>("ItemsButton")
+                          ?? root.Q<Button>(className: "items-button")
+                          ?? root.Q<Button>(className: "inventory-button");
+
+            if (inventoryBtn == default)
+            {
+                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None, FindObjectsInactive.Include);
+                foreach (var d in docs)
+                {
+                    if (d == default || d.rootVisualElement == default) continue;
+                    var b = d.rootVisualElement.Q<Button>("InventoryButton") ?? d.rootVisualElement.Q<Button>("ItemsButton") ?? d.rootVisualElement.Q<Button>(className: "items-button") ?? d.rootVisualElement.Q<Button>(className: "inventory-button") ?? d.rootVisualElement.Q<Button>("Items");
+                    if (b != default) { inventoryBtn = b; break; }
+                }
+            }
+
             optionsBtn = root.Q<Button>("OptionsButton")
                          ?? root.Q<Button>(className: "options-button");
 
@@ -84,6 +100,13 @@ namespace MyGameNamespace
             }
             else Debug.LogWarning("[MLPGameUI] MenuButton not found.");
 
+            if (inventoryBtn != default)
+            {
+                inventoryBtn.clicked -= OnInventory;
+                inventoryBtn.clicked += OnInventory;
+            }
+            else Debug.Log("[MLPGameUI] InventoryButton not found (optional).");
+
             if (optionsBtn != default)
             {
                 optionsBtn.clicked -= OnOptions;
@@ -96,6 +119,7 @@ namespace MyGameNamespace
         {
             if (characterBtn != default) characterBtn.clicked -= OnCharacter;
             if (menuBtn != default) menuBtn.clicked -= OnMenu;
+            if (inventoryBtn != default) inventoryBtn.clicked -= OnInventory;
             if (optionsBtn != default) optionsBtn.clicked -= OnOptions;
         }
 
@@ -172,6 +196,41 @@ namespace MyGameNamespace
             }
 
             Debug.LogWarning("[MLPGameUI] Pause menu not found in scene.");
+        }
+
+        private void OnInventory()
+        {
+            // First, try using InventoryScreenController to show the inventory
+            var invController = FindFirstObjectByType<InventoryScreenController>();
+            if (invController != default)
+            {
+                invController.Show();
+                return;
+            }
+
+            // Fallback: directly make any known inventory container visible
+            var docs = Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None);
+            foreach (var d in docs)
+            {
+                if (d == default || d.rootVisualElement == default) continue;
+                var inventory = d.rootVisualElement.Q<VisualElement>("inventory-container")
+                              ?? d.rootVisualElement.Q<VisualElement>("InventoryRoot")
+                              ?? d.rootVisualElement.Q<VisualElement>("inventory-root")
+                              ?? d.rootVisualElement.Q<VisualElement>(className: "inventory")
+                              ?? d.rootVisualElement.Q<VisualElement>(className: "inventory-root");
+                if (inventory != default)
+                {
+                    inventory.style.display = DisplayStyle.Flex;
+                    inventory.style.visibility = Visibility.Visible;
+                    inventory.style.opacity = 1f;
+                    d.rootVisualElement.BringToFront();
+                    if (d.panelSettings != default && d.panelSettings.sortingOrder < 200)
+                        d.panelSettings.sortingOrder = 200;
+                    return;
+                }
+            }
+
+            Debug.LogWarning("[MLPGameUI] Inventory not found in any UIDocument.");
         }
 
         private void OnOptions()
