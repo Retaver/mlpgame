@@ -12,7 +12,19 @@ public class GameManager:MonoBehaviour{
  public void StartNewGame(string playerName,int strength,int dexterity,int constitution,int intelligence,int wisdom,int charisma,string backgroundId,string raceId){
    if(verboseLogging) Debug.Log($"[GameManager] StartNewGame params: {playerName}/{backgroundId}/{raceId}");
    try{ SceneManager.LoadScene("Game",LoadSceneMode.Single);}catch(Exception ex){ Debug.LogError(ex);} }
- public PlayerCharacter GetPlayer(){ return null; }
+ public PlayerCharacter GetPlayer(){ 
+   var characterSystem = FindFirstObjectByType<CharacterSystem>();
+   if (characterSystem != null) {
+     return characterSystem.GetPlayerCharacter();
+   }
+   
+   // If no CharacterSystem exists, create one
+   Debug.Log("[GameManager] CharacterSystem not found, creating new instance");
+   var csGameObject = new GameObject("CharacterSystem");
+   characterSystem = csGameObject.AddComponent<CharacterSystem>();
+   
+   return characterSystem.GetPlayerCharacter();
+ }
  public void OnStoryChoiceMade(StoryChoice choice){
    try{ GameEventSystem.Instance?.RaiseStoryChoiceMade(choice);}catch{}
    var target=!string.IsNullOrEmpty(choice?.targetNodeId)?choice.targetNodeId:!string.IsNullOrEmpty(choice?.nextNodeId)?choice.nextNodeId:choice?.nextId;
