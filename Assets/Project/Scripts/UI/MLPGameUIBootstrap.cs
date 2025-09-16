@@ -34,10 +34,16 @@ namespace MyGameNamespace
 
             // Bind HUD assets
             if (gameHudUxml != default && doc.visualTreeAsset != gameHudUxml)
+            {
                 doc.visualTreeAsset = gameHudUxml;
+                Debug.Log("[MLPGameUIBootstrap] Loaded gameHudUxml");
+            }
 
             if (gameHudStyles != default && !doc.rootVisualElement.styleSheets.Contains(gameHudStyles))
+            {
                 doc.rootVisualElement.styleSheets.Add(gameHudStyles);
+                Debug.Log("[MLPGameUIBootstrap] Added gameHudStyles");
+            }
 
             // Load sheet assets from Resources if not assigned
             if (characterSheetUxml == default)
@@ -67,12 +73,14 @@ namespace MyGameNamespace
                         var clone = ScriptableObject.Instantiate(doc.panelSettings);
                         clone.sortingOrder = Mathf.Max(overlaySortingOrder, maxOrder + 10); // all int
                         sheetDoc.panelSettings = clone;
+                        Debug.Log($"[MLPGameUIBootstrap] Set sheet sorting order to {clone.sortingOrder}");
                     }
                     else
                     {
                         var newPs = ScriptableObject.CreateInstance<PanelSettings>();
                         newPs.sortingOrder = Mathf.Max(overlaySortingOrder, maxOrder + 10);  // all int
                         sheetDoc.panelSettings = newPs;
+                        Debug.Log($"[MLPGameUIBootstrap] Created new PanelSettings with sorting order {newPs.sortingOrder}");
                     }
 
                     if (characterSheetStyles != default)

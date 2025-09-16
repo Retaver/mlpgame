@@ -40,6 +40,12 @@ namespace MyGameNamespace
             else
             {
                 Debug.Log("[MLPGameUI] UIDocument found and ready");
+                Debug.Log($"[MLPGameUI] UIDocument has visualTreeAsset: {uiDocument.visualTreeAsset != null}");
+                Debug.Log($"[MLPGameUI] UIDocument has panelSettings: {uiDocument.panelSettings != null}");
+                if (uiDocument.panelSettings != null)
+                {
+                    Debug.Log($"[MLPGameUI] PanelSettings sorting order: {uiDocument.panelSettings.sortingOrder}");
+                }
             }
         }
 
@@ -63,6 +69,20 @@ namespace MyGameNamespace
             }
 
             Debug.Log($"[MLPGameUI] Root visual element found with {root.childCount} children");
+
+            // Debug: Check if styles are applied
+            var computedStyle = root.computedStyle;
+            Debug.Log($"[MLPGameUI] Root background color: {computedStyle.backgroundColor}");
+            Debug.Log($"[MLPGameUI] Root width: {computedStyle.width.value}, height: {computedStyle.height.value}");
+
+            // Fallback: Ensure basic visibility if styles didn't load
+            if (computedStyle.backgroundColor.a == 0)
+            {
+                Debug.Log("[MLPGameUI] Background is transparent, applying fallback style");
+                root.style.backgroundColor = new Color(0.1f, 0.08f, 0.1f, 1f);
+                root.style.width = new Length(100, LengthUnit.Percent);
+                root.style.height = new Length(100, LengthUnit.Percent);
+            }
 
             // Initialize HUD with current player data
             UpdateHUD();
