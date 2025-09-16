@@ -7,79 +7,104 @@
     <!-- Import MapSection styles -->
     <Style src="project://database/Assets/Project/Art/UI/USS/MapSection.uss" />
     <ui:VisualElement name="Root" class="gamehud-root theme--twilight font--ui">
-        <ui:VisualElement class="top-row">
-            <ui:VisualElement class="player-pane">
-                <ui:VisualElement class="character-header">
-                    <ui:VisualElement class="character-display">
-                        <ui:Image name="CharacterPortrait" class="character-portrait" />
-                        <ui:VisualElement class="character-basic-info">
-                            <ui:Label name="CharacterName" text="Amber Trail" class="character-name font--title" />
-                            <ui:Label name="LevelLabel" text="Level 1" class="character-level" />
+        <!-- Main game layout: left sidebar + right main area -->
+        <ui:VisualElement class="game-layout">
+            <!-- Left Sidebar -->
+            <ui:VisualElement class="left-sidebar">
+                <!-- Character Info Section -->
+                <ui:VisualElement class="character-section">
+                    <ui:VisualElement class="character-header">
+                        <ui:VisualElement class="character-display">
+                            <ui:Image name="CharacterPortrait" class="character-portrait" />
+                            <ui:VisualElement class="character-basic-info">
+                                <ui:Label name="CharacterName" text="Amber Trail" class="character-name font--title" />
+                                <ui:Label name="LevelLabel" text="Level 1" class="character-level" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="character-details-row">
+                            <ui:Label name="RaceLabel" text="Race: EarthPony" class="character-detail" />
+                            <ui:Label name="BitsValue" text="250 Bits" class="character-detail bits-value" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement class="character-details-row">
-                        <ui:Label name="RaceLabel" text="Race: EarthPony" class="character-detail" />
-                        <ui:Label name="BitsValue" text="250 Bits" class="character-detail bits-value" />
+                    <ui:VisualElement class="stats-panel">
+                        <ui:Label text="CONDITION" class="panel-header" />
+                        <ui:VisualElement class="stat-item">
+                            <ui:VisualElement class="stat-line">
+                                <ui:Label text="HEALTH" class="stat-name" />
+                                <ui:Label name="HealthValue" text="100/100" class="stat-numbers" />
+                            </ui:VisualElement>
+                            <ui:ProgressBar name="HealthBar" value="100" high-value="100" class="stat-bar health-bar" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="stat-item">
+                            <ui:VisualElement class="stat-line">
+                                <ui:Label text="ENERGY" class="stat-name" />
+                                <ui:Label name="StaminaValue" text="100/100" class="stat-numbers" />
+                            </ui:VisualElement>
+                            <ui:ProgressBar name="StaminaBar" value="100" high-value="100" class="stat-bar energy-bar" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="stat-item">
+                            <ui:VisualElement class="stat-line">
+                                <ui:Label text="MANA" class="stat-name" />
+                                <ui:Label name="ManaValue" text="50/50" class="stat-numbers" />
+                            </ui:VisualElement>
+                            <ui:ProgressBar name="ManaBar" value="50" high-value="50" class="stat-bar mana-bar" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="stat-item">
+                            <ui:VisualElement class="stat-line">
+                                <ui:Label text="HARMONY" class="stat-name" />
+                                <ui:Label name="HarmonyValue" text="0/100" class="stat-numbers" />
+                            </ui:VisualElement>
+                            <ui:ProgressBar name="HarmonyBar" value="0" high-value="100" class="stat-bar harmony-bar" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="stat-item">
+                            <ui:VisualElement class="stat-line">
+                                <ui:Label text="DISCORD" class="stat-name" />
+                                <ui:Label name="DiscordValue" text="0/100" class="stat-numbers" />
+                            </ui:VisualElement>
+                            <ui:ProgressBar name="DiscordBar" value="0" high-value="100" class="stat-bar discord-bar" />
+                        </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement class="stats-panel">
-                    <ui:Label text="CONDITION" class="panel-header" />
-                    <ui:VisualElement class="stat-item">
-                        <ui:VisualElement class="stat-line">
-                            <ui:Label text="HEALTH" class="stat-name" />
-                            <ui:Label name="HealthValue" text="100/100" class="stat-numbers" />
+
+                <!-- Map Section in Left Sidebar -->
+                <ui:VisualElement class="map-section">
+                    <ui:Label text="🗺️ Equestria Map" class="section-title" />
+                    <ui:VisualElement name="map-grid" class="map-grid" />
+                    <ui:VisualElement class="map-controls">
+                        <ui:Button name="map-north" text="↑" class="map-dir-btn" />
+                        <ui:VisualElement class="map-controls-row">
+                            <ui:Button name="map-west" text="←" class="map-dir-btn" />
+                            <ui:Button name="map-east" text="→" class="map-dir-btn" />
                         </ui:VisualElement>
-                        <ui:ProgressBar name="HealthBar" value="100" high-value="100" class="stat-bar health-bar" />
+                        <ui:Button name="map-south" text="↓" class="map-dir-btn" />
                     </ui:VisualElement>
-                    <ui:VisualElement class="stat-item">
-                        <ui:VisualElement class="stat-line">
-                            <ui:Label text="ENERGY" class="stat-name" />
-                            <ui:Label name="StaminaValue" text="100/100" class="stat-numbers" />
-                        </ui:VisualElement>
-                        <ui:ProgressBar name="StaminaBar" value="100" high-value="100" class="stat-bar energy-bar" />
-                    </ui:VisualElement>
-                    <ui:VisualElement class="stat-item">
-                        <ui:VisualElement class="stat-line">
-                            <ui:Label text="MANA" class="stat-name" />
-                            <ui:Label name="ManaValue" text="50/50" class="stat-numbers" />
-                        </ui:VisualElement>
-                        <ui:ProgressBar name="ManaBar" value="50" high-value="50" class="stat-bar mana-bar" />
-                    </ui:VisualElement>
-                    <ui:VisualElement class="stat-item">
-                        <ui:VisualElement class="stat-line">
-                            <ui:Label text="HARMONY" class="stat-name" />
-                            <ui:Label name="HarmonyValue" text="0/100" class="stat-numbers" />
-                        </ui:VisualElement>
-                        <ui:ProgressBar name="HarmonyBar" value="0" high-value="100" class="stat-bar harmony-bar" />
-                    </ui:VisualElement>
-                    <ui:VisualElement class="stat-item">
-                        <ui:VisualElement class="stat-line">
-                            <ui:Label text="DISCORD" class="stat-name" />
-                            <ui:Label name="DiscordValue" text="0/100" class="stat-numbers" />
-                        </ui:VisualElement>
-                        <ui:ProgressBar name="DiscordBar" value="0" high-value="100" class="stat-bar discord-bar" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement class="center-pane">
-                <ui:ScrollView name="NarrativeScroll" class="narrative-scroll">
-                    <ui:Label name="StoryTitle" text="Chapter 1: Falling Through the Breathing Forest" class="story-title font--title" />
-                    <!-- StoryBody will be populated via RichStoryRenderer to support inline images and formatted text -->
-                    <ui:VisualElement name="StoryBody" class="story-body" />
-                </ui:ScrollView>
+
+            <!-- Right Main Area -->
+            <ui:VisualElement class="main-area">
+                <ui:VisualElement class="story-section">
+                    <ui:ScrollView name="NarrativeScroll" class="narrative-scroll">
+                        <ui:Label name="StoryTitle" text="Chapter 1: Falling Through the Breathing Forest" class="story-title font--title" />
+                        <!-- StoryBody will be populated via RichStoryRenderer to support inline images and formatted text -->
+                        <ui:VisualElement name="StoryBody" class="story-body" />
+                    </ui:ScrollView>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="ChoicesPanel" class="choices-panel">
+                    <ui:Button name="Choice1" text="[1]" class="choice-btn font--ui" />
+                    <ui:Button name="Choice2" text="[2]" class="choice-btn font--ui" />
+                    <ui:Button name="Choice3" text="[3]" class="choice-btn font--ui" />
+                    <ui:Button name="Choice4" text="[4]" class="choice-btn font--ui" />
+                    <ui:Button name="Choice5" text="[5]" class="choice-btn font--ui" />
+                    <ui:Button name="Choice6" text="[6]" class="choice-btn font--ui" />
+                    <ui:Button name="Choice7" text="[7]" class="choice-btn font--ui" />
+                    <ui:Button name="Choice8" text="[8]" class="choice-btn font--ui" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="ChoicesPanel" class="choices-panel">
-            <ui:Button name="Choice1" text="[1]" class="choice-btn font--ui" />
-            <ui:Button name="Choice2" text="[2]" class="choice-btn font--ui" />
-            <ui:Button name="Choice3" text="[3]" class="choice-btn font--ui" />
-            <ui:Button name="Choice4" text="[4]" class="choice-btn font--ui" />
-            <ui:Button name="Choice5" text="[5]" class="choice-btn font--ui" />
-            <ui:Button name="Choice6" text="[6]" class="choice-btn font--ui" />
-            <ui:Button name="Choice7" text="[7]" class="choice-btn font--ui" />
-            <ui:Button name="Choice8" text="[8]" class="choice-btn font--ui" />
-        </ui:VisualElement>
+
+        <!-- Bottom Navigation -->
         <ui:VisualElement name="BottomNav" class="bottom-nav">
             <ui:Button name="CharacterButton" text="Character" class="nav-btn nav-btn--character character-button" />
             <ui:Button name="InventoryButton" text="Items" class="nav-btn nav-btn--inventory items-button" />

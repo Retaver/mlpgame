@@ -272,13 +272,8 @@ namespace MyGameNamespace
         /// </summary>
         private void InitializeUI(VisualElement root)
         {
-            mapModal = root.Q<VisualElement>("map-modal");
-            mapModalContainer = root.Q<VisualElement>("map-modal-container");
+            // Look for embedded map grid in sidebar instead of modal
             mapContainer = root.Q<VisualElement>("map-grid");
-            locationNameLabel = root.Q<Label>("location-name");
-            locationDescriptionLabel = root.Q<Label>("location-description");
-            movementButtons = root.Q<VisualElement>("movement-buttons");
-            closeMapButton = root.Q<Button>("close-map-button");
 
             if (mapContainer == null)
             {
@@ -286,34 +281,28 @@ namespace MyGameNamespace
                 return;
             }
 
-            // Set up close button
-            if (closeMapButton != null)
-            {
-                closeMapButton.clicked += HideMap;
-            }
-
-            // Create movement buttons if they don't exist
-            CreateMovementButtons();
-
             // Create the map grid
             CreateMapGrid();
+
+            // Set up map navigation buttons in sidebar
+            SetupSidebarNavigation(root);
         }
 
         /// <summary>
-        /// Create the movement control buttons
+        /// Set up sidebar navigation buttons
         /// </summary>
-        private void CreateMovementButtons()
+        private void SetupSidebarNavigation(VisualElement root)
         {
-            if (movementButtons == null) return;
+            // Set up directional buttons in sidebar
+            var northBtn = root.Q<Button>("map-north");
+            var southBtn = root.Q<Button>("map-south");
+            var eastBtn = root.Q<Button>("map-east");
+            var westBtn = root.Q<Button>("map-west");
 
-            // Clear existing buttons
-            movementButtons.Clear();
-
-            // Create directional buttons
-            CreateDirectionButton("North", "↑", () => MovePlayer(0, 1));
-            CreateDirectionButton("South", "↓", () => MovePlayer(0, -1));
-            CreateDirectionButton("East", "→", () => MovePlayer(1, 0));
-            CreateDirectionButton("West", "←", () => MovePlayer(-1, 0));
+            if (northBtn != null) northBtn.clicked += () => MovePlayer(0, 1);
+            if (southBtn != null) southBtn.clicked += () => MovePlayer(0, -1);
+            if (eastBtn != null) eastBtn.clicked += () => MovePlayer(1, 0);
+            if (westBtn != null) westBtn.clicked += () => MovePlayer(-1, 0);
         }
 
         /// <summary>
@@ -367,28 +356,70 @@ namespace MyGameNamespace
             {
                 tile.AddToClassList("discovered");
             }
+            else
+            {
+                tile.AddToClassList("invalid");
+            }
 
             // Mark player position
             if (x == playerPosition.x && y == playerPosition.y)
             {
-                tile.AddToClassList("player-location");
-                var playerIcon = new VisualElement();
+                tile.AddToClassList("active");
+                var playerIcon = new Label("●");
                 playerIcon.AddToClassList("player-icon");
                 tile.Add(playerIcon);
             }
 
-            // Add location name for discovered locations
+            // Add simple location indicator for discovered locations
             if (discoveredLocations.Contains(new Vector2Int(x, y)) && location.LocationType != LocationType.Empty && location.LocationType != LocationType.Path)
             {
-                var nameLabel = new Label(location.Name);
-                nameLabel.AddToClassList("tile-name");
-                tile.Add(nameLabel);
+                var locationIcon = new Label(GetLocationIcon(location.LocationType));
+                locationIcon.AddToClassList("location-icon");
+                tile.Add(locationIcon);
             }
 
-            // Make tile clickable
+            // Make tile clickable for movement
             tile.RegisterCallback<ClickEvent>(evt => OnTileClicked(x, y));
 
             return tile;
+        }
+
+        /// <summary>
+        /// Get icon for location type
+        /// </summary>
+        private string GetLocationIcon(LocationType type)
+        {
+            switch (type)
+            {
+                case LocationType.Town:
+                case LocationType.City:
+                case LocationType.Capital:
+                    return "🏘️";
+                case LocationType.Farm:
+                    return "🌾";
+                case LocationType.Forest:
+                    return "🌲";
+                case LocationType.Home:
+                    return "🏠";
+                case LocationType.Shop:
+                    return "🏪";
+                case LocationType.Library:
+                    return "📚";
+                case LocationType.Castle:
+                    return "🏰";
+                case LocationType.Mountain:
+                    return "⛰️";
+                case LocationType.River:
+                    return "🌊";
+                case LocationType.Lake:
+                    return "🏞️";
+                case LocationType.Ruins:
+                    return "🏛️";
+                case LocationType.Kirin:
+                    return "🐉";
+                default:
+                    return "📍";
+            }
         }
 
         /// <summary>
@@ -398,17 +429,15 @@ namespace MyGameNamespace
         {
             var location = mapGrid[x, y];
 
-            // Update location info display
-            if (locationNameLabel != null)
-                locationNameLabel.text = location.Name;
-
-            if (locationDescriptionLabel != null)
-                locationDescriptionLabel.text = location.Description;
-
             // If it's an adjacent location, allow movement
             if (IsAdjacentToPlayer(x, y) && location.IsAccessible)
             {
                 MovePlayer(x - playerPosition.x, y - playerPosition.y);
+            }
+            // If it's the current location, maybe show info (could be expanded later)
+            else if (x == playerPosition.x && y == playerPosition.y)
+            {
+                Debug.Log($"[MapSystem] Current location: {location.Name}");
             }
         }
 
@@ -476,17 +505,12 @@ namespace MyGameNamespace
         }
 
         /// <summary>
-        /// Update the location information display
+        /// Update the location information display (removed for embedded layout)
         /// </summary>
         private void UpdateLocationInfo()
         {
-            var currentLocation = mapGrid[playerPosition.x, playerPosition.y];
-
-            if (locationNameLabel != null)
-                locationNameLabel.text = currentLocation.Name;
-
-            if (locationDescriptionLabel != null)
-                locationDescriptionLabel.text = currentLocation.Description;
+            // Location info is now handled by the main game UI
+            // This method is kept for compatibility but doesn't update UI elements
         }
 
         /// <summary>
@@ -609,29 +633,6 @@ namespace MyGameNamespace
             Lake,
             Ruins,
             Kirin
-        }
-
-        /// <summary>
-        /// Show the map modal
-        /// </summary>
-        public void ShowMap()
-        {
-            if (mapModal != null)
-            {
-                mapModal.style.display = DisplayStyle.Flex;
-                UpdateMapDisplay();
-            }
-        }
-
-        /// <summary>
-        /// Hide the map modal
-        /// </summary>
-        public void HideMap()
-        {
-            if (mapModal != null)
-            {
-                mapModal.style.display = DisplayStyle.None;
-            }
         }
     }
 }

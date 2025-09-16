@@ -29,17 +29,18 @@
 }
 
 /* Layout containers */
-.top-row {
+.game-layout {
     flex-direction: row;
     flex-grow: 1;
-    min-height: 400px;
-    max-height: 600px;
+    width: 100%;
+    height: 100%;
 }
 
-.player-pane {
+.left-sidebar {
+    flex-direction: column;
+    width: 320px;
     min-width: 280px;
-    max-width: 320px;
-    width: 300px;
+    max-width: 360px;
     background-color: rgb(30, 26, 32);
     border-width: 1px;
     border-color: rgb(60, 54, 70);
@@ -49,14 +50,75 @@
     flex-shrink: 0;
 }
 
-.center-pane {
+.main-area {
+    flex-direction: column;
+    flex-grow: 1;
+    min-width: 400px;
+}
+
+.character-section {
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.map-section {
+    flex-direction: column;
+    background-color: rgba(32, 28, 40, 0.8);
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: rgb(70, 60, 84);
+    padding: 12px;
+    flex-grow: 1;
+}
+
+.section-title {
+    font-size: 14px;
+    -unity-font-style: bold;
+    color: rgb(226, 220, 234);
+    margin-bottom: 8px;
+    -unity-text-align: middle-center;
+}
+
+.map-controls {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.map-controls-row {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 4px 0;
+}
+
+.map-dir-btn {
+    width: 32px;
+    height: 32px;
+    background-color: rgb(44, 40, 52);
+    border-width: 1px;
+    border-color: rgb(82, 72, 96);
+    border-radius: 6px;
+    color: rgb(220, 214, 224);
+    margin: 2px;
+    font-size: 14px;
+    padding: 0;
+}
+
+.map-dir-btn:hover {
+    background-color: rgb(54, 50, 64);
+    border-color: rgb(108, 96, 124);
+    color: rgb(242, 238, 248);
+}
+
+.story-section {
     flex-grow: 1;
     background-color: rgb(28, 24, 32);
     border-width: 1px;
     border-color: rgb(70, 60, 84);
     border-radius: 8px;
     padding: 12px;
-    min-width: 400px;
+    margin-bottom: 12px;
 }
 
 /* Character info */
@@ -380,10 +442,10 @@
 
 /* Individual tile */
 .map-tile {
-    width: 36px;
-    height: 36px;
-    margin: 2px;
-    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    margin: 1px;
+    border-radius: 2px;
     background-color: rgb(36, 30, 46);
     border-color: rgb(82, 72, 96);
     border-width: 1px;
@@ -391,10 +453,24 @@
     align-items: center;
     justify-content: center;
     color: rgb(220, 214, 224);
+    font-size: 10px;
+    position: relative;
+}
+
+/* Player icon on current location */
+.player-icon {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 8px;
+    color: rgb(255, 255, 0);
+    font-weight: bold;
+}
+
+/* Location icons for special locations */
+.location-icon {
     font-size: 12px;
-    /* 'cursor: pointer' is not recognized by some Unity versions; use default cursor or set via C# if needed */
-    /* cursor: pointer; */
-    /* transition: background-color 0.15s ease; - commented out to avoid Unity UI Toolkit compatibility warnings */
+    text-align: center;
 }
 
 /* Highlight the active tile (current location) */

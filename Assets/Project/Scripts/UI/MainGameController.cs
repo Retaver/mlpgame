@@ -61,13 +61,8 @@ public class MainGameController : MonoBehaviour
 
     private void OnMapButtonClicked()
     {
-        if (mapSystem != null)
-        {
-            mapSystem.ShowMap();
-        }
-        else
-        {
-            Debug.LogWarning("[MainGameController] MapSystem not found!");
-        }
+        // Map is now always visible in the sidebar, so this method is kept for compatibility
+        // Could potentially scroll to map section or provide visual feedback
+        Debug.Log("[MainGameController] Map is always visible in the left sidebar");
     }
 }
