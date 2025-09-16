@@ -49,11 +49,6 @@
                         <ui:ProgressBar name="DiscordBar" value="0" high-value="100" class="stat-bar discord-bar" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="MapRoot" class="map-root">
-                    <ui:Label name="MapTitle" text="Map" class="map-title" />
-                    <ui:VisualElement name="MapGrid" class="map-grid" />
-                    <ui:Label name="MapDescription" text="" class="map-description" />
-                </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement class="center-pane">
                 <ui:ScrollView name="NarrativeScroll" class="narrative-scroll">
