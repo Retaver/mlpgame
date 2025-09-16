@@ -119,6 +119,18 @@ namespace MyGameNamespace
                 Debug.Log($"[MLPGameUI] Wired Options button: {optionsBtn.name}");
             }
             else Debug.Log("[MLPGameUI] OptionsButton not found (optional).");
+
+            // Wire character sheet close button
+            var closeBtn = root.Q<Button>("close-button");
+            if (closeBtn != default)
+            {
+                closeBtn.clicked -= OnCharacterClose;
+                closeBtn.clicked += OnCharacterClose;
+                closeBtn.SetEnabled(true);
+                closeBtn.pickingMode = PickingMode.Position;
+                Debug.Log("[MLPGameUI] Wired Character Sheet close button.");
+            }
+            else Debug.Log("[MLPGameUI] Character Sheet close button not found.");
         }
 
         private Button FindButtonRobust(params string[] namesAndClasses)
@@ -203,6 +215,23 @@ namespace MyGameNamespace
             }
 
             Debug.LogWarning("[MLPGameUI] Character sheet not found in any UIDocument.");
+        }
+
+        private void OnCharacterClose()
+        {
+            // Hide the character sheet
+            var docs = Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None);
+            foreach (var d in docs)
+            {
+                if (d == default || d.rootVisualElement == default) continue;
+                var sheet = d.rootVisualElement.Q<VisualElement>("character-sheet-modal")
+                          ?? d.rootVisualElement.Q<VisualElement>("character-sheet-container");
+                if (sheet != default)
+                {
+                    sheet.style.display = DisplayStyle.None;
+                    return;
+                }
+            }
         }
 
         private void OnMenu()
