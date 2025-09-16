@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12345678901234567890123456789012, type: 3}
+  m_Name: Cloudsdale
+  m_EditorClassIdentifier: 
+  locationName: Cloudsdale
+  description: The floating city in the clouds, home to pegasi and the center of
+    weather control in Equestria. Features cloud buildings and the Wonderbolts Academy.
+  locationImage: {fileID: 0}
+  canMoveNorth: 1
+  canMoveSouth: 1
+  canMoveEast: 1
+  canMoveWest: 1
+  hasShop: 1
+  hasInn: 1
+  isRestArea: 1
+  possibleEvents: []
+  charactersPresent:
+  - Rainbow Dash
+  - Fluttershy
+  - Spitfire
+  - Soarin

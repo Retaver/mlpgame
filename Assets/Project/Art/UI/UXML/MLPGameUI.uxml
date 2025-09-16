@@ -60,49 +60,11 @@
                         <ui:ProgressBar name="DiscordBar" value="0" high-value="100" class="stat-bar discord-bar" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <!-- Interactive Map Section -->
-                <ui:VisualElement name="map-section" class="map-section">
-                    <ui:Label text="Equestria Map" class="map-title" />
-
-                    <!-- Map Grid Container -->
-                    <ui:VisualElement name="map-grid" class="map-grid" />
-
-                    <!-- Location Information Panel -->
-                    <ui:VisualElement class="location-info-panel">
-                        <ui:Label name="location-name" text="Ponyville" class="location-name" />
-                        <ui:Label name="location-description" text="The heart of Equestria! A bustling town filled with friendly ponies." class="location-description" />
-                    </ui:VisualElement>
-
-                    <!-- Movement Controls -->
-                    <ui:VisualElement name="movement-buttons" class="movement-controls">
-                        <!-- Buttons will be created dynamically by MapSystem.cs -->
-                    </ui:VisualElement>
-
-                    <!-- Map Legend -->
-                    <ui:VisualElement class="map-legend">
-                        <ui:Label text="Legend:" class="legend-title" />
-                        <ui:VisualElement class="legend-item">
-                            <ui:VisualElement class="legend-color town-color" />
-                            <ui:Label text="Towns" class="legend-text" />
-                        </ui:VisualElement>
-                        <ui:VisualElement class="legend-item">
-                            <ui:VisualElement class="legend-color forest-color" />
-                            <ui:Label text="Forests" class="legend-text" />
-                        </ui:VisualElement>
-                        <ui:VisualElement class="legend-item">
-                            <ui:VisualElement class="legend-color shop-color" />
-                            <ui:Label text="Shops" class="legend-text" />
-                        </ui:VisualElement>
-                        <ui:VisualElement class="legend-item">
-                            <ui:VisualElement class="legend-color player-marker" />
-                            <ui:Label text="You Are Here" class="legend-text" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement class="center-pane">
                 <ui:ScrollView name="NarrativeScroll" class="narrative-scroll">
-                    <ui:Label name="StoryTitle" text="Chapter 1: A New Beginning" class="story-title font--title" />
+                    <ui:Label name="StoryTitle" text="Chapter 1: Falling Through the Breathing Forest" class="story-title font--title" />
                     <!-- StoryBody will be populated via RichStoryRenderer to support inline images and formatted text -->
                     <ui:VisualElement name="StoryBody" class="story-body" />
                 </ui:ScrollView>
@@ -121,6 +83,7 @@
         <ui:VisualElement name="BottomNav" class="bottom-nav">
             <ui:Button name="CharacterButton" text="Character" class="nav-btn nav-btn--character character-button" />
             <ui:Button name="InventoryButton" text="Items" class="nav-btn nav-btn--inventory items-button" />
+            <ui:Button name="MapButton" text="🗺️ Map" class="nav-btn nav-btn--map map-button" />
             <ui:Button name="MenuButton" text="Menu" class="nav-btn nav-btn--settings menu-button" />
         </ui:VisualElement>
         <!-- Character Sheet Modal (initially hidden) -->
@@ -200,6 +163,28 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="sheet-footer" class="sheet-footer">
                     <ui:Button name="close-button" text="Close" class="sheet-button primary" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        <!-- Map Modal Overlay (initially hidden) -->
+        <ui:VisualElement name="map-modal" class="map-modal-overlay" style="display: none;">
+            <ui:VisualElement name="map-modal-container" class="map-modal-container">
+                <ui:VisualElement name="map-header" class="map-header">
+                    <ui:Label text="🗺️ Equestria Map" class="map-modal-title" />
+                    <ui:Button name="close-map-button" text="❌" class="map-close-btn" />
+                </ui:VisualElement>
+
+                <!-- Compact Map Grid -->
+                <ui:VisualElement name="map-grid" class="map-grid-compact" />
+
+                <!-- Location Info (compact) -->
+                <ui:VisualElement name="location-info-compact" class="location-info-compact">
+                    <ui:Label name="location-name" text="Everfree Forest" class="location-name-compact" />
+                    <ui:Label name="location-description" text="The mysterious forest where your adventure begins..." class="location-description-compact" />
+                </ui:VisualElement>
+
+                <!-- Movement Controls (compact) -->
+                <ui:VisualElement name="movement-buttons" class="movement-buttons-compact">
+                    <!-- Buttons will be created dynamically by MapSystem.cs -->
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

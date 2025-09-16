@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12345678901234567890123456789012, type: 3}
+  m_Name: Everfree Forest
+  m_EditorClassIdentifier: 
+  locationName: Everfree Forest
+  description: The mysterious forest where your adventure begins. Plants grow wild here,
+    animals take care of themselves, and ancient magic lingers in the air. Home to timberwolves
+    and the ancient castle ruins.
+  locationImage: {fileID: 0}
+  canMoveNorth: 1
+  canMoveSouth: 1
+  canMoveEast: 1
+  canMoveWest: 1
+  hasShop: 0
+  hasInn: 0
+  isRestArea: 0
+  possibleEvents: []
+  charactersPresent:
+  - Timberwolves
+  - Emberglow (Kirin)

@@ -20,10 +20,12 @@ namespace MyGameNamespace
 
         [Header("UI References")]
         [SerializeField] private UIDocument uiDocument;
-        private VisualElement mapContainer;
+        private VisualElement mapModal;
+        private VisualElement mapModalContainer;
         private Label locationNameLabel;
         private Label locationDescriptionLabel;
         private VisualElement movementButtons;
+        private Button closeMapButton;
 
         // Map data
         private MapLocation[,] mapGrid;
@@ -93,42 +95,30 @@ namespace MyGameNamespace
         }
 
         /// <summary>
-        /// Set up the MLP-themed map with various pony locations
+        /// Set up the MLP-themed map with Everfree Isekai story locations
         /// </summary>
         private void SetupMLPMapLocations()
         {
-            // Ponyville (starting area)
-            SetLocation(5, 4, "Ponyville", "The heart of Equestria! A bustling town filled with friendly ponies.", LocationType.Town);
+            // Everfree Forest (starting area - player starts here)
+            SetLocation(5, 4, "Everfree Forest", "The mysterious forest where your adventure begins. Home to timberwolves and ancient magic.", LocationType.Forest);
 
-            // Canterlot
-            SetLocation(7, 6, "Canterlot", "The majestic capital city of Equestria, home to Princess Celestia.", LocationType.Capital);
+            // Moon-Mirror Lake (transformation scene)
+            SetLocation(4, 5, "Moon-Mirror Lake", "A serene lake that reflects the night sky. This is where you first transformed.", LocationType.Lake);
 
-            // Sweet Apple Acres
-            SetLocation(3, 3, "Sweet Apple Acres", "Applejack's family farm. The best apples in all of Equestria!", LocationType.Farm);
+            // Ancient Castle Ruins (magical circle)
+            SetLocation(3, 3, "Ancient Castle Ruins", "Ancient ruins with a magical circle. The moon's blessing awaits here.", LocationType.Ruins);
 
-            // Everfree Forest
-            SetLocation(2, 5, "Everfree Forest", "A mysterious and dangerous forest. Zecora's hut is nearby.", LocationType.Forest);
+            // Kirin Village (Emberglow's home)
+            SetLocation(2, 6, "Kirin Village", "Hidden village of the Kirin people. Emberglow's peaceful home.", LocationType.Kirin);
 
-            // Cloudsdale
-            SetLocation(6, 7, "Cloudsdale", "The floating city of pegasi. Rainbow Dash's hometown!", LocationType.City);
+            // Path to Canterlot (exit from Everfree)
+            SetLocation(6, 2, "Path to Canterlot", "The mountain path leading toward the majestic city of Canterlot.", LocationType.Path);
 
-            // Crystal Empire
-            SetLocation(8, 2, "Crystal Empire", "A magical empire ruled by Princess Cadance and Shining Armor.", LocationType.Capital);
+            // Timberwolf Den (dangerous area)
+            SetLocation(7, 5, "Timberwolf Den", "A dangerous area where timberwolves gather. Best avoided at night.", LocationType.Forest);
 
-            // Fluttershy's Cottage
-            SetLocation(4, 5, "Fluttershy's Cottage", "A cozy cottage surrounded by animal friends.", LocationType.Home);
-
-            // Rarity's Boutique
-            SetLocation(5, 5, "Carousel Boutique", "Rarity's fashion boutique in Ponyville.", LocationType.Shop);
-
-            // Sugarcube Corner
-            SetLocation(6, 4, "Sugarcube Corner", "Pinkie Pie's bakery. Cupcakes and parties!", LocationType.Shop);
-
-            // Golden Oak Library
-            SetLocation(4, 4, "Golden Oak Library", "Twilight Sparkle's library. Knowledge awaits!", LocationType.Library);
-
-            // Whitetail Woods
-            SetLocation(1, 4, "Whitetail Woods", "A peaceful forest area perfect for picnics.", LocationType.Forest);
+            // Zap Apple Grove (mystical location)
+            SetLocation(1, 4, "Zap Apple Grove", "A grove where zap apples grow during the harvest moon.", LocationType.Farm);
 
             // Connect locations with paths
             CreateMapConnections();
@@ -192,15 +182,24 @@ namespace MyGameNamespace
         /// </summary>
         private void InitializeUI(VisualElement root)
         {
+            mapModal = root.Q<VisualElement>("map-modal");
+            mapModalContainer = root.Q<VisualElement>("map-modal-container");
             mapContainer = root.Q<VisualElement>("map-grid");
             locationNameLabel = root.Q<Label>("location-name");
             locationDescriptionLabel = root.Q<Label>("location-description");
             movementButtons = root.Q<VisualElement>("movement-buttons");
+            closeMapButton = root.Q<Button>("close-map-button");
 
             if (mapContainer == null)
             {
                 Debug.LogError("[MapSystem] Map container not found in UXML!");
                 return;
+            }
+
+            // Set up close button
+            if (closeMapButton != null)
+            {
+                closeMapButton.clicked += HideMap;
             }
 
             // Create movement buttons if they don't exist
@@ -517,6 +516,32 @@ namespace MyGameNamespace
         Library,
         Castle,
         Mountain,
-        River
+        River,
+        Lake,
+        Ruins,
+        Kirin
+    }
+
+    /// <summary>
+    /// Show the map modal
+    /// </summary>
+    public void ShowMap()
+    {
+        if (mapModal != null)
+        {
+            mapModal.style.display = DisplayStyle.Flex;
+            UpdateMapDisplay();
+        }
+    }
+
+    /// <summary>
+    /// Hide the map modal
+    /// </summary>
+    public void HideMap()
+    {
+        if (mapModal != null)
+        {
+            mapModal.style.display = DisplayStyle.None;
+        }
     }
 }

@@ -33,17 +33,20 @@
     flex-direction: row;
     flex-grow: 1;
     min-height: 400px;
+    max-height: 600px;
 }
 
 .player-pane {
-    min-width: 300px;
-    max-width: 350px;
+    min-width: 280px;
+    max-width: 320px;
+    width: 300px;
     background-color: rgb(30, 26, 32);
     border-width: 1px;
     border-color: rgb(60, 54, 70);
     border-radius: 8px;
     padding: 12px;
     margin-right: 12px;
+    flex-shrink: 0;
 }
 
 .center-pane {
@@ -53,6 +56,7 @@
     border-color: rgb(70, 60, 84);
     border-radius: 8px;
     padding: 12px;
+    min-width: 400px;
 }
 
 /* Character info */
@@ -437,4 +441,110 @@
  * same defaults as the other navigation buttons. */
 .nav-btn--map {
     /* intentionally left blank */
+}
+
+/* ===== MAP MODAL STYLES ===== */
+
+/* Map Modal Overlay */
+.map-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Map Modal Container */
+.map-modal-container {
+    width: 90%;
+    max-width: 800px;
+    height: 80%;
+    max-height: 600px;
+    background-color: rgb(30, 26, 32);
+    border-radius: 12px;
+    border-width: 2px;
+    border-color: rgb(70, 60, 84);
+    flex-direction: column;
+    padding: 0;
+}
+
+/* Map Header */
+.map-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(60, 54, 70);
+    background-color: rgb(40, 36, 42);
+    border-radius: 12px 12px 0 0;
+}
+
+.map-modal-title {
+    font-size: 20px;
+    -unity-font-style: bold;
+    color: rgb(220, 214, 224);
+    margin: 0;
+}
+
+.map-close-btn {
+    width: 32px;
+    height: 32px;
+    background-color: rgb(60, 54, 70);
+    border-radius: 16px;
+    border-width: 1px;
+    border-color: rgb(80, 74, 90);
+    color: rgb(220, 214, 224);
+    font-size: 16px;
+    padding: 0;
+}
+
+/* Compact Map Grid */
+.map-grid-compact {
+    flex-grow: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(28, 24, 32);
+    padding: 20px;
+    margin: 0 20px;
+    border-radius: 8px;
+    min-height: 300px;
+}
+
+/* Location Info (Compact) */
+.location-info-compact {
+    padding: 12px 20px;
+    background-color: rgb(35, 31, 37);
+    border-radius: 8px;
+    margin: 0 20px 12px 20px;
+}
+
+.location-name-compact {
+    font-size: 16px;
+    -unity-font-style: bold;
+    color: rgb(220, 214, 224);
+    margin-bottom: 4px;
+}
+
+.location-description-compact {
+    font-size: 12px;
+    color: rgb(180, 174, 184);
+    margin: 0;
+    max-height: 40px;
+    overflow: hidden;
+}
+
+/* Movement Buttons (Compact) */
+.movement-buttons-compact {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 20px;
+    gap: 8px;
 }

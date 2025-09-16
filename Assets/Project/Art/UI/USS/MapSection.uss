@@ -1,103 +1,107 @@
 /* MapSection.uss - MLP-themed interactive map styling */
 
-.map-section {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 10px;
-    background-color: rgb(30, 26, 32); /* Dark purple background matching HUD */
-    border-radius: 8px;
-    border-color: rgb(70, 60, 84); /* Medium purple border matching HUD */
-    border-width: 1px;
-    min-height: 400px;
-}
-
-.map-title {
-    font-size: 18px;
-    -unity-font-style: bold;
-    color: rgb(220, 214, 224); /* Light purple text matching HUD */
-    -unity-text-align: middle-center;
-    margin-bottom: 10px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-/* Map Grid */
-.map-grid {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(28, 24, 32); /* Dark purple background matching center pane */
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 10px;
-    min-height: 200px;
-    border-color: rgb(70, 60, 84); /* Medium purple border */
-    border-width: 1px;
-}
-
 /* Default tile styling - undiscovered */
 .map-tile {
-    width: 35px;
-    height: 35px;
+    width: 24px;
+    height: 24px;
     margin: 1px;
-    border-radius: 5px;
-    border-color: rgb(70, 60, 84); /* Medium purple border */
+    border-radius: 3px;
+    border-color: rgb(70, 60, 84);
     border-width: 1px;
     position: relative;
     /* cursor: arrow; - commented out to avoid Unity UI Toolkit compatibility warnings */
     /* transition: all 0.2s ease; - commented out to avoid Unity UI Toolkit compatibility warnings */
     opacity: 0.3;
-    background-color: rgb(38, 34, 44); /* Dark purple for undiscovered tiles */
+    background-color: rgb(38, 34, 44);
 }
 
 /* Discovered tiles */
 .map-tile.discovered {
     opacity: 1.0;
-    background-color: rgb(45, 40, 52); /* Slightly lighter purple for discovered tiles */
+    background-color: rgb(45, 40, 52);
 }
 
 /* Specific location type tiles */
 .map-tile.town {
-    background-color: rgb(210, 180, 96); /* Energy bar gold for towns */
+    background-color: rgb(210, 180, 96);
 }
 
 .map-tile.city {
-    background-color: rgb(148, 104, 210); /* Mana bar purple for cities */
+    background-color: rgb(148, 104, 210);
 }
 
 .map-tile.capital {
-    background-color: rgb(170, 90, 220); /* Discord bar purple for capitals */
+    background-color: rgb(170, 90, 220);
 }
 
 .map-tile.farm {
-    background-color: rgb(96, 170, 180); /* Harmony bar teal for farms */
+    background-color: rgb(96, 170, 180);
 }
 
 .map-tile.forest {
-    background-color: rgb(76, 140, 160); /* Darker teal for forests */
+    background-color: rgb(76, 140, 160);
 }
 
 .map-tile.home {
-    background-color: rgb(176, 72, 100); /* Health bar red for homes */
+    background-color: rgb(176, 72, 100);
 }
 
 .map-tile.shop {
-    background-color: rgb(255, 105, 180); /* Hot pink for shops */
+    background-color: rgb(255, 105, 180);
 }
 
 .map-tile.library {
-    background-color: rgb(100, 149, 237); /* Cornflower blue for libraries */
+    background-color: rgb(100, 149, 237);
 }
 
 .map-tile.castle {
-    background-color: rgb(255, 215, 0); /* Gold for castles */
+    background-color: rgb(255, 215, 0);
 }
 
 .map-tile.mountain {
-    background-color: rgb(105, 105, 105); /* Gray for mountains */
+    background-color: rgb(105, 105, 105);
 }
 
 .map-tile.river {
+    background-color: rgb(65, 105, 225);
+}
+
+.map-tile.lake {
+    background-color: rgb(30, 144, 255);
+}
+
+.map-tile.ruins {
+    background-color: rgb(139, 69, 19);
+}
+
+.map-tile.kirin {
+    background-color: rgb(255, 140, 0);
+}
+
+/* Player marker */
+.map-tile.player {
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(255, 0, 0);
+    border-width: 2px;
+    opacity: 1.0;
+}
+
+/* Movement buttons */
+.movement-btn {
+    width: 40px;
+    height: 40px;
+    background-color: rgb(60, 54, 70);
+    border-radius: 20px;
+    border-width: 1px;
+    border-color: rgb(80, 74, 90);
+    color: rgb(220, 214, 224);
+    font-size: 16px;
+    margin: 4px;
+}
+
+.movement-btn:hover {
+    background-color: rgb(80, 74, 90);
+} {
     background-color: rgb(70, 130, 180); /* Steel blue for rivers */
 }
 

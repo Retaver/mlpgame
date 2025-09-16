@@ -7,10 +7,12 @@ using MyGameNamespace;
 public class MainGameController : MonoBehaviour
 {
     [SerializeField] private UIDocument gameUIDocument;
+    [SerializeField] private MapSystem mapSystem;
 
     private VisualElement root;
     private Label storyText;
     private VisualElement choicesPanel;
+    private Button mapButton;
 
     private void Awake()
     {
@@ -26,6 +28,19 @@ public class MainGameController : MonoBehaviour
 
         storyText = root.Q<Label>("StoryText");
         choicesPanel = root.Q<VisualElement>("ChoicesPanel");
+        mapButton = root.Q<Button>("MapButton");
+
+        // Set up map button
+        if (mapButton != null)
+        {
+            mapButton.clicked += OnMapButtonClicked;
+        }
+
+        // Find MapSystem if not assigned
+        if (mapSystem == null)
+        {
+            mapSystem = FindFirstObjectByType<MapSystem>();
+        }
 
         // Try to bind to GameManager player/story
         var gm = GameManager.Instance ?? FindFirstObjectByType<GameManager>();
@@ -41,6 +56,18 @@ public class MainGameController : MonoBehaviour
             {
                 gm.StoryManager.SetPlayer(player);
             }
+        }
+    }
+
+    private void OnMapButtonClicked()
+    {
+        if (mapSystem != null)
+        {
+            mapSystem.ShowMap();
+        }
+        else
+        {
+            Debug.LogWarning("[MainGameController] MapSystem not found!");
         }
     }
 }
