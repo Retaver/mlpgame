@@ -57,32 +57,67 @@
 
 /* Character info */
 .character-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+    margin: 4px;
+}
+
+.character-display {
     flex-direction: row;
-    margin-bottom: 12px;
     align-items: center;
+    margin-bottom: 4px;
 }
 
 .character-portrait {
-    width: 80px;
-    height: 80px;
-    margin-right: 12px;
-    border-radius: 8px;
-    background-color: rgb(46, 40, 54);
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+    border: 2px solid #ffffff;
+    margin-right: 8px;
+    flex-shrink: 0;
 }
 
-.character-info {
+.character-basic-info {
+    flex-direction: column;
+    align-items: flex-start;
     flex-grow: 1;
 }
 
 .character-name {
-    color: rgb(238, 232, 244);
-    margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
 }
 
-.character-details {
-    color: rgb(186, 176, 200);
+.character-level {
     font-size: 12px;
-    margin-bottom: 2px;
+    color: #cccccc;
+    margin: 0;
+    padding: 0;
+}
+
+.character-details-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.character-detail {
+    font-size: 11px;
+    color: #aaaaaa;
+    margin: 0;
+    padding: 0;
+}
+
+.bits-value {
+    font-weight: bold;
+    color: #ffff00;
 }
 
 /* Stats panel */

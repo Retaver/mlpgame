@@ -615,7 +615,7 @@ private void WireBottomBarButtons()
         if (characterName != default) characterName.text = currentPlayer.name ?? "Unnamed";
         if (raceLabel != default) raceLabel.text = $"Race: {GetDisplayRaceName(currentPlayer.race)}";
         if (levelLabel != default) levelLabel.text = $"Level {currentPlayer.level}";
-        if (bitsValue != default) bitsValue.text = currentPlayer.bits.ToString();
+        if (bitsValue != default) bitsValue.text = $"{currentPlayer.bits} Bits";
     }
 
     private void UpdateStats()

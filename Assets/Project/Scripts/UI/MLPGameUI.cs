@@ -49,17 +49,8 @@ namespace MyGameNamespace
                 return;
             }
 
-            // Ensure character sheet is hidden initially
-            var sheetModal = root.Q<VisualElement>("character-sheet-modal");
-            if (sheetModal != default)
-            {
-                sheetModal.style.display = DisplayStyle.None;
-                Debug.Log("[MLPGameUI] Character sheet modal initialized as hidden");
-            }
-            else
-            {
-                Debug.LogWarning("[MLPGameUI] Character sheet modal not found in UXML!");
-            }
+            // Initialize HUD with current player data
+            UpdateHUD();
 
             // Locate buttons by various possible names or class for compatibility
             characterBtn = FindButtonRobust("CharacterButton", "Character", "character-button");
@@ -340,8 +331,10 @@ namespace MyGameNamespace
             Debug.Log($"[MLPGameUI] Found player: {player.name}, Level {player.level}, Skills: {player.skillPoints}, Perks: {player.perks?.Count ?? 0}");
 
             // Update character name and level in header
-            var nameLabel = root.Q<Label>("character-name");
-            var levelLabel = root.Q<Label>("character-level");
+            var nameLabel = root.Q<Label>("CharacterName");
+            var levelLabel = root.Q<Label>("LevelLabel");
+            var raceLabel = root.Q<Label>("RaceLabel");
+            var bitsLabel = root.Q<Label>("BitsValue");
 
             if (nameLabel != default)
             {
@@ -350,13 +343,37 @@ namespace MyGameNamespace
             }
             else
             {
-                Debug.LogWarning("[MLPGameUI] character-name label not found");
+                Debug.LogWarning("[MLPGameUI] CharacterName label not found");
             }
 
             if (levelLabel != default)
             {
                 levelLabel.text = $"Level {player.level}";
                 Debug.Log($"[MLPGameUI] Updated character level to: {levelLabel.text}");
+            }
+            else
+            {
+                Debug.LogWarning("[MLPGameUI] LevelLabel not found");
+            }
+
+            if (raceLabel != default)
+            {
+                raceLabel.text = $"Race: {player.race}";
+                Debug.Log($"[MLPGameUI] Updated character race to: {raceLabel.text}");
+            }
+            else
+            {
+                Debug.LogWarning("[MLPGameUI] RaceLabel not found");
+            }
+
+            if (bitsLabel != default)
+            {
+                bitsLabel.text = $"{player.bits} Bits";
+                Debug.Log($"[MLPGameUI] Updated character bits to: {bitsLabel.text}");
+            }
+            else
+            {
+                Debug.LogWarning("[MLPGameUI] BitsValue label not found");
             }
 
             // Update character portrait
@@ -367,6 +384,54 @@ namespace MyGameNamespace
 
             // Populate perks panel
             PopulatePerksPanel(player);
+        }
+
+        public void UpdateHUD()
+        {
+            Debug.Log("[MLPGameUI] Updating HUD with current player data");
+
+            // Get the current player character
+            var player = GetCurrentPlayerCharacter();
+            if (player == null)
+            {
+                Debug.LogWarning("[MLPGameUI] No player character found to update HUD");
+                return;
+            }
+
+            Debug.Log($"[MLPGameUI] Updating HUD for player: {player.name}, Level {player.level}, {player.bits} Bits");
+
+            // Update HUD elements
+            var nameLabel = root.Q<Label>("CharacterName");
+            var levelLabel = root.Q<Label>("LevelLabel");
+            var raceLabel = root.Q<Label>("RaceLabel");
+            var bitsLabel = root.Q<Label>("BitsValue");
+
+            if (nameLabel != default)
+            {
+                nameLabel.text = player.name ?? "Unknown";
+                Debug.Log($"[MLPGameUI] Updated HUD character name to: {nameLabel.text}");
+            }
+
+            if (levelLabel != default)
+            {
+                levelLabel.text = $"Level {player.level}";
+                Debug.Log($"[MLPGameUI] Updated HUD character level to: {levelLabel.text}");
+            }
+
+            if (raceLabel != default)
+            {
+                raceLabel.text = $"Race: {player.race}";
+                Debug.Log($"[MLPGameUI] Updated HUD character race to: {raceLabel.text}");
+            }
+
+            if (bitsLabel != default)
+            {
+                bitsLabel.text = $"{player.bits} Bits";
+                Debug.Log($"[MLPGameUI] Updated HUD character bits to: {bitsLabel.text}");
+            }
+
+            // Update character portrait
+            UpdateCharacterPortrait(player);
         }
 
         private void PopulateSkillsPanel(PlayerCharacter player)

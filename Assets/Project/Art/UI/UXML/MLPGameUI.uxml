@@ -8,12 +8,16 @@
         <ui:VisualElement class="top-row">
             <ui:VisualElement class="player-pane">
                 <ui:VisualElement class="character-header">
-                    <ui:Image name="CharacterPortrait" class="character-portrait" />
-                    <ui:VisualElement class="character-info">
-                        <ui:Label name="CharacterName" text="Amber Trail" class="character-name font--title" />
-                        <ui:Label name="RaceLabel" text="Race: EarthPony" class="character-details" />
-                        <ui:Label name="LevelLabel" text="Level 1" class="character-details" />
-                        <ui:Label name="BitsValue" text="250" class="character-details" />
+                    <ui:VisualElement class="character-display">
+                        <ui:Image name="CharacterPortrait" class="character-portrait" />
+                        <ui:VisualElement class="character-basic-info">
+                            <ui:Label name="CharacterName" text="Amber Trail" class="character-name font--title" />
+                            <ui:Label name="LevelLabel" text="Level 1" class="character-level" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="character-details-row">
+                        <ui:Label name="RaceLabel" text="Race: EarthPony" class="character-detail" />
+                        <ui:Label name="BitsValue" text="250 Bits" class="character-detail bits-value" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement class="stats-panel">
