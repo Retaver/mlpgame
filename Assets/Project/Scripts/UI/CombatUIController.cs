@@ -42,7 +42,17 @@ public class CombatUIController : MonoBehaviour
     private void Awake()
     {
         doc = GetComponent<UIDocument>();
-        // TODO: attackDb and narrationDb may be assigned in inspector. If null, Accept that and show fallback UI.
+
+        // Handle null databases with fallback behavior
+        if (attackDb == null)
+        {
+            Debug.LogWarning("[CombatUIController] AttackDatabase not assigned. Using fallback attack buttons.");
+        }
+
+        if (narrationDb == null)
+        {
+            Debug.Log("[CombatUIController] AttackNarrationDatabase not assigned. Combat narration will be disabled.");
+        }
     }
 
     private void OnEnable()

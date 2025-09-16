@@ -82,10 +82,18 @@ public class CharacterSheetDebugger : MonoBehaviour
                     Debug.LogError("❌ Player gameStats is null!");
                 }
 
-                // 7. Test showing character sheet directly.  ShowCharacterSheet() does
+                // 7. Test showing character sheet directly. ShowCharacterSheet() does
                 // not take a player argument; use the parameterless overload.
-                Debug.Log("🔧 Attempting to show character sheet/* TODO */");
-                charSheet.ShowCharacterSheet();
+                Debug.Log("🔧 Attempting to show character sheet...");
+                try
+                {
+                    charSheet.ShowCharacterSheet();
+                    Debug.Log("✅ Character sheet shown successfully");
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogError($"❌ Failed to show character sheet: {ex.Message}");
+                }
 
             }
             else

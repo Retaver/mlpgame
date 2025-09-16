@@ -25,20 +25,65 @@ public static class StoryEffectDispatcher
                 GameEventSystem.Instance.RaiseCombatRequested(target);
                 break;
 
-            // Examples for other types you already use in the JSON
             case "personality":
-                // TODO: Apply your personality changes here.
-                // Example: PersonalitySystem.Apply(target, value);
+                // Apply personality trait changes
+                if (!string.IsNullOrEmpty(target))
+                {
+                    var trait = PersonalityDatabase.GetTrait(target);
+                    if (trait != null)
+                    {
+                        // Apply trait modifiers to player character
+                        var player = GameManager.Instance?.PlayerCharacter;
+                        if (player != null)
+                        {
+                            player.AddPersonalityTrait(trait);
+                            Debug.Log($"[StoryEffectDispatcher] Applied personality trait: {trait.name}");
+                        }
+                        else
+                        {
+                            Debug.LogWarning("[StoryEffectDispatcher] No player character found to apply personality trait");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"[StoryEffectDispatcher] Personality trait not found: {target}");
+                    }
+                }
                 break;
 
             case "flag":
-                // TODO: Set a story flag using your own flag system.
-                // Example: StoryFlags.Set(target, stringValue ?? "true");
+                // Set story flag using StoryManager
+                if (!string.IsNullOrEmpty(target))
+                {
+                    StoryManager.Instance?.SetFlag(target, stringValue ?? value?.ToString() ?? "true");
+                    Debug.Log($"[StoryEffectDispatcher] Set story flag: {target} = {stringValue ?? value?.ToString() ?? "true"}");
+                }
                 break;
 
             case "item":
-                // TODO: Add item to inventory.
-                // Example: Inventory.Add(target, value);
+                // Add item to inventory
+                if (!string.IsNullOrEmpty(target))
+                {
+                    var item = ItemDatabase.GetItem(target);
+                    if (item != null)
+                    {
+                        var inventorySystem = FindFirstObjectByType<InventorySystem>();
+                        if (inventorySystem != null)
+                        {
+                            int quantity = value > 0 ? (int)value : 1;
+                            inventorySystem.AddItem(item, quantity);
+                            Debug.Log($"[StoryEffectDispatcher] Added item to inventory: {item.name} x{quantity}");
+                        }
+                        else
+                        {
+                            Debug.LogWarning("[StoryEffectDispatcher] InventorySystem not found to add item");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"[StoryEffectDispatcher] Item not found: {target}");
+                    }
+                }
                 break;
 
             default:

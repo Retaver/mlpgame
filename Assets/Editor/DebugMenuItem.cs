@@ -17,8 +17,24 @@ public class DebugMenuItem
         // Attempt to revalidate the menu
         if (!menuExists)
         {
-            Debug.LogWarning("The menu item 'Assets/Create/Scripting/C# Script' is missing. Attempting to revalidate/* TODO */");
-            EditorApplication.ExecuteMenuItem("Assets/Create/Scripting/C# Script");
+            Debug.LogWarning("The menu item 'Assets/Create/Scripting/C# Script' is missing. Attempting to revalidate menu system.");
+
+            // Try to revalidate the menu system
+            EditorApplication.ExecuteMenuItem("Window/General/Menu");
+
+            // Wait a frame and check again
+            EditorApplication.delayCall += () =>
+            {
+                bool menuExistsAfterRefresh = Menu.GetChecked("Assets/Create/Scripting/C# Script");
+                if (menuExistsAfterRefresh)
+                {
+                    Debug.Log("Menu revalidation successful - C# Script menu item is now available.");
+                }
+                else
+                {
+                    Debug.LogError("Menu revalidation failed - C# Script menu item is still missing. Try restarting Unity Editor.");
+                }
+            };
         }
         else
         {
