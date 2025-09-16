@@ -84,7 +84,7 @@ namespace MyGameNamespace
             // Debug: Check if styles are applied
             var computedStyle = root.resolvedStyle;
             Debug.Log($"[MLPGameUI] Root background color: {computedStyle.backgroundColor}");
-            Debug.Log($"[MLPGameUI] Root width: {computedStyle.width.value}, height: {computedStyle.height.value}");
+            Debug.Log($"[MLPGameUI] Root width: {computedStyle.width}, height: {computedStyle.height}");
 
             // Fallback: Ensure basic visibility if styles didn't load
             if (computedStyle.backgroundColor.a == 0)

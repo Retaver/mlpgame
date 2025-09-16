@@ -1,11 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Project/Art/UI/USS/MLPGameUI.uss" />
+    <Style src="Assets/Project/Art/UI/USS/MLPGameUI.uss" />
     <!-- Import portrait style overrides to ensure portraits maintain aspect ratio -->
-    <Style src="project://database/Assets/Project/Art/UI/USS/Portraits.uss" />
+    <Style src="Assets/Project/Art/UI/USS/Portraits.uss" />
     <!-- Import CharacterSheet styles -->
-    <Style src="project://database/Assets/Project/Art/UI/USS/CharacterSheet.uss" />
+    <Style src="Assets/Project/Art/UI/USS/CharacterSheet.uss" />
     <!-- Import MapSection styles -->
-    <Style src="project://database/Assets/Project/Art/UI/USS/MapSection.uss" />
+    <Style src="Assets/Project/Art/UI/USS/MapSection.uss" />
     <ui:VisualElement name="Root" class="gamehud-root theme--twilight font--ui">
         <!-- Main game layout: left sidebar + right main area -->
         <ui:VisualElement class="game-layout">
