@@ -22,6 +22,7 @@ namespace MyGameNamespace
         [SerializeField] private UIDocument uiDocument;
         private VisualElement mapModal;
         private VisualElement mapModalContainer;
+        private VisualElement mapContainer;
         private Label locationNameLabel;
         private Label locationDescriptionLabel;
         private VisualElement movementButtons;
@@ -29,7 +30,7 @@ namespace MyGameNamespace
 
         // Map data
         private MapLocation[,] mapGrid;
-        private Vector2Int playerPosition;
+        private Vector2Int playerPosition = new Vector2Int(5, 4); // Default to Ponyville
         private HashSet<Vector2Int> discoveredLocations = new HashSet<Vector2Int>();
 
         // UI Elements
@@ -70,6 +71,9 @@ namespace MyGameNamespace
             if (mapWidth <= 0) mapWidth = 10;
             if (mapHeight <= 0) mapHeight = 8;
 
+            Debug.Log($"[MapSystem] Initializing map with dimensions: {mapWidth}x{mapHeight}");
+
+            // Initialize arrays
             mapGrid = new MapLocation[mapWidth, mapHeight];
             tileElements = new VisualElement[mapWidth, mapHeight];
 
@@ -89,6 +93,8 @@ namespace MyGameNamespace
                 }
             }
 
+            Debug.Log($"[MapSystem] Map grid initialized with {mapWidth * mapHeight} locations");
+
             // Set up MLP-themed locations
             SetupMLPMapLocations();
 
@@ -97,6 +103,14 @@ namespace MyGameNamespace
                 playerPosition.y < 0 || playerPosition.y >= mapHeight)
             {
                 playerPosition = new Vector2Int(5, 4); // Default to Ponyville
+                Debug.Log($"[MapSystem] Player position reset to {playerPosition}");
+            }
+
+            // Ensure discoveredLocations is initialized
+            if (discoveredLocations == null)
+            {
+                discoveredLocations = new HashSet<Vector2Int>();
+                Debug.Log("[MapSystem] discoveredLocations was null, reinitialized");
             }
 
             discoveredLocations.Add(playerPosition);
@@ -104,7 +118,10 @@ namespace MyGameNamespace
                 playerPosition.y >= 0 && playerPosition.y < mapHeight)
             {
                 mapGrid[playerPosition.x, playerPosition.y].IsAccessible = true;
+                Debug.Log($"[MapSystem] Player position {playerPosition} marked as accessible");
             }
+
+            Debug.Log($"[MapSystem] Map initialization complete");
         }
 
         /// <summary>
@@ -142,7 +159,14 @@ namespace MyGameNamespace
         /// </summary>
         private void SetLocation(int x, int y, string name, string description, LocationType type)
         {
-            if (x >= 0 && x < mapWidth && y >= 0 && y < mapHeight)
+            if (mapGrid == null)
+            {
+                Debug.LogError("[MapSystem] mapGrid is null in SetLocation!");
+                return;
+            }
+
+            if (x >= 0 && x < mapWidth && y >= 0 && y < mapHeight &&
+                x < mapGrid.GetLength(0) && y < mapGrid.GetLength(1))
             {
                 mapGrid[x, y] = new MapLocation
                 {
@@ -152,6 +176,11 @@ namespace MyGameNamespace
                     LocationType = type,
                     IsAccessible = true
                 };
+                Debug.Log($"[MapSystem] Set location at ({x},{y}): {name}");
+            }
+            else
+            {
+                Debug.LogWarning($"[MapSystem] Invalid location coordinates: ({x},{y}) for map size {mapWidth}x{mapHeight}");
             }
         }
 
@@ -160,6 +189,12 @@ namespace MyGameNamespace
         /// </summary>
         private void CreateMapConnections()
         {
+            if (mapGrid == null)
+            {
+                Debug.LogError("[MapSystem] mapGrid is null in CreateMapConnections!");
+                return;
+            }
+
             // Mark areas around towns as accessible paths
             int[] townX = { 5, 7, 3, 6, 8, 4, 5, 6, 4 };
             int[] townY = { 4, 6, 3, 7, 2, 5, 5, 4, 4 };
@@ -179,15 +214,21 @@ namespace MyGameNamespace
 
                         if (nx >= 0 && nx < mapWidth && ny >= 0 && ny < mapHeight)
                         {
-                            if (mapGrid[nx, ny].LocationType == LocationType.Empty)
+                            // Double-check bounds and array validity
+                            if (mapGrid != null && nx < mapGrid.GetLength(0) && ny < mapGrid.GetLength(1))
                             {
-                                mapGrid[nx, ny].LocationType = LocationType.Path;
-                                mapGrid[nx, ny].IsAccessible = true;
+                                if (mapGrid[nx, ny].LocationType == LocationType.Empty)
+                                {
+                                    mapGrid[nx, ny].LocationType = LocationType.Path;
+                                    mapGrid[nx, ny].IsAccessible = true;
+                                }
                             }
                         }
                     }
                 }
             }
+
+            Debug.Log($"[MapSystem] Created connections for {townX.Length} town locations");
         }
 
         /// <summary>
