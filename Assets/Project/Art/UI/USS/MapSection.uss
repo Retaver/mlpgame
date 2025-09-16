@@ -4,19 +4,19 @@
     flex-direction: column;
     align-items: stretch;
     padding: 10px;
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 15px;
-    border: 3px solid #9370DB; /* Medium purple border */
+    background-color: rgb(30, 26, 32); /* Dark purple background matching HUD */
+    border-radius: 8px;
+    border: 1px solid rgb(70, 60, 84); /* Medium purple border matching HUD */
     min-height: 400px;
 }
 
 .map-title {
     font-size: 18px;
     font-weight: bold;
-    color: #8B4513; /* Saddle brown */
+    color: rgb(220, 214, 224); /* Light purple text matching HUD */
     text-align: center;
     margin-bottom: 10px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* Map Grid */
@@ -25,11 +25,12 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    background-color: rgba(173, 216, 230, 0.8); /* Light blue background */
-    border-radius: 10px;
+    background-color: rgb(28, 24, 32); /* Dark purple background matching center pane */
+    border-radius: 8px;
     padding: 10px;
     margin-bottom: 10px;
     min-height: 200px;
+    border: 1px solid rgb(70, 60, 84); /* Medium purple border */
 }
 
 /* Default tile styling - undiscovered */
@@ -38,23 +39,73 @@
     height: 35px;
     margin: 1px;
     border-radius: 5px;
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    border: 1px solid rgb(70, 60, 84); /* Medium purple border */
     position: relative;
     cursor: pointer;
     transition: all 0.2s ease;
     opacity: 0.3;
-    background-color: rgba(105, 105, 105, 0.5); /* Dim gray for undiscovered */
+    background-color: rgb(38, 34, 44); /* Dark purple for undiscovered tiles */
 }
 
 /* Discovered tiles */
 .map-tile.discovered {
     opacity: 1.0;
+    background-color: rgb(45, 40, 52); /* Slightly lighter purple for discovered tiles */
+}
+
+/* Specific location type tiles */
+.map-tile.town {
+    background-color: rgb(210, 180, 96); /* Energy bar gold for towns */
+}
+
+.map-tile.city {
+    background-color: rgb(148, 104, 210); /* Mana bar purple for cities */
+}
+
+.map-tile.capital {
+    background-color: rgb(170, 90, 220); /* Discord bar purple for capitals */
+}
+
+.map-tile.farm {
+    background-color: rgb(96, 170, 180); /* Harmony bar teal for farms */
+}
+
+.map-tile.forest {
+    background-color: rgb(76, 140, 160); /* Darker teal for forests */
+}
+
+.map-tile.home {
+    background-color: rgb(176, 72, 100); /* Health bar red for homes */
+}
+
+.map-tile.shop {
+    background-color: rgb(255, 105, 180); /* Hot pink for shops */
+}
+
+.map-tile.library {
+    background-color: rgb(100, 149, 237); /* Cornflower blue for libraries */
+}
+
+.map-tile.castle {
+    background-color: rgb(255, 215, 0); /* Gold for castles */
+}
+
+.map-tile.mountain {
+    background-color: rgb(105, 105, 105); /* Gray for mountains */
+}
+
+.map-tile.river {
+    background-color: rgb(70, 130, 180); /* Steel blue for rivers */
+}
+
+.map-tile.path {
+    background-color: rgb(50, 45, 55); /* Very dark purple for paths */
 }
 
 /* Player location */
 .map-tile.player-location {
-    border: 3px solid #FF0000; /* Red border for player */
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    border: 2px solid rgb(176, 72, 100); /* Health bar red for player border */
+    box-shadow: 0 0 8px rgba(176, 72, 100, 0.6);
 }
 
 .player-icon {
@@ -64,9 +115,9 @@
     transform: translate(-50%, -50%);
     width: 20px;
     height: 20px;
-    background-color: #FF0000; /* Red player marker */
+    background-color: rgb(176, 72, 100); /* Health bar red for player marker */
     border-radius: 50%;
-    border: 2px solid #FFFFFF;
+    border: 2px solid rgb(220, 214, 224); /* Light purple border */
 }
 
 /* Tile names */
@@ -76,31 +127,31 @@
     left: 50%;
     transform: translateX(-50%);
     font-size: 8px;
-    color: #000000;
+    color: rgb(220, 214, 224); /* Light purple text */
     text-align: center;
     white-space: nowrap;
-    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
 /* Location Info Panel */
 .location-info-panel {
-    background-color: rgba(255, 248, 220, 0.9); /* Cornsilk background */
+    background-color: rgb(38, 34, 44); /* Dark purple background */
     border-radius: 8px;
     padding: 8px;
     margin-bottom: 10px;
-    border: 2px solid #DDA0DD; /* Plum border */
+    border: 1px solid rgb(70, 60, 84); /* Medium purple border */
 }
 
 .location-name {
     font-size: 14px;
     font-weight: bold;
-    color: #8B4513; /* Saddle brown */
+    color: rgb(220, 214, 224); /* Light purple text */
     margin-bottom: 5px;
 }
 
 .location-description {
     font-size: 12px;
-    color: #2F4F4F; /* Dark slate gray */
+    color: rgb(188, 180, 204); /* Medium light purple text */
     line-height: 1.4;
 }
 
@@ -117,32 +168,32 @@
     width: 60px;
     height: 40px;
     margin: 2px;
-    background-color: rgba(135, 206, 235, 0.8); /* Sky blue */
+    background-color: rgb(45, 40, 52); /* Dark purple background */
     border-radius: 5px;
-    border: 2px solid #4682B4; /* Steel blue border */
-    color: #000000;
+    border: 1px solid rgb(70, 60, 84); /* Medium purple border */
+    color: rgb(220, 214, 224); /* Light purple text */
     font-weight: bold;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .direction-button:hover {
-    background-color: rgba(135, 206, 235, 1.0);
-    transform: scale(1.05);
+    background-color: rgb(55, 48, 64); /* Slightly lighter on hover */
+    border-color: rgb(90, 80, 104); /* Lighter border on hover */
 }
 
 /* Map Legend */
 .map-legend {
-    background-color: rgba(240, 248, 255, 0.9); /* Alice blue */
+    background-color: rgb(38, 34, 44); /* Dark purple background */
     border-radius: 8px;
     padding: 8px;
-    border: 1px solid #B0C4DE; /* Light steel blue */
+    border: 1px solid rgb(70, 60, 84); /* Medium purple border */
 }
 
 .legend-title {
     font-size: 12px;
     font-weight: bold;
-    color: #2F4F4F;
+    color: rgb(200, 192, 212); /* Light purple text */
     margin-bottom: 5px;
 }
 
@@ -157,29 +208,29 @@
     height: 15px;
     border-radius: 3px;
     margin-right: 5px;
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    border: 1px solid rgb(70, 60, 84); /* Medium purple border */
 }
 
 .town-color {
-    background-color: rgba(255, 215, 0, 0.8); /* Gold */
+    background-color: rgb(210, 180, 96); /* Energy bar gold */
 }
 
 .forest-color {
-    background-color: rgba(0, 100, 0, 0.8); /* Dark green */
+    background-color: rgb(96, 170, 180); /* Harmony bar teal */
 }
 
 .shop-color {
-    background-color: rgba(255, 105, 180, 0.8); /* Hot pink */
+    background-color: rgb(148, 104, 210); /* Mana bar purple */
 }
 
 .player-marker {
-    background-color: #FF0000; /* Red */
+    background-color: rgb(176, 72, 100); /* Health bar red */
     border-radius: 50%;
 }
 
 .legend-text {
     font-size: 11px;
-    color: #2F4F4F;
+    color: rgb(188, 180, 204); /* Medium light purple text */
 }
 
 /* Responsive adjustments */
