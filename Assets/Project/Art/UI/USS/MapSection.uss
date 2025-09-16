@@ -32,6 +32,7 @@
     min-height: 200px;
 }
 
+/* Default tile styling - undiscovered */
 .map-tile {
     width: 35px;
     height: 35px;
@@ -41,63 +42,13 @@
     position: relative;
     cursor: pointer;
     transition: all 0.2s ease;
-}
-
-.map-tile:hover {
-    transform: scale(1.1);
-    border-color: #FFD700; /* Gold border on hover */
-}
-
-/* Tile Types */
-.tile-empty {
-    background-color: rgba(169, 169, 169, 0.5); /* Dark gray for unexplored */
-}
-
-.tile-path {
-    background-color: rgba(210, 180, 140, 0.8); /* Tan for paths */
-}
-
-.tile-town {
-    background-color: rgba(255, 215, 0, 0.8); /* Gold for towns */
-}
-
-.tile-city {
-    background-color: rgba(255, 140, 0, 0.8); /* Dark orange for cities */
-}
-
-.tile-capital {
-    background-color: rgba(255, 20, 147, 0.8); /* Deep pink for capitals */
-    border: 2px solid #FFD700; /* Gold border */
-}
-
-.tile-farm {
-    background-color: rgba(34, 139, 34, 0.8); /* Forest green for farms */
-}
-
-.tile-forest {
-    background-color: rgba(0, 100, 0, 0.8); /* Dark green for forests */
-}
-
-.tile-home {
-    background-color: rgba(255, 192, 203, 0.8); /* Pink for homes */
-}
-
-.tile-shop {
-    background-color: rgba(255, 105, 180, 0.8); /* Hot pink for shops */
-}
-
-.tile-library {
-    background-color: rgba(70, 130, 180, 0.8); /* Steel blue for libraries */
+    opacity: 0.3;
+    background-color: rgba(105, 105, 105, 0.5); /* Dim gray for undiscovered */
 }
 
 /* Discovered tiles */
 .map-tile.discovered {
     opacity: 1.0;
-}
-
-.map-tile:not(.discovered) {
-    opacity: 0.3;
-    background-color: rgba(105, 105, 105, 0.5); /* Dim gray for undiscovered */
 }
 
 /* Player location */
