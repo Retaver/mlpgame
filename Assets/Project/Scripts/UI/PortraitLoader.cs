@@ -53,6 +53,17 @@ namespace MyGameNamespace.UI
         }
 
         /// <summary>
+        /// Build Resources path for a portrait file (without extension).
+        /// e.g., Portraits/EarthPony/Female/portrait
+        /// </summary>
+        public static string GetPortraitResourcePath(string race, string gender)
+        {
+            var r = NormalizeRace(race);
+            var g = NormalizeGender(gender);
+            return $"Portraits/{r}/{g}/portrait";
+        }
+
+        /// <summary>
         /// Build Resources path for a HUD portrait file (without extension).
         /// e.g., Portraits/HUDPortraits/EarthPony/Female/portrait
         /// </summary>
