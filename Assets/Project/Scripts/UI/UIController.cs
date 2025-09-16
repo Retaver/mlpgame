@@ -331,6 +331,22 @@ public class UIController : MonoBehaviour
         return buttons.FirstOrDefault(b => !string.IsNullOrEmpty(b.text) && b.text.ToLowerInvariant().Contains(lower));
     }
 
+    private Button FindButtonInElement(VisualElement element, params string[] namesAndClasses)
+    {
+        if (element == default) return null;
+
+        foreach (var name in namesAndClasses)
+        {
+            var btn = element.Q<Button>(name);
+            if (btn != default) return btn;
+
+            // Try as class name
+            btn = element.Q<Button>(className: name);
+            if (btn != default) return btn;
+        }
+        return null;
+    }
+
     private void OnBottomCharacterClicked()
     {
         if (verboseLogging) Debug.Log("[UIController] Bottom Character clicked");
@@ -451,26 +467,9 @@ private void WireBottomBarButtons()
         if (root != default)
         {
             // Try common IDs first
-            bottomCharacterButton = root.Q<Button>("CharacterButton")
-                                    ?? root.Q<Button>("Character")
-                                    ?? root.Q<Button>("character-button");
-            // Try common class names used in different UXML variants
-            bottomCharacterButton ??= root.Q<Button>(className: "character-button");
-            bottomCharacterButton ??= root.Q<Button>(className: "nav-btn--character");
-
-            bottomItemsButton = root.Q<Button>("ItemsButton")
-                                ?? root.Q<Button>("InventoryButton")
-                                ?? root.Q<Button>("Items")
-                                ?? root.Q<Button>("Inventory");
-            bottomItemsButton ??= root.Q<Button>(className: "items-button");
-            bottomItemsButton ??= root.Q<Button>(className: "nav-btn--inventory");
-
-            bottomMenuButton = root.Q<Button>("MenuButton")
-                               ?? root.Q<Button>("Menu")
-                               ?? root.Q<Button>("Pause")
-                               ?? root.Q<Button>("pause");
-            bottomMenuButton ??= root.Q<Button>(className: "menu-button");
-            bottomMenuButton ??= root.Q<Button>(className: "nav-btn--settings");
+            bottomCharacterButton = FindButtonInElement(root, "CharacterButton", "Character", "character-button", "nav-btn--character");
+            bottomItemsButton = FindButtonInElement(root, "ItemsButton", "InventoryButton", "Items", "Inventory", "items-button", "nav-btn--inventory");
+            bottomMenuButton = FindButtonInElement(root, "MenuButton", "Menu", "Pause", "menu-button", "nav-btn--settings");
         }
 
         // Fallback: look by button text within this root (contains match)
@@ -527,9 +526,21 @@ private void WireBottomBarButtons()
         }
 
         // Ensure buttons are enabled
-        if (bottomCharacterButton != default) bottomCharacterButton.SetEnabled(true);
-        if (bottomItemsButton != default) bottomItemsButton.SetEnabled(true);
-        if (bottomMenuButton != default) bottomMenuButton.SetEnabled(true);
+        if (bottomCharacterButton != default) 
+        {
+            bottomCharacterButton.SetEnabled(true);
+            bottomCharacterButton.pickingMode = PickingMode.Position;
+        }
+        if (bottomItemsButton != default) 
+        {
+            bottomItemsButton.SetEnabled(true);
+            bottomItemsButton.pickingMode = PickingMode.Position;
+        }
+        if (bottomMenuButton != default) 
+        {
+            bottomMenuButton.SetEnabled(true);
+            bottomMenuButton.pickingMode = PickingMode.Position;
+        }
 
         // Character - only wire if MLPGameUI is not present
         if (!mlpOwnsBottomBar)

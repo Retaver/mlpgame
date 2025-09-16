@@ -36,9 +36,7 @@ namespace MyGameNamespace
             }
 
             // Locate buttons by various possible names or class for compatibility
-            characterBtn = root.Q<Button>("CharacterButton")
-                          ?? root.Q<Button>(className: "character-button")
-                          ?? root.Q<Button>("Character");  // fallback
+            characterBtn = FindButtonRobust("CharacterButton", "Character", "character-button");
 
             // If not found in this UIDocument, search other documents in scene
             if (characterBtn == default)
@@ -46,38 +44,34 @@ namespace MyGameNamespace
                 var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None, FindObjectsInactive.Include);
                 foreach (var d in docs)
                 {
-                    if (d == default || d.rootVisualElement == default) continue;
-                    var b = d.rootVisualElement.Q<Button>("CharacterButton") ?? d.rootVisualElement.Q<Button>(className: "character-button") ?? d.rootVisualElement.Q<Button>("Character");
+                    if (d == default || d.rootVisualElement == default || d == uiDocument) continue;
+                    var b = FindButtonInDocument(d, "CharacterButton", "Character", "character-button");
                     if (b != default) { characterBtn = b; break; }
                 }
             }
 
-            menuBtn = root.Q<Button>("MenuButton")
-                      ?? root.Q<Button>(className: "menu-button");
+            menuBtn = FindButtonRobust("MenuButton", "Menu", "menu-button");
 
             if (menuBtn == default)
             {
                 var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None, FindObjectsInactive.Include);
                 foreach (var d in docs)
                 {
-                    if (d == default || d.rootVisualElement == default) continue;
-                    var b = d.rootVisualElement.Q<Button>("MenuButton") ?? d.rootVisualElement.Q<Button>(className: "menu-button") ?? d.rootVisualElement.Q<Button>("Menu");
+                    if (d == default || d.rootVisualElement == default || d == uiDocument) continue;
+                    var b = FindButtonInDocument(d, "MenuButton", "Menu", "menu-button");
                     if (b != default) { menuBtn = b; break; }
                 }
             }
 
-            inventoryBtn = root.Q<Button>("InventoryButton")
-                          ?? root.Q<Button>("ItemsButton")
-                          ?? root.Q<Button>(className: "items-button")
-                          ?? root.Q<Button>(className: "inventory-button");
+            inventoryBtn = FindButtonRobust("InventoryButton", "ItemsButton", "Items", "items-button", "inventory-button");
 
             if (inventoryBtn == default)
             {
                 var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None, FindObjectsInactive.Include);
                 foreach (var d in docs)
                 {
-                    if (d == default || d.rootVisualElement == default) continue;
-                    var b = d.rootVisualElement.Q<Button>("InventoryButton") ?? d.rootVisualElement.Q<Button>("ItemsButton") ?? d.rootVisualElement.Q<Button>(className: "items-button") ?? d.rootVisualElement.Q<Button>(className: "inventory-button") ?? d.rootVisualElement.Q<Button>("Items");
+                    if (d == default || d.rootVisualElement == default || d == uiDocument) continue;
+                    var b = FindButtonInDocument(d, "InventoryButton", "ItemsButton", "Items", "items-button", "inventory-button");
                     if (b != default) { inventoryBtn = b; break; }
                 }
             }
@@ -90,6 +84,9 @@ namespace MyGameNamespace
             {
                 characterBtn.clicked -= OnCharacter;
                 characterBtn.clicked += OnCharacter;
+                characterBtn.SetEnabled(true);
+                characterBtn.pickingMode = PickingMode.Position;
+                Debug.Log($"[MLPGameUI] Wired Character button: {characterBtn.name}");
             }
             else Debug.LogWarning("[MLPGameUI] CharacterButton not found.");
 
@@ -97,6 +94,9 @@ namespace MyGameNamespace
             {
                 menuBtn.clicked -= OnMenu;
                 menuBtn.clicked += OnMenu;
+                menuBtn.SetEnabled(true);
+                menuBtn.pickingMode = PickingMode.Position;
+                Debug.Log($"[MLPGameUI] Wired Menu button: {menuBtn.name}");
             }
             else Debug.LogWarning("[MLPGameUI] MenuButton not found.");
 
@@ -104,6 +104,9 @@ namespace MyGameNamespace
             {
                 inventoryBtn.clicked -= OnInventory;
                 inventoryBtn.clicked += OnInventory;
+                inventoryBtn.SetEnabled(true);
+                inventoryBtn.pickingMode = PickingMode.Position;
+                Debug.Log($"[MLPGameUI] Wired Inventory button: {inventoryBtn.name}");
             }
             else Debug.Log("[MLPGameUI] InventoryButton not found (optional).");
 
@@ -111,8 +114,43 @@ namespace MyGameNamespace
             {
                 optionsBtn.clicked -= OnOptions;
                 optionsBtn.clicked += OnOptions;
+                optionsBtn.SetEnabled(true);
+                optionsBtn.pickingMode = PickingMode.Position;
+                Debug.Log($"[MLPGameUI] Wired Options button: {optionsBtn.name}");
             }
             else Debug.Log("[MLPGameUI] OptionsButton not found (optional).");
+        }
+
+        private Button FindButtonRobust(params string[] namesAndClasses)
+        {
+            if (root == default) return null;
+
+            foreach (var name in namesAndClasses)
+            {
+                var btn = root.Q<Button>(name);
+                if (btn != default) return btn;
+
+                // Try as class name
+                btn = root.Q<Button>(className: name);
+                if (btn != default) return btn;
+            }
+            return null;
+        }
+
+        private Button FindButtonInDocument(UIDocument doc, params string[] namesAndClasses)
+        {
+            if (doc == default || doc.rootVisualElement == default) return null;
+
+            foreach (var name in namesAndClasses)
+            {
+                var btn = doc.rootVisualElement.Q<Button>(name);
+                if (btn != default) return btn;
+
+                // Try as class name
+                btn = doc.rootVisualElement.Q<Button>(className: name);
+                if (btn != default) return btn;
+            }
+            return null;
         }
 
         private void OnDisable()

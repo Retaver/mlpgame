@@ -331,16 +331,56 @@ namespace MyGameNamespace
             }
 
             // Ensure buttons are enabled
-            if (resumeBtn != default) resumeBtn.SetEnabled(true);
-            if (optionsBtn != default) optionsBtn.SetEnabled(true);
-            if (saveBtn != default) saveBtn.SetEnabled(true);
-            if (loadBtn != default) loadBtn.SetEnabled(true);
-            if (mainMenuBtn != default) mainMenuBtn.SetEnabled(true);
-            if (quitBtn != default) quitBtn.SetEnabled(true);
-            if (confirmSaveBtn != default) confirmSaveBtn.SetEnabled(true);
-            if (confirmLoadBtn != default) confirmLoadBtn.SetEnabled(true);
-            if (backSaveBtn != default) backSaveBtn.SetEnabled(true);
-            if (clearAllSavesBtn != default) clearAllSavesBtn.SetEnabled(true);
+            if (resumeBtn != default) 
+            {
+                resumeBtn.SetEnabled(true);
+                resumeBtn.pickingMode = PickingMode.Position;
+            }
+            if (optionsBtn != default) 
+            {
+                optionsBtn.SetEnabled(true);
+                optionsBtn.pickingMode = PickingMode.Position;
+            }
+            if (saveBtn != default) 
+            {
+                saveBtn.SetEnabled(true);
+                saveBtn.pickingMode = PickingMode.Position;
+            }
+            if (loadBtn != default) 
+            {
+                loadBtn.SetEnabled(true);
+                loadBtn.pickingMode = PickingMode.Position;
+            }
+            if (mainMenuBtn != default) 
+            {
+                mainMenuBtn.SetEnabled(true);
+                mainMenuBtn.pickingMode = PickingMode.Position;
+            }
+            if (quitBtn != default) 
+            {
+                quitBtn.SetEnabled(true);
+                quitBtn.pickingMode = PickingMode.Position;
+            }
+            if (confirmSaveBtn != default) 
+            {
+                confirmSaveBtn.SetEnabled(true);
+                confirmSaveBtn.pickingMode = PickingMode.Position;
+            }
+            if (confirmLoadBtn != default) 
+            {
+                confirmLoadBtn.SetEnabled(true);
+                confirmLoadBtn.pickingMode = PickingMode.Position;
+            }
+            if (backSaveBtn != default) 
+            {
+                backSaveBtn.SetEnabled(true);
+                backSaveBtn.pickingMode = PickingMode.Position;
+            }
+            if (clearAllSavesBtn != default) 
+            {
+                clearAllSavesBtn.SetEnabled(true);
+                clearAllSavesBtn.pickingMode = PickingMode.Position;
+            }
         }
 
         private void OnResume() { HidePauseMenu(); Debug.Log("[PauseMenu] Resume clicked -> HidePauseMenu"); }
