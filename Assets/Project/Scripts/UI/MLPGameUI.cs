@@ -276,32 +276,349 @@ namespace MyGameNamespace
                 uiDocument.panelSettings.sortingOrder = 200;
             }
 
+            // Populate character sheet with player data
+            PopulateCharacterSheet();
+
             // Initialize tabs when showing character sheet
             InitializeTabs();
 
             Debug.Log("[MLPGameUI] Character sheet shown successfully");
         }
 
-        private void OnCharacterClose()
+        private void PopulateCharacterSheet()
         {
-            Debug.Log("[MLPGameUI] Closing character sheet");
+            Debug.Log("[MLPGameUI] Populating character sheet with player data");
 
-            if (root == default)
+            // Get the current player character
+            var player = GetCurrentPlayerCharacter();
+            if (player == null)
             {
-                Debug.LogError("[MLPGameUI] No root visual element found for closing!");
+                Debug.LogWarning("[MLPGameUI] No player character found to populate character sheet");
                 return;
             }
 
-            var sheetModal = root.Q<VisualElement>("character-sheet-modal");
-            if (sheetModal == default)
+            // Update character name and level in header
+            var nameLabel = root.Q<Label>("character-name");
+            var levelLabel = root.Q<Label>("character-level");
+
+            if (nameLabel != default) nameLabel.text = player.name ?? "Unknown";
+            if (levelLabel != default) levelLabel.text = $"Level {player.level}";
+
+            // Populate skills panel
+            PopulateSkillsPanel(player);
+
+            // Populate perks panel
+            PopulatePerksPanel(player);
+        }
+
+        private void PopulateSkillsPanel(PlayerCharacter player)
+        {
+            if (skillsPanel == default) return;
+
+            Debug.Log("[MLPGameUI] Populating skills panel");
+
+            // Clear existing skill entries
+            var skillsGrid = skillsPanel.Q<VisualElement>("skills-grid");
+            if (skillsGrid != default)
             {
-                Debug.LogError("[MLPGameUI] Character sheet modal not found for closing!");
+                skillsGrid.Clear();
+            }
+
+            // Update skill points label
+            var skillPointsLabel = skillsPanel.Q<Label>("skill-points-label");
+            if (skillPointsLabel != default)
+            {
+                skillPointsLabel.text = $"Skill Points: {player.skillPoints}";
+            }
+
+            // Get skill tree to access all skills
+            var skillTree = CompatUtils.FindFirstObjectByTypeCompat<SkillTree>();
+            if (skillTree == default)
+            {
+                Debug.LogWarning("[MLPGameUI] No SkillTree found, showing basic categories");
+                // Fallback to basic categories if no skill tree
+                var basicSkills = new[]
+                {
+                    ("Combat", "Basic combat training"),
+                    ("Magic", "Magical ability"),
+                    ("Social", "Social interaction"),
+                    ("Nature", "Nature knowledge"),
+                    ("Crafting", "Item creation"),
+                    ("Leadership", "Group command")
+                };
+
+                if (skillsGrid != default)
+                {
+                    foreach (var (skillName, description) in basicSkills)
+                    {
+                        var skillCard = new VisualElement();
+                        skillCard.AddToClassList("skill-card");
+
+                        var skillNameLabel = new Label(skillName);
+                        skillNameLabel.AddToClassList("skill-name");
+
+                        var skillValueLabel = new Label("0"); // No skills learned
+                        skillValueLabel.AddToClassList("skill-value");
+
+                        skillCard.Add(skillNameLabel);
+                        skillCard.Add(skillValueLabel);
+
+                        skillsGrid.Add(skillCard);
+                    }
+                }
                 return;
             }
 
-            // Hide the character sheet
-            sheetModal.style.display = DisplayStyle.None;
-            Debug.Log("[MLPGameUI] Character sheet closed successfully");
+            // Get all skills and filter to learned ones
+            var allSkills = skillTree.GetAllSkills();
+            var learnedSkills = allSkills.Where(s => s.IsUnlocked).ToList();
+
+            if (learnedSkills.Count == 0)
+            {
+                // Show message if no skills learned
+                var noSkillsLabel = new Label("No skills learned yet. Visit the skill tree to learn skills!");
+                noSkillsLabel.AddToClassList("no-skills-message");
+                if (skillsGrid != default)
+                {
+                    skillsGrid.Add(noSkillsLabel);
+                }
+            }
+            else
+            {
+                // Group skills by category
+                var skillsByCategory = learnedSkills.GroupBy(s => s.category);
+
+                if (skillsGrid != default)
+                {
+                    foreach (var categoryGroup in skillsByCategory.OrderBy(g => g.Key.ToString()))
+                    {
+                        // Create category header
+                        var categoryHeader = new Label(categoryGroup.Key.ToString());
+                        categoryHeader.AddToClassList("skill-category-header");
+                        skillsGrid.Add(categoryHeader);
+
+                        // Add skills in this category
+                        foreach (var skill in categoryGroup.OrderBy(s => s.name))
+                        {
+                            var skillCard = new VisualElement();
+                            skillCard.AddToClassList("skill-card");
+
+                            var skillNameLabel = new Label($"{skill.name} (Rank {skill.currentRank}/{skill.maxRank})");
+                            skillNameLabel.AddToClassList("skill-name");
+
+                            var skillDescLabel = new Label(skill.description);
+                            skillDescLabel.AddToClassList("skill-description");
+
+                            skillCard.Add(skillNameLabel);
+                            skillCard.Add(skillDescLabel);
+                            skillsGrid.Add(skillCard);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void PopulatePerksPanel(PlayerCharacter player)
+        {
+            if (perksPanel == default) return;
+
+            Debug.Log("[MLPGameUI] Populating perks panel");
+
+            // Clear existing perk entries
+            var perksGrid = perksPanel.Q<VisualElement>("perks-grid");
+            if (perksGrid != default)
+            {
+                perksGrid.Clear();
+            }
+
+            // Populate with player's actual perks
+            if (player.perks != null && player.perks.Count > 0)
+            {
+                foreach (var perkType in player.perks)
+                {
+                    var perkCard = new VisualElement();
+                    perkCard.AddToClassList("perk-card");
+
+                    var perkNameLabel = new Label(FormatPerkName(perkType));
+                    perkNameLabel.AddToClassList("perk-name");
+
+                    var perkDescriptionLabel = new Label(GetPerkDescription(perkType));
+                    perkDescriptionLabel.AddToClassList("perk-description");
+
+                    perkCard.Add(perkNameLabel);
+                    perkCard.Add(perkDescriptionLabel);
+
+                    if (perksGrid != default)
+                    {
+                        perksGrid.Add(perkCard);
+                    }
+                }
+            }
+            else
+            {
+                // Show message if no perks
+                var emptyLabel = new Label("No perks learned yet.");
+                emptyLabel.AddToClassList("perks-empty");
+                if (perksGrid != default)
+                {
+                    perksGrid.Add(emptyLabel);
+                }
+            }
+        }
+
+        private PlayerCharacter GetCurrentPlayerCharacter()
+        {
+            // Try to get player from various sources
+            var gameManager = UnityEngine.Object.FindFirstObjectByType<GameManager>();
+            if (gameManager != null)
+            {
+                return gameManager.GetPlayer();
+            }
+
+            // Try UIController
+            var uiController = UnityEngine.Object.FindFirstObjectByType<UIController>();
+            if (uiController != null && uiController.GetType().GetField("currentPlayer", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance) != null)
+            {
+                return uiController.GetType().GetField("currentPlayer", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(uiController) as PlayerCharacter;
+            }
+
+            // Try finding any PlayerCharacter in scene
+            var playerChars = UnityEngine.Object.FindObjectsByType<PlayerCharacter>(FindObjectsInactive.Include);
+            if (playerChars.Length > 0)
+            {
+                return playerChars[0];
+            }
+
+            return null;
+        }
+
+        private string FormatPerkName(PerkType perkType)
+        {
+            // Convert enum names to readable format
+            string name = perkType.ToString();
+
+            // Handle special cases
+            var specialNames = new Dictionary<string, string>
+            {
+                { "EarthPonyStrength", "Earth Pony Strength" },
+                { "UnicornMagic", "Unicorn Magic" },
+                { "PegasusWings", "Pegasus Wings" },
+                { "BatPonyEcholocation", "Bat Pony Echolocation" },
+                { "GriffonTalons", "Griffon Talons" },
+                { "DragonBreath", "Dragon Breath" },
+                { "HumanVersatility", "Human Versatility" },
+                { "MagicalAptitude", "Magical Aptitude" },
+                { "TeleportMaster", "Teleport Master" },
+                { "MagicShield", "Magic Shield" },
+                { "SpellCaster", "Spell Caster" },
+                { "WeatherControl", "Weather Control" },
+                { "SonicRainboom", "Sonic Rainboom" },
+                { "CloudWalking", "Cloud Walking" },
+                { "AerialAce", "Aerial Ace" },
+                { "StormMaster", "Storm Master" },
+                { "EarthConnection", "Earth Connection" },
+                { "SuperStrength", "Super Strength" },
+                { "PlantWhisperer", "Plant Whisperer" },
+                { "IronHooves", "Iron Hooves" },
+                { "NaturalHealer", "Natural Healer" },
+                { "NightVision", "Night Vision" },
+                { "SilentFlight", "Silent Flight" },
+                { "EcholocationMaster", "Echolocation Master" },
+                { "ShadowStep", "Shadow Step" },
+                { "TalonStrike", "Talon Strike" },
+                { "KeenEye", "Keen Eye" },
+                { "PredatorInstinct", "Predator Instinct" },
+                { "AerialCombat", "Aerial Combat" },
+                { "DragonScales", "Dragon Scales" },
+                { "FireBreath", "Fire Breath" },
+                { "AncientWisdom", "Ancient Wisdom" },
+                { "DragonFear", "Dragon Fear" },
+                { "StrongBack", "Strong Back" },
+                { "FastLearner", "Fast Learner" }
+            };
+
+            if (specialNames.ContainsKey(name))
+            {
+                return specialNames[name];
+            }
+
+            // Default formatting: insert spaces before capital letters
+            return System.Text.RegularExpressions.Regex.Replace(name, "([a-z])([A-Z])", "$1 $2");
+        }
+
+        private string GetPerkDescription(PerkType perkType)
+        {
+            // Provide descriptions for perks
+            var descriptions = new Dictionary<PerkType, string>
+            {
+                // Racial perks
+                { PerkType.EarthPonyStrength, "Increases physical strength and endurance." },
+                { PerkType.UnicornMagic, "Grants basic magical abilities." },
+                { PerkType.PegasusWings, "Allows flight and aerial maneuvers." },
+                { PerkType.BatPonyEcholocation, "Enhanced senses in darkness." },
+                { PerkType.GriffonTalons, "Powerful claw attacks and grip." },
+                { PerkType.DragonBreath, "Breathe fire and withstand heat." },
+                { PerkType.HumanVersatility, "Adaptable to various situations." },
+
+                // Universal perks
+                { PerkType.Tough, "Increased resistance to damage." },
+                { PerkType.StrongBack, "Can carry heavier loads." },
+                { PerkType.Charming, "Better social interactions." },
+                { PerkType.Hardy, "Resists environmental hazards." },
+                { PerkType.FastLearner, "Learns skills more quickly." },
+
+                // Unicorn perks
+                { PerkType.MagicalAptitude, "Enhanced magical power." },
+                { PerkType.TeleportMaster, "Master of teleportation spells." },
+                { PerkType.MagicShield, "Create protective magical barriers." },
+                { PerkType.Levitation, "Lift and move objects with magic." },
+                { PerkType.SpellCaster, "Cast powerful spells." },
+
+                // Pegasus perks
+                { PerkType.WeatherControl, "Control weather patterns." },
+                { PerkType.SonicRainboom, "Break the sound barrier in flight." },
+                { PerkType.CloudWalking, "Walk on clouds." },
+                { PerkType.AerialAce, "Expert aerial combatant." },
+                { PerkType.StormMaster, "Command lightning and storms." },
+
+                // Earth Pony perks
+                { PerkType.EarthConnection, "Deep connection to the earth." },
+                { PerkType.SuperStrength, "Exceptional physical strength." },
+                { PerkType.PlantWhisperer, "Communicate with plants." },
+                { PerkType.IronHooves, "Unbreakable hooves." },
+                { PerkType.NaturalHealer, "Accelerate natural healing." },
+
+                // Bat Pony perks
+                { PerkType.NightVision, "See clearly in darkness." },
+                { PerkType.SilentFlight, "Fly without making noise." },
+                { PerkType.EcholocationMaster, "Perfect echolocation abilities." },
+                { PerkType.ShadowStep, "Move between shadows instantly." },
+
+                // Griffon perks
+                { PerkType.TalonStrike, "Devastating talon attacks." },
+                { PerkType.KeenEye, "Exceptional eyesight." },
+                { PerkType.PredatorInstinct, "Heightened hunting abilities." },
+                { PerkType.AerialCombat, "Master of aerial combat." },
+
+                // Dragon perks
+                { PerkType.DragonScales, "Tough, fire-resistant scales." },
+                { PerkType.FireBreath, "Breathe devastating flames." },
+                { PerkType.AncientWisdom, "Access to ancient knowledge." },
+                { PerkType.DragonFear, "Instill fear in enemies." },
+
+                // Human perks
+                { PerkType.Adaptability, "Quickly adapt to new situations." },
+                { PerkType.Innovation, "Create new tools and solutions." },
+                { PerkType.Diplomacy, "Excel at negotiations." },
+                { PerkType.QuickLearner, "Master new skills rapidly." }
+            };
+
+            if (descriptions.ContainsKey(perkType))
+            {
+                return descriptions[perkType];
+            }
+
+            return "A special ability or trait.";
         }
 
         private void InitializeTabs()
@@ -335,10 +652,28 @@ namespace MyGameNamespace
                     if (statsPanel != default) statsPanel.style.display = DisplayStyle.Flex;
                     break;
                 case "skills":
-                    if (skillsPanel != default) skillsPanel.style.display = DisplayStyle.Flex;
+                    if (skillsPanel != default)
+                    {
+                        skillsPanel.style.display = DisplayStyle.Flex;
+                        // Refresh skills data when tab is shown
+                        var player = GetCurrentPlayerCharacter();
+                        if (player != null)
+                        {
+                            PopulateSkillsPanel(player);
+                        }
+                    }
                     break;
                 case "perks":
-                    if (perksPanel != default) perksPanel.style.display = DisplayStyle.Flex;
+                    if (perksPanel != default)
+                    {
+                        perksPanel.style.display = DisplayStyle.Flex;
+                        // Refresh perks data when tab is shown
+                        var player = GetCurrentPlayerCharacter();
+                        if (player != null)
+                        {
+                            PopulatePerksPanel(player);
+                        }
+                    }
                     break;
                 case "effects":
                     if (effectsPanel != default) effectsPanel.style.display = DisplayStyle.Flex;

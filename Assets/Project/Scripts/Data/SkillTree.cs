@@ -195,8 +195,8 @@ public class SkillTree : MonoBehaviour
         return allSkills.Where(s => s.CanUpgrade(player, this)).ToList();
     }
 
-    public List<SkillNode> GetSkillsForRace(RaceType race)
+    public List<SkillNode> GetAllSkills()
     {
-        return allSkills.Where(s => s.allowedRaces.Count == 0 || s.allowedRaces.Contains(race)).ToList();
+        return new List<SkillNode>(allSkills);
     }
 }

@@ -141,6 +141,14 @@ namespace MyGameNamespace
             if (_panel == null) return;
             SetDisplay(_panel, DisplayStyle.Flex);
             _panel.Focus();
+
+            // Populate character sheet with current player data
+            var mlpGameUI = UnityEngine.Object.FindFirstObjectByType<MLPGameUI>();
+            if (mlpGameUI != null)
+            {
+                mlpGameUI.PopulateCharacterSheet();
+            }
+
             Debug.Log("[CharacterSheet] Show");
         }
 
