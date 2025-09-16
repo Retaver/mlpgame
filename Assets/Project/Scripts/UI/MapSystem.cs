@@ -78,18 +78,54 @@ namespace MyGameNamespace
             tileElements = new VisualElement[mapWidth, mapHeight];
 
             // Initialize with default empty locations
-            for (int x = 0; x < mapWidth; x++)
+            // Use try/catch around the allocation loop so we can log problematic indices if an IndexOutOfRangeException happens
+            int initX = -1, initY = -1;
+            try
             {
-                for (int y = 0; y < mapHeight; y++)
+                for (int x = 0; x < mapWidth; x++)
                 {
-                    mapGrid[x, y] = new MapLocation
+                    for (int y = 0; y < mapHeight; y++)
                     {
-                        Position = new Vector2Int(x, y),
-                        Name = "Unknown Area",
-                        Description = "An unexplored region of Equestria.",
-                        LocationType = LocationType.Empty,
-                        IsAccessible = false
-                    };
+                        initX = x; initY = y;
+                        mapGrid[x, y] = new MapLocation
+                        {
+                            Position = new Vector2Int(x, y),
+                            Name = "Unknown Area",
+                            Description = "An unexplored region of Equestria.",
+                            LocationType = LocationType.Empty,
+                            IsAccessible = false
+                        };
+                    }
+                }
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                int g0 = mapGrid == null ? -1 : mapGrid.GetLength(0);
+                int g1 = mapGrid == null ? -1 : mapGrid.GetLength(1);
+                Debug.LogError($"[MapSystem] IndexOutOfRange in InitializeMapData at x={initX}, y={initY} -- mapWidth={mapWidth}, mapHeight={mapHeight}, mapGridSize=({g0},{g1})\nException: {ex}");
+
+                // Attempt a safe recovery: re-create arrays with sensible defaults and continue
+                int safeW = Math.Max(1, Math.Min(mapWidth, 10));
+                int safeH = Math.Max(1, Math.Min(mapHeight, 8));
+                Debug.LogWarning($"[MapSystem] Reinitializing mapGrid and tileElements to safe size {safeW}x{safeH}");
+                mapWidth = safeW;
+                mapHeight = safeH;
+                mapGrid = new MapLocation[mapWidth, mapHeight];
+                tileElements = new VisualElement[mapWidth, mapHeight];
+
+                for (int x = 0; x < mapWidth; x++)
+                {
+                    for (int y = 0; y < mapHeight; y++)
+                    {
+                        mapGrid[x, y] = new MapLocation
+                        {
+                            Position = new Vector2Int(x, y),
+                            Name = "Unknown Area",
+                            Description = "An unexplored region of Equestria.",
+                            LocationType = LocationType.Empty,
+                            IsAccessible = false
+                        };
+                    }
                 }
             }
 
