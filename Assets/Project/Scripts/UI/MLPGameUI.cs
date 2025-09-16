@@ -516,13 +516,6 @@ namespace MyGameNamespace
                 return uiController.GetType().GetField("currentPlayer", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(uiController) as PlayerCharacter;
             }
 
-            // Try finding any PlayerCharacter in scene
-            var playerChars = UnityEngine.Object.FindObjectsByType<PlayerCharacter>(FindObjectsSortMode.None);
-            if (playerChars.Length > 0)
-            {
-                return playerChars[0];
-            }
-
             return null;
         }
 
