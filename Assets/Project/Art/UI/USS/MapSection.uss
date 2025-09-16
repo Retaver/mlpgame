@@ -214,7 +214,8 @@
     height: 15px;
     border-radius: 3px;
     margin-right: 5px;
-    border: 1px solid rgb(70, 60, 84); /* Medium purple border */
+    border-color: rgb(70, 60, 84); /* Medium purple border */
+    border-width: 1px;
 }
 
 .town-color {

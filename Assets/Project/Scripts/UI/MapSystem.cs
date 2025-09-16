@@ -14,7 +14,9 @@ namespace MyGameNamespace
         [Header("Map Configuration")]
         [SerializeField] private int mapWidth = 10;
         [SerializeField] private int mapHeight = 8;
+#pragma warning disable CS0414 // Suppress unused field warning
         [SerializeField] private float tileSize = 40f;
+#pragma warning restore CS0414
 
         [Header("UI References")]
         [SerializeField] private UIDocument uiDocument;
