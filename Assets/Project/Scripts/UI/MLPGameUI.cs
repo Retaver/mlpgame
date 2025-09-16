@@ -13,6 +13,8 @@ namespace MyGameNamespace
         // Cached UI elements
         private VisualElement root;
         private Button characterBtn, menuBtn, optionsBtn, inventoryBtn;
+        private Button statsTabBtn, skillsTabBtn, perksTabBtn, effectsTabBtn;
+        private VisualElement statsPanel, skillsPanel, perksPanel, effectsPanel;
 
         private void Awake()
         {
@@ -152,6 +154,49 @@ namespace MyGameNamespace
                 Debug.Log("[MLPGameUI] Wired Character Sheet close button.");
             }
             else Debug.Log("[MLPGameUI] Character Sheet close button not found.");
+
+            // Find and wire character sheet tabs
+            statsTabBtn = root.Q<Button>("stats-tab");
+            skillsTabBtn = root.Q<Button>("skills-tab");
+            perksTabBtn = root.Q<Button>("perks-tab");
+            effectsTabBtn = root.Q<Button>("effects-tab");
+
+            statsPanel = root.Q<VisualElement>("stats-panel");
+            skillsPanel = root.Q<VisualElement>("skills-panel");
+            perksPanel = root.Q<VisualElement>("perks-panel");
+            effectsPanel = root.Q<VisualElement>("effects-panel");
+
+            // Wire tab buttons
+            if (statsTabBtn != default)
+            {
+                statsTabBtn.clicked -= () => SwitchToTab("stats");
+                statsTabBtn.clicked += () => SwitchToTab("stats");
+                Debug.Log("[MLPGameUI] Wired stats tab button");
+            }
+
+            if (skillsTabBtn != default)
+            {
+                skillsTabBtn.clicked -= () => SwitchToTab("skills");
+                skillsTabBtn.clicked += () => SwitchToTab("skills");
+                Debug.Log("[MLPGameUI] Wired skills tab button");
+            }
+
+            if (perksTabBtn != default)
+            {
+                perksTabBtn.clicked -= () => SwitchToTab("perks");
+                perksTabBtn.clicked += () => SwitchToTab("perks");
+                Debug.Log("[MLPGameUI] Wired perks tab button");
+            }
+
+            if (effectsTabBtn != default)
+            {
+                effectsTabBtn.clicked -= () => SwitchToTab("effects");
+                effectsTabBtn.clicked += () => SwitchToTab("effects");
+                Debug.Log("[MLPGameUI] Wired effects tab button");
+            }
+
+            // Initialize tabs (show stats by default)
+            InitializeTabs();
         }
 
         private Button FindButtonRobust(params string[] namesAndClasses)
@@ -231,6 +276,9 @@ namespace MyGameNamespace
                 uiDocument.panelSettings.sortingOrder = 200;
             }
 
+            // Initialize tabs when showing character sheet
+            InitializeTabs();
+
             Debug.Log("[MLPGameUI] Character sheet shown successfully");
         }
 
@@ -254,6 +302,77 @@ namespace MyGameNamespace
             // Hide the character sheet
             sheetModal.style.display = DisplayStyle.None;
             Debug.Log("[MLPGameUI] Character sheet closed successfully");
+        }
+
+        private void InitializeTabs()
+        {
+            Debug.Log("[MLPGameUI] Initializing character sheet tabs");
+
+            // Hide all panels except stats
+            if (statsPanel != default) statsPanel.style.display = DisplayStyle.Flex;
+            if (skillsPanel != default) skillsPanel.style.display = DisplayStyle.None;
+            if (perksPanel != default) perksPanel.style.display = DisplayStyle.None;
+            if (effectsPanel != default) effectsPanel.style.display = DisplayStyle.None;
+
+            // Set active tab styling
+            UpdateTabStyling("stats");
+        }
+
+        private void SwitchToTab(string tabName)
+        {
+            Debug.Log($"[MLPGameUI] Switching to tab: {tabName}");
+
+            // Hide all panels
+            if (statsPanel != default) statsPanel.style.display = DisplayStyle.None;
+            if (skillsPanel != default) skillsPanel.style.display = DisplayStyle.None;
+            if (perksPanel != default) perksPanel.style.display = DisplayStyle.None;
+            if (effectsPanel != default) effectsPanel.style.display = DisplayStyle.None;
+
+            // Show selected panel
+            switch (tabName)
+            {
+                case "stats":
+                    if (statsPanel != default) statsPanel.style.display = DisplayStyle.Flex;
+                    break;
+                case "skills":
+                    if (skillsPanel != default) skillsPanel.style.display = DisplayStyle.Flex;
+                    break;
+                case "perks":
+                    if (perksPanel != default) perksPanel.style.display = DisplayStyle.Flex;
+                    break;
+                case "effects":
+                    if (effectsPanel != default) effectsPanel.style.display = DisplayStyle.Flex;
+                    break;
+            }
+
+            // Update tab button styling
+            UpdateTabStyling(tabName);
+        }
+
+        private void UpdateTabStyling(string activeTab)
+        {
+            // Remove active class from all tabs
+            if (statsTabBtn != default) statsTabBtn.RemoveFromClassList("active");
+            if (skillsTabBtn != default) skillsTabBtn.RemoveFromClassList("active");
+            if (perksTabBtn != default) perksTabBtn.RemoveFromClassList("active");
+            if (effectsTabBtn != default) effectsTabBtn.RemoveFromClassList("active");
+
+            // Add active class to selected tab
+            switch (activeTab)
+            {
+                case "stats":
+                    if (statsTabBtn != default) statsTabBtn.AddToClassList("active");
+                    break;
+                case "skills":
+                    if (skillsTabBtn != default) skillsTabBtn.AddToClassList("active");
+                    break;
+                case "perks":
+                    if (perksTabBtn != default) perksTabBtn.AddToClassList("active");
+                    break;
+                case "effects":
+                    if (effectsTabBtn != default) effectsTabBtn.AddToClassList("active");
+                    break;
+            }
         }
 
         private void OnMenu()
