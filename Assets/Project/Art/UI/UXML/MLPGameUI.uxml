@@ -1,4 +1,4 @@
-﻿<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Project/Art/UI/USS/MLPGameUI.uss" />
     <!-- Import portrait style overrides to ensure portraits maintain aspect ratio -->
     <Style src="project://database/Assets/Project/Art/UI/USS/Portraits.uss" />
