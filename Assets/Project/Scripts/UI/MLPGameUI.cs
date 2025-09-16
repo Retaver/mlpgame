@@ -70,8 +70,19 @@ namespace MyGameNamespace
 
             Debug.Log($"[MLPGameUI] Root visual element found with {root.childCount} children");
 
+            // Debug: List all children to see the structure
+            for (int i = 0; i < root.childCount; i++)
+            {
+                var child = root[i];
+                Debug.Log($"[MLPGameUI] Root child {i}: {child.name} ({child.GetType().Name})");
+                if (child.childCount > 0)
+                {
+                    Debug.Log($"[MLPGameUI]   {child.name} has {child.childCount} children");
+                }
+            }
+
             // Debug: Check if styles are applied
-            var computedStyle = root.computedStyle;
+            var computedStyle = root.resolvedStyle;
             Debug.Log($"[MLPGameUI] Root background color: {computedStyle.backgroundColor}");
             Debug.Log($"[MLPGameUI] Root width: {computedStyle.width.value}, height: {computedStyle.height.value}");
 

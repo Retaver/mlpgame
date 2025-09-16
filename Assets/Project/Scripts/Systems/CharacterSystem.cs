@@ -3,12 +3,47 @@ using MyGameNamespace;
 
 public class CharacterSystem : MonoBehaviour
 {
+    private static CharacterSystem instance;
+    public static CharacterSystem Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                // Try to find existing instance
+                instance = FindFirstObjectByType<CharacterSystem>();
+                
+                // If not found, create a new one
+                if (instance == null)
+                {
+                    GameObject go = new GameObject("CharacterSystem");
+                    instance = go.AddComponent<CharacterSystem>();
+                    DontDestroyOnLoad(go);
+                    Debug.Log("[CharacterSystem] Created new singleton instance");
+                }
+            }
+            return instance;
+        }
+    }
+
     private PlayerCharacter playerCharacter;
     private Inventory inventory;
 
     // Ensure initialization as soon as the GameObject is created
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("[CharacterSystem] Singleton instance set");
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
         Initialize();
     }
 

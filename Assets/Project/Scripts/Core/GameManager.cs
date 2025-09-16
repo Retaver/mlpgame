@@ -13,17 +13,12 @@ public class GameManager:MonoBehaviour{
    if(verboseLogging) Debug.Log($"[GameManager] StartNewGame params: {playerName}/{backgroundId}/{raceId}");
    try{ SceneManager.LoadScene("Game",LoadSceneMode.Single);}catch(Exception ex){ Debug.LogError(ex);} }
  public PlayerCharacter GetPlayer(){ 
-   var characterSystem = FindFirstObjectByType<CharacterSystem>();
+   var characterSystem = CharacterSystem.Instance;
    if (characterSystem != null) {
      return characterSystem.GetPlayerCharacter();
    }
-   
-   // If no CharacterSystem exists, create one
-   Debug.Log("[GameManager] CharacterSystem not found, creating new instance");
-   var csGameObject = new GameObject("CharacterSystem");
-   characterSystem = csGameObject.AddComponent<CharacterSystem>();
-   
-   return characterSystem.GetPlayerCharacter();
+   Debug.LogError("[GameManager] CharacterSystem instance not found!");
+   return null; 
  }
  public void OnStoryChoiceMade(StoryChoice choice){
    try{ GameEventSystem.Instance?.RaiseStoryChoiceMade(choice);}catch{}
