@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Object;
 
 // Call this from your story runner when applying effects from JSON choices.
 public static class StoryEffectDispatcher
@@ -33,7 +34,7 @@ public static class StoryEffectDispatcher
                     if (trait != null)
                     {
                         // Apply trait modifiers to player character
-                        var player = GameManager.Instance?.PlayerCharacter;
+                        var player = GameManager.Instance?.GetPlayer();
                         if (player != null)
                         {
                             player.AddPersonalityTrait(trait);
@@ -55,8 +56,8 @@ public static class StoryEffectDispatcher
                 // Set story flag using StoryManager
                 if (!string.IsNullOrEmpty(target))
                 {
-                    StoryManager.Instance?.SetFlag(target, stringValue ?? value?.ToString() ?? "true");
-                    Debug.Log($"[StoryEffectDispatcher] Set story flag: {target} = {stringValue ?? value?.ToString() ?? "true"}");
+                    StoryManager.Instance?.SetFlag(target, stringValue ?? value.ToString() ?? "true");
+                    Debug.Log($"[StoryEffectDispatcher] Set story flag: {target} = {stringValue ?? value.ToString() ?? "true"}");
                 }
                 break;
 
@@ -64,10 +65,10 @@ public static class StoryEffectDispatcher
                 // Add item to inventory
                 if (!string.IsNullOrEmpty(target))
                 {
-                    var item = ItemDatabase.GetItem(target);
+                    var item = ItemDatabase.Get(target);
                     if (item != null)
                     {
-                        var inventorySystem = FindFirstObjectByType<InventorySystem>();
+                        var inventorySystem = Object.FindFirstObjectByType<InventorySystem>();
                         if (inventorySystem != null)
                         {
                             int quantity = value > 0 ? (int)value : 1;
