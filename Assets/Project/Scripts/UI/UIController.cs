@@ -553,6 +553,10 @@ private void WireBottomBarButtons()
             }
             else if (verboseLogging) Debug.LogWarning("[UIController] Character bottom button not found.");
         }
+        else
+        {
+            if (verboseLogging) Debug.Log("[UIController] Skipping Character button wiring - MLPGameUI owns it.");
+        }
 
         // Items - always wire as fallback (MLPGameUI may not handle this)
         if (bottomItemsButton != default)

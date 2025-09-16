@@ -22,8 +22,17 @@ namespace MyGameNamespace
                 return;
             }
             Instance = this;
+            Debug.Log("[MLPGameUI] Singleton instance set");
 
             if (uiDocument == default) uiDocument = GetComponent<UIDocument>();
+            if (uiDocument == default)
+            {
+                Debug.LogError("[MLPGameUI] No UIDocument found on this GameObject!");
+            }
+            else
+            {
+                Debug.Log("[MLPGameUI] UIDocument found and ready");
+            }
         }
 
         private void OnEnable()
@@ -33,6 +42,18 @@ namespace MyGameNamespace
             {
                 Debug.LogWarning("[MLPGameUI] Missing UIDocument/root.");
                 return;
+            }
+
+            // Ensure character sheet is hidden initially
+            var sheetModal = root.Q<VisualElement>("character-sheet-modal");
+            if (sheetModal != default)
+            {
+                sheetModal.style.display = DisplayStyle.None;
+                Debug.Log("[MLPGameUI] Character sheet modal initialized as hidden");
+            }
+            else
+            {
+                Debug.LogWarning("[MLPGameUI] Character sheet modal not found in UXML!");
             }
 
             // Locate buttons by various possible names or class for compatibility
@@ -86,9 +107,9 @@ namespace MyGameNamespace
                 characterBtn.clicked += OnCharacter;
                 characterBtn.SetEnabled(true);
                 characterBtn.pickingMode = PickingMode.Position;
-                Debug.Log($"[MLPGameUI] Wired Character button: {characterBtn.name}");
+                Debug.Log($"[MLPGameUI] Wired Character button: {characterBtn.name} (text: {characterBtn.text})");
             }
-            else Debug.LogWarning("[MLPGameUI] CharacterButton not found.");
+            else Debug.LogWarning("[MLPGameUI] CharacterButton not found - character sheet will not work!");
 
             if (menuBtn != default)
             {
@@ -182,56 +203,57 @@ namespace MyGameNamespace
 
         private void OnCharacter()
         {
-            // First, try using CharacterSheetController to show the sheet
-            var csc = FindFirstObjectByType<CharacterSheetController>();
-            if (csc != default)
+            Debug.Log("[MLPGameUI] Character button clicked - showing character sheet");
+
+            // Find the character sheet modal in our own UIDocument
+            if (root == default)
             {
-                csc.ShowCharacterSheet();  // always show (avoids toggle issues)
+                Debug.LogError("[MLPGameUI] No root visual element found!");
                 return;
             }
 
-            // Fallback: directly make any known character sheet container visible
-            var docs = Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None);
-            foreach (var d in docs)
+            var sheetModal = root.Q<VisualElement>("character-sheet-modal");
+            if (sheetModal == default)
             {
-                if (d == default || d.rootVisualElement == default) continue;
-                var sheet = d.rootVisualElement.Q<VisualElement>("character-sheet-container")
-                          ?? d.rootVisualElement.Q<VisualElement>("character-sheet-modal")
-                          ?? d.rootVisualElement.Q<VisualElement>("CharacterSheet")
-                          ?? d.rootVisualElement.Q<VisualElement>("CharacterSheetRoot")
-                          ?? d.rootVisualElement.Q<VisualElement>("CharacterPanel")
-                          ?? d.rootVisualElement.Q<VisualElement>("Character_Sheet")
-                          ?? d.rootVisualElement.Q<VisualElement>(className: "character-sheet");
-                if (sheet != default)
-                {
-                    sheet.style.display = DisplayStyle.Flex;
-                    sheet.style.visibility = Visibility.Visible;
-                    sheet.style.opacity = 1f;
-                    d.rootVisualElement.BringToFront();
-                    if (d.panelSettings != default && d.panelSettings.sortingOrder < 200)
-                        d.panelSettings.sortingOrder = 200;
-                    return;
-                }
+                Debug.LogError("[MLPGameUI] Character sheet modal not found in MLPGameUI!");
+                return;
             }
 
-            Debug.LogWarning("[MLPGameUI] Character sheet not found in any UIDocument.");
+            // Show the character sheet
+            sheetModal.style.display = DisplayStyle.Flex;
+            sheetModal.style.visibility = Visibility.Visible;
+            sheetModal.style.opacity = 1f;
+
+            // Bring to front
+            root.BringToFront();
+            if (uiDocument != default && uiDocument.panelSettings != default)
+            {
+                uiDocument.panelSettings.sortingOrder = 200;
+            }
+
+            Debug.Log("[MLPGameUI] Character sheet shown successfully");
         }
 
         private void OnCharacterClose()
         {
-            // Hide the character sheet
-            var docs = Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None);
-            foreach (var d in docs)
+            Debug.Log("[MLPGameUI] Closing character sheet");
+
+            if (root == default)
             {
-                if (d == default || d.rootVisualElement == default) continue;
-                var sheet = d.rootVisualElement.Q<VisualElement>("character-sheet-modal")
-                          ?? d.rootVisualElement.Q<VisualElement>("character-sheet-container");
-                if (sheet != default)
-                {
-                    sheet.style.display = DisplayStyle.None;
-                    return;
-                }
+                Debug.LogError("[MLPGameUI] No root visual element found for closing!");
+                return;
             }
+
+            var sheetModal = root.Q<VisualElement>("character-sheet-modal");
+            if (sheetModal == default)
+            {
+                Debug.LogError("[MLPGameUI] Character sheet modal not found for closing!");
+                return;
+            }
+
+            // Hide the character sheet
+            sheetModal.style.display = DisplayStyle.None;
+            Debug.Log("[MLPGameUI] Character sheet closed successfully");
         }
 
         private void OnMenu()
