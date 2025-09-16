@@ -455,7 +455,7 @@
     background-color: rgba(0, 0, 0, 0.8);
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    /* z-index: 1000; - not supported in Unity UI Toolkit */
 }
 
 /* Map Modal Container */
@@ -546,5 +546,14 @@
     justify-content: center;
     align-items: center;
     padding: 12px 20px;
-    gap: 8px;
+    /* gap: 8px; - replaced with margin on child elements */
+}
+
+/* Add margin to movement button children */
+.movement-buttons-compact > * {
+    margin-right: 8px;
+}
+
+.movement-buttons-compact > *:last-child {
+    margin-right: 0;
 }

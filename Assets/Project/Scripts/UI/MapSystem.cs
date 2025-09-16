@@ -66,6 +66,10 @@ namespace MyGameNamespace
         /// </summary>
         private void InitializeMapData()
         {
+            // Ensure map dimensions are valid
+            if (mapWidth <= 0) mapWidth = 10;
+            if (mapHeight <= 0) mapHeight = 8;
+
             mapGrid = new MapLocation[mapWidth, mapHeight];
             tileElements = new VisualElement[mapWidth, mapHeight];
 
@@ -88,10 +92,19 @@ namespace MyGameNamespace
             // Set up MLP-themed locations
             SetupMLPMapLocations();
 
-            // Set starting position (Ponyville)
-            playerPosition = new Vector2Int(5, 4);
+            // Ensure player position is within bounds
+            if (playerPosition.x < 0 || playerPosition.x >= mapWidth ||
+                playerPosition.y < 0 || playerPosition.y >= mapHeight)
+            {
+                playerPosition = new Vector2Int(5, 4); // Default to Ponyville
+            }
+
             discoveredLocations.Add(playerPosition);
-            mapGrid[playerPosition.x, playerPosition.y].IsAccessible = true;
+            if (playerPosition.x >= 0 && playerPosition.x < mapWidth &&
+                playerPosition.y >= 0 && playerPosition.y < mapHeight)
+            {
+                mapGrid[playerPosition.x, playerPosition.y].IsAccessible = true;
+            }
         }
 
         /// <summary>
@@ -483,65 +496,65 @@ namespace MyGameNamespace
 
             Debug.Log($"[MapSystem] Loaded map state - Player at {playerPosition}, {discoveredLocations.Count} locations discovered");
         }
-    }
 
-    /// <summary>
-    /// Represents a location on the map
-    /// </summary>
-    [Serializable]
-    public class MapLocation
-    {
-        public Vector2Int Position;
-        public string Name;
-        public string Description;
-        public LocationType LocationType;
-        public bool IsAccessible;
-        public bool HasSpecialEvent;
-    }
-
-    /// <summary>
-    /// Types of locations on the map
-    /// </summary>
-    public enum LocationType
-    {
-        Empty,
-        Path,
-        Town,
-        City,
-        Capital,
-        Farm,
-        Forest,
-        Home,
-        Shop,
-        Library,
-        Castle,
-        Mountain,
-        River,
-        Lake,
-        Ruins,
-        Kirin
-    }
-
-    /// <summary>
-    /// Show the map modal
-    /// </summary>
-    public void ShowMap()
-    {
-        if (mapModal != null)
+        /// <summary>
+        /// Represents a location on the map
+        /// </summary>
+        [Serializable]
+        public class MapLocation
         {
-            mapModal.style.display = DisplayStyle.Flex;
-            UpdateMapDisplay();
+            public Vector2Int Position;
+            public string Name;
+            public string Description;
+            public LocationType LocationType;
+            public bool IsAccessible;
+            public bool HasSpecialEvent;
         }
-    }
 
-    /// <summary>
-    /// Hide the map modal
-    /// </summary>
-    public void HideMap()
-    {
-        if (mapModal != null)
+        /// <summary>
+        /// Types of locations on the map
+        /// </summary>
+        public enum LocationType
         {
-            mapModal.style.display = DisplayStyle.None;
+            Empty,
+            Path,
+            Town,
+            City,
+            Capital,
+            Farm,
+            Forest,
+            Home,
+            Shop,
+            Library,
+            Castle,
+            Mountain,
+            River,
+            Lake,
+            Ruins,
+            Kirin
+        }
+
+        /// <summary>
+        /// Show the map modal
+        /// </summary>
+        public void ShowMap()
+        {
+            if (mapModal != null)
+            {
+                mapModal.style.display = DisplayStyle.Flex;
+                UpdateMapDisplay();
+            }
+        }
+
+        /// <summary>
+        /// Hide the map modal
+        /// </summary>
+        public void HideMap()
+        {
+            if (mapModal != null)
+            {
+                mapModal.style.display = DisplayStyle.None;
+            }
         }
     }
 }

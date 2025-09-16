@@ -101,7 +101,9 @@
 
 .movement-btn:hover {
     background-color: rgb(80, 74, 90);
-} {
+}
+
+.map-tile.river {
     background-color: rgb(70, 130, 180); /* Steel blue for rivers */
 }
 
