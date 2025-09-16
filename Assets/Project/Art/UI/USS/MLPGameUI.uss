@@ -72,9 +72,9 @@
 }
 
 .character-portrait {
-    width: 64px;
-    height: 64px;
-    border-radius: 32px;
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
     border: 2px solid #ffffff;
     margin-right: 8px;
     flex-shrink: 0;

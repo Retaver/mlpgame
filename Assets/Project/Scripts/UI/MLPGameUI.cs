@@ -1005,29 +1005,40 @@ namespace MyGameNamespace
                 return;
             }
 
-            Debug.Log($"[MLPGameUI] Updating portrait for {player.name} ({player.race}, {player.gender})");
+            Debug.Log($"[MLPGameUI] Updating HUD portrait for {player.name} ({player.race}, {player.gender})");
 
-            // Try to load a Sprite via PortraitLoader (returns Sprite -> use its texture)
-            if (MyGameNamespace.UI.PortraitLoader.TryLoadPortrait(player.race.ToString(), player.gender ?? string.Empty, out var sprite))
+            // Try to load a Sprite via PortraitLoader HUD portraits (returns Sprite -> use its texture)
+            if (MyGameNamespace.UI.PortraitLoader.TryLoadHUDPortrait(player.race.ToString(), player.gender ?? string.Empty, out var sprite))
             {
                 characterPortrait.sprite = sprite;
                 characterPortrait.scaleMode = ScaleMode.ScaleToFit;
-                Debug.Log($"[MLPGameUI] Loaded portrait sprite for {player.race}");
+                Debug.Log($"[MLPGameUI] Loaded HUD portrait sprite for {player.race}");
             }
             else
             {
-                // Fallback: try to load texture directly
-                var texture = Resources.Load<Texture2D>($"Portraits/{player.race}/{player.gender ?? "Male"}/portrait");
+                // Fallback: try to load texture directly from HUD portraits
+                var texture = Resources.Load<Texture2D>($"Portraits/HUDPortraits/{player.race}/{player.gender ?? "Male"}/portrait");
                 if (texture != null)
                 {
                     characterPortrait.image = texture;
                     characterPortrait.scaleMode = ScaleMode.ScaleToFit;
-                    Debug.Log($"[MLPGameUI] Loaded portrait texture for {player.race}");
+                    Debug.Log($"[MLPGameUI] Loaded HUD portrait texture for {player.race}");
                 }
                 else
                 {
-                    Debug.LogWarning($"[MLPGameUI] No portrait found for {player.race}/{player.gender ?? "Male"}");
-                    // Could set a default silhouette here
+                    Debug.LogWarning($"[MLPGameUI] No HUD portrait found for {player.race}/{player.gender ?? "Male"}, falling back to regular portrait");
+                    // Final fallback to regular portrait system
+                    if (MyGameNamespace.UI.PortraitLoader.TryLoadPortrait(player.race.ToString(), player.gender ?? string.Empty, out var fallbackSprite))
+                    {
+                        characterPortrait.sprite = fallbackSprite;
+                        characterPortrait.scaleMode = ScaleMode.ScaleToFit;
+                        Debug.Log($"[MLPGameUI] Loaded fallback portrait sprite for {player.race}");
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"[MLPGameUI] No portrait found for {player.race}/{player.gender ?? "Male"}");
+                        // Could set a default silhouette here
+                    }
                 }
             }
         }

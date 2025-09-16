@@ -53,14 +53,42 @@ namespace MyGameNamespace.UI
         }
 
         /// <summary>
-        /// Build Resources path for a portrait file (without extension).
-        /// e.g., Portraits/EarthPony/Female/portrait
+        /// Build Resources path for a HUD portrait file (without extension).
+        /// e.g., Portraits/HUDPortraits/EarthPony/Female/portrait
         /// </summary>
-        public static string GetPortraitResourcePath(string race, string gender)
+        public static string GetHUDPortraitResourcePath(string race, string gender)
         {
             var r = NormalizeRace(race);
             var g = NormalizeGender(gender);
-            return $"Portraits/{r}/{g}/portrait";
+            return $"Portraits/HUDPortraits/{r}/{g}/portrait";
+        }
+
+        /// <summary>
+        /// Attempt to load a Sprite HUD portrait from Resources.
+        /// Returns true and assigns 'sprite' on success. Provides multiple graceful fallbacks.
+        /// HUD portraits are torso-focused for better UI display.
+        /// </summary>
+        public static bool TryLoadHUDPortrait(string race, string gender, out Sprite? sprite)
+        {
+            sprite = null;
+
+            // 1) Perfect match: Portraits/HUDPortraits/{Race}/{Gender}/portrait
+            var path = GetHUDPortraitResourcePath(race, gender);
+            sprite = Resources.Load<Sprite>(path);
+            if (sprite != null) return true;
+
+            // 2) Try folder default: Portraits/HUDPortraits/{Race}/{Gender}
+            var pathFolder = $"Portraits/HUDPortraits/{NormalizeRace(race)}/{NormalizeGender(gender)}";
+            sprite = Resources.Load<Sprite>(pathFolder);
+            if (sprite != null) return true;
+
+            // 3) Race-level default: Portraits/HUDPortraits/{NormalizeRace(race)}/portrait
+            var pathRaceDefault = $"Portraits/HUDPortraits/{NormalizeRace(race)}/portrait";
+            sprite = Resources.Load<Sprite>(pathRaceDefault);
+            if (sprite != null) return true;
+
+            // 4) Fallback to regular portrait system
+            return TryLoadPortrait(race, gender, out sprite);
         }
 
         /// <summary>
