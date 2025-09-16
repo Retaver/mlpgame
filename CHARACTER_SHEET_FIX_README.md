@@ -27,8 +27,14 @@ The character button wasn't working because of conflicts between two UI systems:
 1. **Attach CharacterSheetTester** to any GameObject in your scene
 2. **Run the game** - check console for test results
 3. **Click Character button** - character sheet should appear
-4. **Click Close button** - character sheet should disappear
-5. **Press C key** - test character sheet programmatically
+4. **Click tab buttons** - switch between Attributes, Skills, Perks, Effects
+5. **Click Close button** - character sheet should disappear
+6. **Press C key** - test character sheet programmatically
+7. **Press 1-4 keys** (when character sheet is open) - test tabs programmatically:
+   - **1** = Attributes tab
+   - **2** = Skills tab
+   - **3** = Perks tab
+   - **4** = Effects tab
 
 ## Expected Debug Output
 
@@ -39,14 +45,31 @@ When the game starts, you should see:
 [MLPGameUI] Character sheet modal initialized as hidden
 [MLPGameUI] Wired Character button: CharacterButton (text: Character)
 [MLPGameUI] Wired Character Sheet close button.
+[MLPGameUI] Wired stats tab button
+[MLPGameUI] Wired skills tab button
+[MLPGameUI] Wired perks tab button
+[MLPGameUI] Wired effects tab button
 === CHARACTER SHEET TEST COMPLETED SUCCESSFULLY ===
 ```
 
-When clicking the Character button:
+When clicking tabs:
 ```
-[MLPGameUI] Character button clicked - showing character sheet
-[MLPGameUI] Character sheet shown successfully
+[MLPGameUI] Switching to tab: skills
 ```
+
+## Character Sheet Features
+
+### Tabs
+- **Attributes** - Shows character stats (Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma)
+- **Skills** - Shows character skills and skill points
+- **Perks** - Shows special abilities and perks
+- **Effects** - Shows active status effects
+
+### Tab Switching
+- Click any tab button to switch panels
+- Only one panel visible at a time
+- Active tab is highlighted with "active" class
+- Keyboard shortcuts (1-4) for testing
 
 ## Troubleshooting
 
@@ -67,11 +90,19 @@ When clicking the Character button:
    - Attach to any GameObject
    - Check console for detailed diagnostics
 
-### If Character Sheet Appears But Won't Close:
+### If Tabs Don't Work:
 
-- Check that close button is properly wired
-- Verify close button name is "close-button"
-- Check console for close button click events
+- Check that all tab buttons are found: `stats-tab`, `skills-tab`, `perks-tab`, `effects-tab`
+- Check that all panels are found: `stats-panel`, `skills-panel`, `perks-panel`, `effects-panel`
+- Verify tab click handlers are wired correctly
+- Check console for tab switching debug messages
+- Test with keyboard shortcuts (1-4 keys)
+
+### If Wrong Panel Shows:
+
+- Check that `InitializeTabs()` is called when character sheet opens
+- Verify panel display styles are set correctly
+- Check that `UpdateTabStyling()` is working properly
 
 ## Files Modified
 
