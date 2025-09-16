@@ -45,7 +45,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    /* Spacing provided by margin-right on .character-portrait */
 }
 
 .character-portrait {
@@ -56,6 +56,7 @@
     border-color: rgb(140, 118, 178);
     background-color: rgb(44, 36, 56);
     flex-shrink: 0;
+    margin-right: 16px;
 }
 
 .character-details {

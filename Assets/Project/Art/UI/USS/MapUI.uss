@@ -21,7 +21,6 @@
     border-radius: 8px;
     border-width: 1px;
     border-color: #6b5b95;
-    border-style: solid;
 }
 
 .map-title {
@@ -53,14 +52,13 @@
     background-color: #1f1636;
     border-color: #6b5b95;
     border-width: 1px;
-    border-style: solid;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #dcd6f5;
     font-size: 12px;
     /* cursor: pointer; */
-    transition: background-color 0.15s ease;
+    /* transition: background-color 0.15s ease; - commented out to avoid Unity UI Toolkit compatibility warnings */
 }
 
 .map-tile.active {

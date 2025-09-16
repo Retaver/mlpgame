@@ -44,8 +44,8 @@
     border-color: rgb(70, 60, 84); /* Medium purple border */
     border-width: 1px;
     position: relative;
-    cursor: arrow;
-    transition: all 0.2s ease;
+    /* cursor: arrow; - commented out to avoid Unity UI Toolkit compatibility warnings */
+    /* transition: all 0.2s ease; - commented out to avoid Unity UI Toolkit compatibility warnings */
     opacity: 0.3;
     background-color: rgb(38, 34, 44); /* Dark purple for undiscovered tiles */
 }
@@ -115,7 +115,6 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform-origin: center;
     width: 20px;
     height: 20px;
     background-color: rgb(176, 72, 100); /* Health bar red for player marker */
@@ -129,7 +128,6 @@
     position: absolute;
     bottom: -15px;
     left: 50%;
-    transform-origin: center;
     font-size: 8px;
     color: rgb(220, 214, 224); /* Light purple text */
     -unity-text-align: middle-center;
@@ -178,8 +176,8 @@
     border-width: 1px;
     color: rgb(220, 214, 224); /* Light purple text */
     -unity-font-style: bold;
-    cursor: arrow;
-    transition: all 0.2s ease;
+    /* cursor: arrow; - commented out to avoid Unity UI Toolkit compatibility warnings */
+    /* transition: all 0.2s ease; - commented out to avoid Unity UI Toolkit compatibility warnings */
 }
 
 .direction-button:hover {

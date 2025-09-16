@@ -143,18 +143,12 @@
  * the progress bar sits directly under its label rather than next to
  * it, force the container to stack its children vertically.  Unity 6.2
  * does not expose the `gap` property on the runtime `IStyle` API, so
- * use `row-gap` to control spacing between the label row and the bar.
+ * use margin on children to control spacing between the label row and the bar.
  */
 .stat-item {
     margin-bottom: 8px;
     flex-direction: column;
-    /* Provide vertical spacing between the label row and the bar.  Use
-       row-gap instead of gap to avoid runtime errors on newer Unity
-       versions. */
-    row-gap: 4px;
-    /* Explicitly zero out column gap to avoid unintended horizontal
-       spacing. */
-    column-gap: 0px;
+    /* Spacing is provided by margin-bottom on .stat-line */
 }
 
 .stat-line {
@@ -352,8 +346,6 @@
     border-radius: 8px;
     border-width: 1px;
     border-color: rgb(70, 60, 84);
-    /* Unity USS may not support 'border-style'; keep if using newer UI Toolkit, otherwise fallback to border-width/color */
-    border-style: solid;
     margin-top: 12px;
 }
 
@@ -391,7 +383,6 @@
     background-color: rgb(36, 30, 46);
     border-color: rgb(82, 72, 96);
     border-width: 1px;
-    border-style: solid;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -399,7 +390,7 @@
     font-size: 12px;
     /* 'cursor: pointer' is not recognized by some Unity versions; use default cursor or set via C# if needed */
     /* cursor: pointer; */
-    transition: background-color 0.15s ease;
+    /* transition: background-color 0.15s ease; - commented out to avoid Unity UI Toolkit compatibility warnings */
 }
 
 /* Highlight the active tile (current location) */
