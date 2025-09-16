@@ -672,7 +672,7 @@ private void WireBottomBarButtons()
             }
 
             // Fallback: try to load texture directly from HUD portraits
-            var hudTexture = Resources.Load<Texture2D>($"Portraits/HUDPortraits/{currentPlayer.race}/{currentPlayer.gender ?? "Male"}/portrait");
+            var hudTexture = Resources.Load<Texture2D>($"Portraits/HUD_Portraits/{currentPlayer.race}/{currentPlayer.gender ?? "Male"}/portrait");
             if (hudTexture != null)
             {
                 characterPortrait.scaleMode = ScaleMode.ScaleToFit;

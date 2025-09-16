@@ -1025,7 +1025,7 @@ namespace MyGameNamespace
             else
             {
                 // Fallback: try to load texture directly from HUD portraits
-                var texture = Resources.Load<Texture2D>($"Portraits/HUDPortraits/{player.race}/{player.gender ?? "Male"}/portrait");
+                var texture = Resources.Load<Texture2D>($"Portraits/HUD_Portraits/{player.race}/{player.gender ?? "Male"}/portrait");
                 if (texture != null)
                 {
                     characterPortrait.image = texture;

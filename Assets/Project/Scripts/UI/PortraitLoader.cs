@@ -65,13 +65,13 @@ namespace MyGameNamespace.UI
 
         /// <summary>
         /// Build Resources path for a HUD portrait file (without extension).
-        /// e.g., Portraits/HUDPortraits/EarthPony/Female/portrait
+        /// e.g., Portraits/HUD_Portraits/EarthPony/Female/portrait
         /// </summary>
         public static string GetHUDPortraitResourcePath(string race, string gender)
         {
             var r = NormalizeRace(race);
             var g = NormalizeGender(gender);
-            return $"Portraits/HUDPortraits/{r}/{g}/portrait";
+            return $"Portraits/HUD_Portraits/{r}/{g}/portrait";
         }
 
         /// <summary>
@@ -83,18 +83,18 @@ namespace MyGameNamespace.UI
         {
             sprite = null;
 
-            // 1) Perfect match: Portraits/HUDPortraits/{Race}/{Gender}/portrait
+            // 1) Perfect match: Portraits/HUD_Portraits/{Race}/{Gender}/portrait
             var path = GetHUDPortraitResourcePath(race, gender);
             sprite = Resources.Load<Sprite>(path);
             if (sprite != null) return true;
 
-            // 2) Try folder default: Portraits/HUDPortraits/{Race}/{Gender}
-            var pathFolder = $"Portraits/HUDPortraits/{NormalizeRace(race)}/{NormalizeGender(gender)}";
+            // 2) Try folder default: Portraits/HUD_Portraits/{Race}/{Gender}
+            var pathFolder = $"Portraits/HUD_Portraits/{NormalizeRace(race)}/{NormalizeGender(gender)}";
             sprite = Resources.Load<Sprite>(pathFolder);
             if (sprite != null) return true;
 
-            // 3) Race-level default: Portraits/HUDPortraits/{NormalizeRace(race)}/portrait
-            var pathRaceDefault = $"Portraits/HUDPortraits/{NormalizeRace(race)}/portrait";
+            // 3) Race-level default: Portraits/HUD_Portraits/{NormalizeRace(race)}/portrait
+            var pathRaceDefault = $"Portraits/HUD_Portraits/{NormalizeRace(race)}/portrait";
             sprite = Resources.Load<Sprite>(pathRaceDefault);
             if (sprite != null) return true;
 
