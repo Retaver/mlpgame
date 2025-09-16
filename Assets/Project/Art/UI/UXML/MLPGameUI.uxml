@@ -90,8 +90,13 @@
         <ui:VisualElement name="character-sheet-modal" class="sheet-modal-overlay theme--twilight" style="display: none;">
             <ui:VisualElement name="character-sheet-container" class="sheet-container font--ui">
                 <ui:VisualElement name="sheet-header" class="sheet-header">
-                    <ui:Label name="character-name" text="Character Name" class="sheet-title font--title" />
-                    <ui:Label name="character-level" text="Level 1" class="sheet-subtitle" />
+                    <ui:VisualElement name="character-info" class="character-info">
+                        <ui:Image name="character-portrait" class="character-portrait" />
+                        <ui:VisualElement name="character-details" class="character-details">
+                            <ui:Label name="character-name" text="Character Name" class="sheet-title font--title" />
+                            <ui:Label name="character-level" text="Level 1" class="sheet-subtitle" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="sheet-content" class="sheet-content">
                     <ui:VisualElement name="sheet-tabs" class="sheet-tabs">

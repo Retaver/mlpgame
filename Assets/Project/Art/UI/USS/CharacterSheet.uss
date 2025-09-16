@@ -41,6 +41,29 @@
     flex-shrink: 0;
 }
 
+.character-info {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.character-portrait {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    border-width: 3px;
+    border-color: rgb(140, 118, 178);
+    background-color: rgb(44, 36, 56);
+    flex-shrink: 0;
+}
+
+.character-details {
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+}
+
 .sheet-title {
     font-size: 22px;
     -unity-font-style: bold;

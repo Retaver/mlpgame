@@ -17,6 +17,7 @@ namespace MyGameNamespace
         private Button characterBtn, menuBtn, optionsBtn, inventoryBtn;
         private Button statsTabBtn, skillsTabBtn, perksTabBtn, effectsTabBtn;
         private VisualElement statsPanel, skillsPanel, perksPanel, effectsPanel;
+        private Image characterPortrait;
 
         private void Awake()
         {
@@ -167,6 +168,9 @@ namespace MyGameNamespace
             skillsPanel = root.Q<VisualElement>("skills-panel");
             perksPanel = root.Q<VisualElement>("perks-panel");
             effectsPanel = root.Q<VisualElement>("effects-panel");
+
+            // Find character portrait
+            characterPortrait = root.Q<Image>("character-portrait");
 
             Debug.Log($"[MLPGameUI] Panel initialization - statsPanel: {(statsPanel != null ? "found" : "null")}, skillsPanel: {(skillsPanel != null ? "found" : "null")}, perksPanel: {(perksPanel != null ? "found" : "null")}, effectsPanel: {(effectsPanel != null ? "found" : "null")}");
 
@@ -354,10 +358,9 @@ namespace MyGameNamespace
                 levelLabel.text = $"Level {player.level}";
                 Debug.Log($"[MLPGameUI] Updated character level to: {levelLabel.text}");
             }
-            else
-            {
-                Debug.LogWarning("[MLPGameUI] character-level label not found");
-            }
+
+            // Update character portrait
+            UpdateCharacterPortrait(player);
 
             // Populate skills panel
             PopulateSkillsPanel(player);
@@ -928,5 +931,40 @@ namespace MyGameNamespace
 
         // Public helper to open the character sheet (same as pressing the button)
         public void OpenCharacterSheet() => OnCharacter();
+
+        private void UpdateCharacterPortrait(PlayerCharacter player)
+        {
+            if (player == null || characterPortrait == null)
+            {
+                Debug.LogWarning("[MLPGameUI] Cannot update portrait - player or portrait element is null");
+                return;
+            }
+
+            Debug.Log($"[MLPGameUI] Updating portrait for {player.name} ({player.race}, {player.gender})");
+
+            // Try to load a Sprite via PortraitLoader (returns Sprite -> use its texture)
+            if (MyGameNamespace.UI.PortraitLoader.TryLoadPortrait(player.race.ToString(), player.gender ?? string.Empty, out var sprite))
+            {
+                characterPortrait.sprite = sprite;
+                characterPortrait.scaleMode = ScaleMode.ScaleToFit;
+                Debug.Log($"[MLPGameUI] Loaded portrait sprite for {player.race}");
+            }
+            else
+            {
+                // Fallback: try to load texture directly
+                var texture = Resources.Load<Texture2D>($"Portraits/{player.race}/{player.gender ?? "Male"}/portrait");
+                if (texture != null)
+                {
+                    characterPortrait.image = texture;
+                    characterPortrait.scaleMode = ScaleMode.ScaleToFit;
+                    Debug.Log($"[MLPGameUI] Loaded portrait texture for {player.race}");
+                }
+                else
+                {
+                    Debug.LogWarning($"[MLPGameUI] No portrait found for {player.race}/{player.gender ?? "Male"}");
+                    // Could set a default silhouette here
+                }
+            }
+        }
     }
 }
