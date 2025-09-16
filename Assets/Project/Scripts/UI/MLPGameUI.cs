@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace MyGameNamespace
 {
@@ -64,7 +66,7 @@ namespace MyGameNamespace
             // If not found in this UIDocument, search other documents in scene
             if (characterBtn == default)
             {
-                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(true);
                 foreach (var d in docs)
                 {
                     if (d == default || d.rootVisualElement == default || d == uiDocument) continue;
@@ -77,7 +79,7 @@ namespace MyGameNamespace
 
             if (menuBtn == default)
             {
-                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(true);
                 foreach (var d in docs)
                 {
                     if (d == default || d.rootVisualElement == default || d == uiDocument) continue;
@@ -90,7 +92,7 @@ namespace MyGameNamespace
 
             if (inventoryBtn == default)
             {
-                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+                var docs = UnityEngine.Object.FindObjectsByType<UIDocument>(true);
                 foreach (var d in docs)
                 {
                     if (d == default || d.rootVisualElement == default || d == uiDocument) continue;
@@ -285,7 +287,39 @@ namespace MyGameNamespace
             Debug.Log("[MLPGameUI] Character sheet shown successfully");
         }
 
-        private void PopulateCharacterSheet()
+        private void OnCharacterClose()
+        {
+            Debug.Log("[MLPGameUI] Character sheet close button clicked");
+
+            // Find the character sheet modal
+            if (root == default)
+            {
+                Debug.LogError("[MLPGameUI] No root visual element found!");
+                return;
+            }
+
+            var sheetModal = root.Q<VisualElement>("character-sheet-modal");
+            if (sheetModal == default)
+            {
+                Debug.LogError("[MLPGameUI] Character sheet modal not found!");
+                return;
+            }
+
+            // Hide the character sheet
+            sheetModal.style.display = DisplayStyle.None;
+            sheetModal.style.visibility = Visibility.Hidden;
+            sheetModal.style.opacity = 0f;
+
+            // Reset sorting order
+            if (uiDocument != default && uiDocument.panelSettings != default)
+            {
+                uiDocument.panelSettings.sortingOrder = 0;
+            }
+
+            Debug.Log("[MLPGameUI] Character sheet hidden successfully");
+        }
+
+        public void PopulateCharacterSheet()
         {
             Debug.Log("[MLPGameUI] Populating character sheet with player data");
 
@@ -483,7 +517,7 @@ namespace MyGameNamespace
             }
 
             // Try finding any PlayerCharacter in scene
-            var playerChars = UnityEngine.Object.FindObjectsByType<PlayerCharacter>(FindObjectsInactive.Include);
+            var playerChars = UnityEngine.Object.FindObjectsByType<PlayerCharacter>(true);
             if (playerChars.Length > 0)
             {
                 return playerChars[0];
