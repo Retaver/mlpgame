@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Object;
 
 // Call this from your story runner when applying effects from JSON choices.
 public static class StoryEffectDispatcher
@@ -68,7 +67,7 @@ public static class StoryEffectDispatcher
                     var item = ItemDatabase.Get(target);
                     if (item != null)
                     {
-                        var inventorySystem = Object.FindFirstObjectByType<InventorySystem>();
+                        var inventorySystem = UnityEngine.Object.FindFirstObjectByType<InventorySystem>();
                         if (inventorySystem != null)
                         {
                             int quantity = value > 0 ? (int)value : 1;
