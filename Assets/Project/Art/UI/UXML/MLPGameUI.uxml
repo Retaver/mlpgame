@@ -1,12 +1,12 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="Assets/Project/Art/UI/USS/MLPGameUI.uss" />
-    <!-- Import portrait style overrides to ensure portraits maintain aspect ratio -->
-    <Style src="Assets/Project/Art/UI/USS/Portraits.uss" />
-    <!-- Import CharacterSheet styles -->
-    <Style src="Assets/Project/Art/UI/USS/CharacterSheet.uss" />
-    <!-- Import MapSection styles -->
-    <Style src="Assets/Project/Art/UI/USS/MapSection.uss" />
     <ui:VisualElement name="Root" class="gamehud-root theme--twilight font--ui">
+        <Style src="Assets/Project/Art/UI/USS/MLPGameUI.uss" />
+        <!-- Import portrait style overrides to ensure portraits maintain aspect ratio -->
+        <Style src="Assets/Project/Art/UI/USS/Portraits.uss" />
+        <!-- Import CharacterSheet styles -->
+        <Style src="Assets/Project/Art/UI/USS/CharacterSheet.uss" />
+        <!-- Import MapSection styles -->
+        <Style src="Assets/Project/Art/UI/USS/MapSection.uss" />
         <!-- Main game layout: left sidebar + right main area -->
         <ui:VisualElement class="game-layout">
             <!-- Left Sidebar -->
@@ -69,7 +69,9 @@
                 <!-- Map Section in Left Sidebar -->
                 <ui:VisualElement class="map-section">
                     <ui:Label text="🗺️ Equestria Map" class="section-title" />
-                    <ui:VisualElement name="map-grid" class="map-grid" />
+                                            <ui:VisualElement name="map-grid" class="map-grid">
+                            <!-- Map tiles will be created dynamically by MapSystem.cs -->
+                        </ui:VisualElement>
                     <ui:VisualElement class="map-controls">
                         <ui:Button name="map-north" text="↑" class="map-dir-btn" />
                         <ui:VisualElement class="map-controls-row">
@@ -87,7 +89,9 @@
                     <ui:ScrollView name="NarrativeScroll" class="narrative-scroll">
                         <ui:Label name="StoryTitle" text="Chapter 1: Falling Through the Breathing Forest" class="story-title font--title" />
                         <!-- StoryBody will be populated via RichStoryRenderer to support inline images and formatted text -->
-                        <ui:VisualElement name="StoryBody" class="story-body" />
+                        <ui:VisualElement name="StoryBody" class="story-body">
+                            <!-- Story content will be populated via RichStoryRenderer -->
+                        </ui:VisualElement>
                     </ui:ScrollView>
                 </ui:VisualElement>
 
@@ -199,9 +203,9 @@
                 </ui:VisualElement>
 
                 <!-- Compact Map Grid -->
-                <ui:VisualElement name="map-grid-modal" class="map-grid-compact" />
-
-                <!-- Location Info (compact) -->
+                        <ui:VisualElement name="map-grid-modal" class="map-grid-compact">
+                            <!-- Compact map tiles will be created dynamically -->
+                        </ui:VisualElement>                <!-- Location Info (compact) -->
                 <ui:VisualElement name="location-info-compact" class="location-info-compact">
                     <ui:Label name="location-name" text="Everfree Forest" class="location-name-compact" />
                     <ui:Label name="location-description" text="The mysterious forest where your adventure begins..." class="location-description-compact" />
@@ -210,6 +214,7 @@
                 <!-- Movement Controls (compact) -->
                 <ui:VisualElement name="movement-buttons" class="movement-buttons-compact">
                     <!-- Buttons will be created dynamically by MapSystem.cs -->
+                </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
