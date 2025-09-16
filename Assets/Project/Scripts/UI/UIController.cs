@@ -660,7 +660,27 @@ private void WireBottomBarButtons()
         // Prefer centralized portrait loader (handles Sprites and multiple folder conventions)
         try
         {
-            // Try to load a Sprite via PortraitLoader (returns Sprite -> use its texture)
+            // Try to load a Sprite via PortraitLoader HUD portraits first (returns Sprite -> use its texture)
+            if (MyGameNamespace.UI.PortraitLoader.TryLoadHUDPortrait(currentPlayer.race.ToString(), currentPlayer.gender ?? string.Empty, out var hudSprite))
+            {
+                if (hudSprite != null && hudSprite.texture != null)
+                {
+                    characterPortrait.scaleMode = ScaleMode.ScaleToFit;
+                    characterPortrait.image = hudSprite.texture;
+                    return;
+                }
+            }
+
+            // Fallback: try to load texture directly from HUD portraits
+            var hudTexture = Resources.Load<Texture2D>($"Portraits/HUDPortraits/{currentPlayer.race}/{currentPlayer.gender ?? "Male"}/portrait");
+            if (hudTexture != null)
+            {
+                characterPortrait.scaleMode = ScaleMode.ScaleToFit;
+                characterPortrait.image = hudTexture;
+                return;
+            }
+
+            // Final fallback: try regular portrait system
             if (MyGameNamespace.UI.PortraitLoader.TryLoadPortrait(currentPlayer.race.ToString(), currentPlayer.gender ?? string.Empty, out var sprite))
             {
                 if (sprite != null && sprite.texture != null)

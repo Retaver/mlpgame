@@ -128,12 +128,31 @@ namespace MyGameNamespace
 
         private static Texture2D ResolvePortrait(PlayerCharacter player)
         {
-            // 1) New standard: nested folders with a 'portrait' asset as Sprite
-            //    Assets/Resources/Portraits/{Race}/{Gender}/portrait.png
+            // 1) Try HUD portraits first (torso-focused for better UI display)
+            //    Assets/Resources/Portraits/HUDPortraits/{Race}/{Gender}/portrait.png
             {
                 string raceFolder = player.race != default ? player.race.ToString() : "";
                 string genderFolder = string.IsNullOrEmpty(player.gender) ? "" :
                     (char.ToUpper(player.gender[0]) + player.gender.Substring(1).ToLowerInvariant());
+                if (!string.IsNullOrEmpty(raceFolder) && !string.IsNullOrEmpty(genderFolder))
+                {
+                    var hudSprite = Resources.Load<Sprite>($"Portraits/HUDPortraits/{raceFolder}/{genderFolder}/portrait");
+                    if (hudSprite != default && hudSprite.texture != default)
+                        return hudSprite.texture;
+
+                    // Fallback: try HUD texture directly
+                    var hudTexture = Resources.Load<Texture2D>($"Portraits/HUDPortraits/{raceFolder}/{genderFolder}/portrait");
+                    if (hudTexture != default)
+                        return hudTexture;
+                }
+            }
+
+            // 2) Fallback to regular portraits
+            //    Assets/Resources/Portraits/{Race}/{Gender}/portrait.png
+            {
+                string raceFolder = player.race != default ? player.race.ToString() : "";
+                string genderFolder = string.IsNullOrEmpty(player.gender) ? "" :
+                    (char.IsUpper(player.gender[0]) ? player.gender : char.ToUpper(player.gender[0]) + player.gender.Substring(1).ToLowerInvariant());
                 if (!string.IsNullOrEmpty(raceFolder) && !string.IsNullOrEmpty(genderFolder))
                 {
                     var sprite = Resources.Load<Sprite>($"Portraits/{raceFolder}/{genderFolder}/portrait");
