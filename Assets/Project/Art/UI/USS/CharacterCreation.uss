@@ -70,7 +70,7 @@ TextField.cc-input > .unity-text-input { background-color: #232833; color: #E9ED
 .stat-name { color: #C9D2DC; font-size: 12px; }
 .stat-controls { flex-direction: row; align-items: center; }
 .stat-controls > * { margin-right: 4px; }
-.stat-controls > *:last-child { margin-right: 0; }
+/* Note: :last-child pseudo-class not supported in Unity UI Toolkit */
 .stat-btn {
     width: 24px; height: 24px; align-items: center; justify-content: center; border-radius: 5px;
     background-color: #232833;
@@ -83,7 +83,7 @@ TextField.cc-input > .unity-text-input { background-color: #232833; color: #E9ED
 /* Footer */
 .cc-footer { flex-direction: row; justify-content: flex-end; }
 .cc-footer > * { margin-left: 8px; }
-.cc-footer > *:first-child { margin-left: 0; }
+/* Note: :first-child pseudo-class not supported in Unity UI Toolkit */
 .cc-nav { height: 32px; padding-left: 12px; padding-right: 12px; border-radius: 8px;
     background-color: #232833;
     border-left-color: #2F3744; border-right-color: #2F3744; border-top-color: #2F3744; border-bottom-color: #2F3744;
@@ -95,11 +95,11 @@ TextField.cc-input > .unity-text-input { background-color: #232833; color: #E9ED
 /* Compact two-column helpers for the right column */
 .cc-row-2 { flex-direction: row; }
 .cc-row-2 > * { margin-right: 10px; }
-.cc-row-2 > *:last-child { margin-right: 0; }
+/* Note: :last-child pseudo-class not supported in Unity UI Toolkit */
 .half { flex-basis: 50%; min-width: 0; }
 .stats-grid { flex-direction: row; }
 .stats-grid > * { margin-right: 12px; }
-.stats-grid > *:last-child { margin-right: 0; }
+/* Note: :last-child pseudo-class not supported in Unity UI Toolkit */
 .stats-col { flex-basis: 50%; min-width: 0; flex-direction: column; /* Spacing provided by margin-bottom on children */ }
 .stats-col > * { margin-bottom: 4px; }
-.stats-col > *:last-child { margin-bottom: 0; }
+/* Note: :last-child pseudo-class not supported in Unity UI Toolkit */

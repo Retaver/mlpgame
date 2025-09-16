@@ -199,7 +199,7 @@
                 </ui:VisualElement>
 
                 <!-- Compact Map Grid -->
-                <ui:VisualElement name="map-grid" class="map-grid-compact" />
+                <ui:VisualElement name="map-grid-modal" class="map-grid-compact" />
 
                 <!-- Location Info (compact) -->
                 <ui:VisualElement name="location-info-compact" class="location-info-compact">

@@ -464,13 +464,12 @@
     right: 2px;
     font-size: 8px;
     color: rgb(255, 255, 0);
-    font-weight: bold;
+    -unity-font-style: bold;
 }
 
 /* Location icons for special locations */
 .location-icon {
-    font-size: 12px;
-    text-align: center;
+    -unity-text-align: middle-center;
 }
 
 /* Highlight the active tile (current location) */
@@ -630,6 +629,4 @@
     margin-right: 8px;
 }
 
-.movement-buttons-compact > *:last-child {
-    margin-right: 0;
-}
+/* Note: :last-child pseudo-class not supported in Unity UI Toolkit */
