@@ -76,7 +76,7 @@ TextField.cc-input > .unity-text-input { background-color: #232833; color: #E9ED
     border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px;
 }
 .stat-btn:hover { background-color: #2A3140; }
-.stat-val { min-width: 24px; text-align: center; font-size: 11px; color: #E9EDF1; }
+.stat-val { min-width: 24px; -unity-text-align: middle-center; font-size: 11px; color: #E9EDF1; }
 
 /* Footer */
 .cc-footer { flex-direction: row; justify-content: flex-end; gap: 8px; }
