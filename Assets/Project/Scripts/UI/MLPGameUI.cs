@@ -12,14 +12,15 @@ namespace MyGameNamespace
 
         [SerializeField] private UIDocument uiDocument;
 
-        // Cached UI elements
-        private VisualElement root;
-        private Button characterBtn, menuBtn, optionsBtn, inventoryBtn;
-        private Button statsTabBtn, skillsTabBtn, perksTabBtn, effectsTabBtn;
-        private VisualElement statsPanel, skillsPanel, perksPanel, effectsPanel;
-        private Image characterPortrait;
+    // Cached UI elements
+    private VisualElement root;
+    private Button characterBtn, menuBtn, optionsBtn, inventoryBtn;
+    private Button statsTabBtn, skillsTabBtn, perksTabBtn, effectsTabBtn;
+    private VisualElement statsPanel, skillsPanel, perksPanel, effectsPanel;
+    private Image characterPortrait;
 
-        private void Awake()
+    // Map System
+    [SerializeField] private MapSystem mapSystem;        private void Awake()
         {
             if (Instance != default && Instance != this)
             {
@@ -162,6 +163,13 @@ namespace MyGameNamespace
 
             // Find character portrait
             characterPortrait = root.Q<Image>("character-portrait");
+
+            // Initialize Map System
+            if (mapSystem == null)
+            {
+                mapSystem = gameObject.AddComponent<MapSystem>();
+                Debug.Log("[MLPGameUI] MapSystem component added");
+            }
 
             Debug.Log($"[MLPGameUI] Panel initialization - statsPanel: {(statsPanel != null ? "found" : "null")}, skillsPanel: {(skillsPanel != null ? "found" : "null")}, perksPanel: {(perksPanel != null ? "found" : "null")}, effectsPanel: {(effectsPanel != null ? "found" : "null")}");
 

@@ -4,6 +4,8 @@
     <Style src="project://database/Assets/Project/Art/UI/USS/Portraits.uss" />
     <!-- Import CharacterSheet styles -->
     <Style src="project://database/Assets/Project/Art/UI/USS/CharacterSheet.uss" />
+    <!-- Import MapSection styles -->
+    <Style src="project://database/Assets/Project/Art/UI/USS/MapSection.uss" />
     <ui:VisualElement name="Root" class="gamehud-root theme--twilight font--ui">
         <ui:VisualElement class="top-row">
             <ui:VisualElement class="player-pane">
@@ -58,13 +60,44 @@
                         <ui:ProgressBar name="DiscordBar" value="0" high-value="100" class="stat-bar discord-bar" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <!-- Replace the old attributes panel with an interactive map panel.
-                     The MapRoot contains a title, a grid for tiles and a description area.
-                     It will be populated at runtime by the MapController script. -->
-                <ui:VisualElement name="MapRoot" class="map-root">
-                    <ui:Label name="MapTitle" text="Map" class="map-title" />
-                    <ui:VisualElement name="MapGrid" class="map-grid" />
-                    <ui:Label name="MapDescription" text="" class="map-description" />
+                <!-- Interactive Map Section -->
+                <ui:VisualElement name="map-section" class="map-section">
+                    <ui:Label text="Equestria Map" class="map-title" />
+
+                    <!-- Map Grid Container -->
+                    <ui:VisualElement name="map-grid" class="map-grid" />
+
+                    <!-- Location Information Panel -->
+                    <ui:VisualElement class="location-info-panel">
+                        <ui:Label name="location-name" text="Ponyville" class="location-name" />
+                        <ui:Label name="location-description" text="The heart of Equestria! A bustling town filled with friendly ponies." class="location-description" />
+                    </ui:VisualElement>
+
+                    <!-- Movement Controls -->
+                    <ui:VisualElement name="movement-buttons" class="movement-controls">
+                        <!-- Buttons will be created dynamically by MapSystem.cs -->
+                    </ui:VisualElement>
+
+                    <!-- Map Legend -->
+                    <ui:VisualElement class="map-legend">
+                        <ui:Label text="Legend:" class="legend-title" />
+                        <ui:VisualElement class="legend-item">
+                            <ui:VisualElement class="legend-color town-color" />
+                            <ui:Label text="Towns" class="legend-text" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="legend-item">
+                            <ui:VisualElement class="legend-color forest-color" />
+                            <ui:Label text="Forests" class="legend-text" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="legend-item">
+                            <ui:VisualElement class="legend-color shop-color" />
+                            <ui:Label text="Shops" class="legend-text" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="legend-item">
+                            <ui:VisualElement class="legend-color player-marker" />
+                            <ui:Label text="You Are Here" class="legend-text" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement class="center-pane">
