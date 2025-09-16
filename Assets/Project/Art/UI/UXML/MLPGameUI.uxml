@@ -1,12 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="Assets/Project/Art/UI/USS/MLPGameUI.uss" />
+    <Style src="Assets/Project/Art/UI/USS/Portraits.uss" />
+    <Style src="Assets/Project/Art/UI/USS/CharacterSheet.uss" />
+    <Style src="Assets/Project/Art/UI/USS/MapSection.uss" />
     <ui:VisualElement name="Root" class="gamehud-root theme--twilight font--ui">
-        <Style src="Assets/Project/Art/UI/USS/MLPGameUI.uss" />
-        <!-- Import portrait style overrides to ensure portraits maintain aspect ratio -->
-        <Style src="Assets/Project/Art/UI/USS/Portraits.uss" />
-        <!-- Import CharacterSheet styles -->
-        <Style src="Assets/Project/Art/UI/USS/CharacterSheet.uss" />
-        <!-- Import MapSection styles -->
-        <Style src="Assets/Project/Art/UI/USS/MapSection.uss" />
         <!-- Main game layout: left sidebar + right main area -->
         <ui:VisualElement class="game-layout">
             <!-- Left Sidebar -->
@@ -49,29 +46,15 @@
                             </ui:VisualElement>
                             <ui:ProgressBar name="ManaBar" value="50" high-value="50" class="stat-bar mana-bar" />
                         </ui:VisualElement>
-                        <ui:VisualElement class="stat-item">
-                            <ui:VisualElement class="stat-line">
-                                <ui:Label text="HARMONY" class="stat-name" />
-                                <ui:Label name="HarmonyValue" text="0/100" class="stat-numbers" />
-                            </ui:VisualElement>
-                            <ui:ProgressBar name="HarmonyBar" value="0" high-value="100" class="stat-bar harmony-bar" />
-                        </ui:VisualElement>
-                        <ui:VisualElement class="stat-item">
-                            <ui:VisualElement class="stat-line">
-                                <ui:Label text="DISCORD" class="stat-name" />
-                                <ui:Label name="DiscordValue" text="0/100" class="stat-numbers" />
-                            </ui:VisualElement>
-                            <ui:ProgressBar name="DiscordBar" value="0" high-value="100" class="stat-bar discord-bar" />
-                        </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-
+                
                 <!-- Map Section in Left Sidebar -->
                 <ui:VisualElement class="map-section">
                     <ui:Label text="🗺️ Equestria Map" class="section-title" />
-                                            <ui:VisualElement name="map-grid" class="map-grid">
-                            <!-- Map tiles will be created dynamically by MapSystem.cs -->
-                        </ui:VisualElement>
+                    <ui:VisualElement name="map-grid" class="map-grid">
+                        <!-- Map tiles will be created dynamically by MapSystem.cs -->
+                    </ui:VisualElement>
                     <ui:VisualElement class="map-controls">
                         <ui:Button name="map-north" text="↑" class="map-dir-btn" />
                         <ui:VisualElement class="map-controls-row">
@@ -81,20 +64,27 @@
                         <ui:Button name="map-south" text="↓" class="map-dir-btn" />
                     </ui:VisualElement>
                 </ui:VisualElement>
+                
+                <!-- Navigation -->
+                <ui:VisualElement class="navigation">
+                    <ui:Button name="CharacterButton" text="Character" class="nav-btn nav-btn--character character-button" />
+                    <ui:Button name="InventoryButton" text="Items" class="nav-btn nav-btn--inventory items-button" />
+                    <ui:Button name="MapButton" text="🗺️ Map" class="nav-btn nav-btn--map map-button" />
+                    <ui:Button name="MenuButton" text="Menu" class="nav-btn nav-btn--settings menu-button" />
+                </ui:VisualElement>
             </ui:VisualElement>
-
+            
             <!-- Right Main Area -->
             <ui:VisualElement class="main-area">
                 <ui:VisualElement class="story-section">
                     <ui:ScrollView name="NarrativeScroll" class="narrative-scroll">
                         <ui:Label name="StoryTitle" text="Chapter 1: Falling Through the Breathing Forest" class="story-title font--title" />
-                        <!-- StoryBody will be populated via RichStoryRenderer to support inline images and formatted text -->
                         <ui:VisualElement name="StoryBody" class="story-body">
                             <!-- Story content will be populated via RichStoryRenderer -->
                         </ui:VisualElement>
                     </ui:ScrollView>
                 </ui:VisualElement>
-
+                
                 <ui:VisualElement name="ChoicesPanel" class="choices-panel">
                     <ui:Button name="Choice1" text="[1]" class="choice-btn font--ui" />
                     <ui:Button name="Choice2" text="[2]" class="choice-btn font--ui" />
@@ -107,93 +97,86 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-
-        <!-- Bottom Navigation -->
-        <ui:VisualElement name="BottomNav" class="bottom-nav">
-            <ui:Button name="CharacterButton" text="Character" class="nav-btn nav-btn--character character-button" />
-            <ui:Button name="InventoryButton" text="Items" class="nav-btn nav-btn--inventory items-button" />
-            <ui:Button name="MapButton" text="🗺️ Map" class="nav-btn nav-btn--map map-button" />
-            <ui:Button name="MenuButton" text="Menu" class="nav-btn nav-btn--settings menu-button" />
-        </ui:VisualElement>
-        <!-- Character Sheet Modal (initially hidden) -->
-        <ui:VisualElement name="character-sheet-modal" class="sheet-modal-overlay theme--twilight" style="display: none;">
-            <ui:VisualElement name="character-sheet-container" class="sheet-container font--ui">
-                <ui:VisualElement name="sheet-header" class="sheet-header">
-                    <ui:VisualElement name="character-info" class="character-info">
-                        <ui:Image name="character-portrait" class="character-portrait" />
-                        <ui:VisualElement name="character-details" class="character-details">
-                            <ui:Label name="character-name" text="Character Name" class="sheet-title font--title" />
-                            <ui:Label name="character-level" text="Level 1" class="sheet-subtitle" />
-                        </ui:VisualElement>
+        
+        <!-- Character Sheet Modal Overlay (initially hidden) -->
+        <ui:VisualElement name="character-sheet-container" class="sheet-container font--ui">
+            <ui:VisualElement name="sheet-header" class="sheet-header">
+                <ui:VisualElement name="character-info" class="character-info">
+                    <ui:Image name="character-portrait" class="character-portrait" />
+                    <ui:VisualElement name="character-details" class="character-details">
+                        <ui:Label name="character-name" text="Character Name" class="sheet-title font--title" />
+                        <ui:Label name="character-level" text="Level 1" class="sheet-subtitle" />
                     </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement name="sheet-content" class="sheet-content">
-                    <ui:VisualElement name="sheet-tabs" class="sheet-tabs">
-                        <ui:Button name="stats-tab" text="Attributes" class="sheet-tab active" />
-                        <ui:Button name="skills-tab" text="Skills" class="sheet-tab" />
-                        <ui:Button name="perks-tab" text="Perks" class="sheet-tab" />
-                        <ui:Button name="effects-tab" text="Effects" class="sheet-tab" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="stats-panel" class="sheet-panel">
-                        <ui:VisualElement name="core-stats" class="stats-section">
-                            <ui:Label text="Core Attributes" class="section-title" />
-                            <ui:VisualElement name="core-stats-grid" class="stats-grid" style="flex-direction: row; align-items: flex-start; justify-content: center;">
-                                <ui:VisualElement name="strength-card" class="stat-card">
-                                    <ui:Label text="Strength" class="stat-name" />
-                                    <ui:Label text="6" class="stat-value" />
-                                </ui:VisualElement>
-                                <ui:VisualElement name="dexterity-card" class="stat-card">
-                                    <ui:Label text="Dexterity" class="stat-name" />
-                                    <ui:Label text="7" class="stat-value" />
-                                </ui:VisualElement>
-                                <ui:VisualElement name="constitution-card" class="stat-card">
-                                    <ui:Label text="Constitution" class="stat-name" />
-                                    <ui:Label text="5" class="stat-value" />
-                                </ui:VisualElement>
-                                <ui:VisualElement name="intelligence-card" class="stat-card">
-                                    <ui:Label text="Intelligence" class="stat-name" />
-                                    <ui:Label text="8" class="stat-value" />
-                                </ui:VisualElement>
-                                <ui:VisualElement name="wisdom-card" class="stat-card">
-                                    <ui:Label text="Wisdom" class="stat-name" />
-                                    <ui:Label text="5" class="stat-value" />
-                                </ui:VisualElement>
-                                <ui:VisualElement name="charisma-card" class="stat-card">
-                                    <ui:Label text="Charisma" class="stat-name" />
-                                    <ui:Label text="4" class="stat-value" />
-                                </ui:VisualElement>
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="skills-panel" class="sheet-panel" style="display: none;">
-                        <ui:VisualElement name="skill-header" class="skill-header">
-                            <ui:Label name="skill-points-label" text="Skill Points: 5" class="skill-points-label" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="skills-grid" class="skills-grid">
-                            <ui:VisualElement name="sample-skill" class="skill-card">
-                                <ui:Label text="Arcana" class="skill-name" />
-                                <ui:Label text="3" class="skill-value" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="perks-panel" class="sheet-panel" style="display: none;">
-                        <ui:VisualElement name="perks-grid" class="perks-grid">
-                            <ui:VisualElement name="sample-perk" class="perk-card">
-                                <ui:Label text="Arcane Scavenger" class="perk-name" />
-                                <ui:Label text="Finds magic items in ruins more frequently" class="perk-description" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="effects-panel" class="sheet-panel" style="display: none;">
-                        <ui:VisualElement name="effects-grid" class="effects-grid">
-                            <ui:Label text="No active effects." class="effects-empty" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement name="sheet-footer" class="sheet-footer">
-                    <ui:Button name="close-button" text="Close" class="sheet-button primary" />
                 </ui:VisualElement>
             </ui:VisualElement>
+            <ui:VisualElement name="sheet-content" class="sheet-content">
+                <ui:VisualElement name="sheet-tabs" class="sheet-tabs">
+                    <ui:Button name="stats-tab" text="Attributes" class="sheet-tab active" />
+                    <ui:Button name="skills-tab" text="Skills" class="sheet-tab" />
+                    <ui:Button name="perks-tab" text="Perks" class="sheet-tab" />
+                    <ui:Button name="effects-tab" text="Effects" class="sheet-tab" />
+                </ui:VisualElement>
+                <ui:VisualElement name="stats-panel" class="sheet-panel">
+                    <ui:VisualElement name="core-stats" class="stats-section">
+                        <ui:Label text="Core Attributes" class="section-title" />
+                        <ui:VisualElement name="core-stats-grid" class="stats-grid" style="flex-direction: row; align-items: flex-start; justify-content: center;">
+                            <ui:VisualElement name="strength-card" class="stat-card">
+                                <ui:Label text="Strength" class="stat-name" />
+                                <ui:Label text="6" class="stat-value" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="dexterity-card" class="stat-card">
+                                <ui:Label text="Dexterity" class="stat-name" />
+                                <ui:Label text="7" class="stat-value" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="constitution-card" class="stat-card">
+                                <ui:Label text="Constitution" class="stat-name" />
+                                <ui:Label text="5" class="stat-value" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="intelligence-card" class="stat-card">
+                                <ui:Label text="Intelligence" class="stat-name" />
+                                <ui:Label text="8" class="stat-value" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="wisdom-card" class="stat-card">
+                                <ui:Label text="Wisdom" class="stat-name" />
+                                <ui:Label text="5" class="stat-value" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="charisma-card" class="stat-card">
+                                <ui:Label text="Charisma" class="stat-name" />
+                                <ui:Label text="4" class="stat-value" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="skills-panel" class="sheet-panel" style="display: none;">
+                    <ui:VisualElement name="skill-header" class="skill-header">
+                        <ui:Label name="skill-points-label" text="Skill Points: 5" class="skill-points-label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="skills-grid" class="skills-grid">
+                        <ui:VisualElement name="sample-skill" class="skill-card">
+                            <ui:Label text="Arcana" class="skill-name" />
+                            <ui:Label text="3" class="skill-value" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="perks-panel" class="sheet-panel" style="display: none;">
+                    <ui:VisualElement name="perks-grid" class="perks-grid">
+                        <ui:VisualElement name="sample-perk" class="perk-card">
+                            <ui:Label text="Arcane Scavenger" class="perk-name" />
+                            <ui:Label text="Finds magic items in ruins more frequently" class="perk-description" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="effects-panel" class="sheet-panel" style="display: none;">
+                    <ui:VisualElement name="effects-grid" class="effects-grid">
+                        <ui:Label text="No active effects." class="effects-empty" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="sheet-footer" class="sheet-footer">
+                <ui:Button name="close-button" text="Close" class="sheet-button primary" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
         <!-- Map Modal Overlay (initially hidden) -->
         <ui:VisualElement name="map-modal" class="map-modal-overlay" style="display: none;">
             <ui:VisualElement name="map-modal-container" class="map-modal-container">
@@ -201,20 +184,21 @@
                     <ui:Label text="🗺️ Equestria Map" class="map-modal-title" />
                     <ui:Button name="close-map-button" text="❌" class="map-close-btn" />
                 </ui:VisualElement>
-
+                
                 <!-- Compact Map Grid -->
-                        <ui:VisualElement name="map-grid-modal" class="map-grid-compact">
-                            <!-- Compact map tiles will be created dynamically -->
-                        </ui:VisualElement>                <!-- Location Info (compact) -->
+                <ui:VisualElement name="map-grid-modal" class="map-grid-compact">
+                    <!-- Compact map tiles will be created dynamically -->
+                </ui:VisualElement>
+                
+                <!-- Location Info (compact) -->
                 <ui:VisualElement name="location-info-compact" class="location-info-compact">
                     <ui:Label name="location-name" text="Everfree Forest" class="location-name-compact" />
                     <ui:Label name="location-description" text="The mysterious forest where your adventure begins..." class="location-description-compact" />
                 </ui:VisualElement>
-
+                
                 <!-- Movement Controls (compact) -->
                 <ui:VisualElement name="movement-buttons" class="movement-buttons-compact">
                     <!-- Buttons will be created dynamically by MapSystem.cs -->
-                </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
