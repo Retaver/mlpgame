@@ -344,7 +344,7 @@ namespace MyGameNamespace.UI
         {
             if (notifications != null)
             {
-                notifications.ShowNotification("Welcome to MLP Game!", "Enjoy your adventure!", NotificationType.Info, 3f);
+                notifications.ShowNotification("Welcome to MLP Game!", "Enjoy your adventure!", TiTSNotifications.NotificationType.Info, 3f);
                 // Add more demo notifications as needed
             }
         }

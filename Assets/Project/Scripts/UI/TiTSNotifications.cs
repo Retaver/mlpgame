@@ -235,8 +235,8 @@ namespace MyGameNamespace.UI
             {
                 element.style.opacity = new StyleFloat(value);
                 element.style.translate = LerpTranslate(
-                    new Translate(new Length(400, LengthUnit.Pixel), 0),
-                    new Translate(0, 0),
+                    new Translate(new Length(400, LengthUnit.Pixel), new Length(0, LengthUnit.Pixel)),
+                    new Translate(new Length(0, LengthUnit.Pixel), new Length(0, LengthUnit.Pixel)),
                     value);
             }).OnCompleted(() =>
             {
@@ -255,8 +255,8 @@ namespace MyGameNamespace.UI
             {
                 element.style.opacity = new StyleFloat(1f - value);
                 element.style.translate = LerpTranslate(
-                    new Translate(0, 0),
-                    new Translate(new Length(400, LengthUnit.Pixel), 0),
+                    new Translate(new Length(0, LengthUnit.Pixel), new Length(0, LengthUnit.Pixel)),
+                    new Translate(new Length(400, LengthUnit.Pixel), new Length(0, LengthUnit.Pixel)),
                     value);
             }).OnCompleted(() =>
             {
