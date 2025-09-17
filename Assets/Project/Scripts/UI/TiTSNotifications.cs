@@ -231,10 +231,9 @@ namespace MyGameNamespace.UI
             notification.style.translate = new Translate(new Length(400, LengthUnit.Pixel), 0);
 
             // Animate in using UIToolkit experimental animation
-            notification.experimental.animation.Start(0, 1, SLIDE_DURATION * 1000, (element, value) =>
+            notification.experimental.animation.Start(0f, 1f, SLIDE_DURATION * 1000f, (element, value) =>
             {
-                float t = 1f - (1f - value) * (1f - value); // Ease out
-                element.style.opacity = value;
+                element.style.opacity = new StyleFloat(value);
                 element.style.translate = LerpTranslate(
                     new Translate(new Length(400, LengthUnit.Pixel), 0),
                     new Translate(0, 0),
@@ -252,10 +251,9 @@ namespace MyGameNamespace.UI
         private void AnimateNotificationOut(VisualElement notification)
         {
             // Animate out using UIToolkit experimental animation
-            notification.experimental.animation.Start(0, 1, SLIDE_DURATION * 1000, (element, value) =>
+            notification.experimental.animation.Start(0f, 1f, SLIDE_DURATION * 1000f, (element, value) =>
             {
-                float t = value * value; // Ease in
-                element.style.opacity = 1f - value;
+                element.style.opacity = new StyleFloat(1f - value);
                 element.style.translate = LerpTranslate(
                     new Translate(0, 0),
                     new Translate(new Length(400, LengthUnit.Pixel), 0),
@@ -266,7 +264,6 @@ namespace MyGameNamespace.UI
                 DismissNotification(notification);
             });
         }
-
         private void DismissNotification(VisualElement notification)
         {
             if (activeNotifications.Contains(notification))

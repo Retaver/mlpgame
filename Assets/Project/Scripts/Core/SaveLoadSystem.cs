@@ -294,10 +294,10 @@ namespace MyGameNamespace
                     player.experience = saveData.playerData.experience;
                     if (player.gameStats != null)
                     {
-                        player.gameStats.health = saveData.playerData.health;
-                        player.gameStats.maxHealth = saveData.playerData.maxHealth;
-                        player.gameStats.energy = saveData.playerData.energy;
-                        player.gameStats.maxEnergy = saveData.playerData.maxEnergy;
+                        player.gameStats.health = (int)saveData.playerData.health;
+                        player.gameStats.maxHealth = (int)saveData.playerData.maxHealth;
+                        player.gameStats.energy = (int)saveData.playerData.energy;
+                        player.gameStats.maxEnergy = (int)saveData.playerData.maxEnergy;
                     }
                     player.bits = saveData.playerData.bits;
                     player.skillPoints = saveData.playerData.skillPoints;

@@ -161,7 +161,7 @@ namespace MyGameNamespace.UI
             {
                 Name = name,
                 Position = new Vector2(x, y),
-                Type = type,
+                Type = (LocationType)type,
                 Description = description,
                 IsDiscovered = false,
                 IsVisited = false

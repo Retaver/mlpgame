@@ -304,7 +304,7 @@ namespace MyGameNamespace.UI
         {
             if (sideBars != null)
             {
-                sideBars.UpdateHealthBar(healthValue, maxHealthValue);
+                sideBars.UpdateStat("Health", healthValue, maxHealthValue);
             }
         }
 
@@ -312,7 +312,7 @@ namespace MyGameNamespace.UI
         {
             if (sideBars != null)
             {
-                sideBars.UpdateEnergyBar(energyValue, maxEnergyValue);
+                sideBars.UpdateStat("Energy", energyValue, maxEnergyValue);
             }
         }
 
@@ -320,7 +320,7 @@ namespace MyGameNamespace.UI
         {
             if (sideBars != null)
             {
-                sideBars.UpdateMagicBar(magicValue, maxMagicValue);
+                sideBars.UpdateStat("Magic", magicValue, maxMagicValue);
             }
         }
 
@@ -328,7 +328,7 @@ namespace MyGameNamespace.UI
         {
             if (sideBars != null)
             {
-                sideBars.UpdateFriendshipBar(friendshipValue, maxFriendshipValue);
+                sideBars.UpdateStat("Friendship", friendshipValue, maxFriendshipValue);
             }
         }
 
@@ -336,7 +336,7 @@ namespace MyGameNamespace.UI
         {
             if (sideBars != null)
             {
-                sideBars.UpdateDiscordBar(discordValue, maxDiscordValue);
+                sideBars.UpdateStat("Discord", discordValue, maxDiscordValue);
             }
         }
 
@@ -344,7 +344,7 @@ namespace MyGameNamespace.UI
         {
             if (notifications != null)
             {
-                notifications.ShowNotification("Welcome to MLP Game!", 3f);
+                notifications.ShowNotification("Welcome to MLP Game!", "Enjoy your adventure!", NotificationType.Info, 3f);
                 // Add more demo notifications as needed
             }
         }
