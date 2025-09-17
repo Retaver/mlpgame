@@ -11,6 +11,19 @@ namespace MyGameNamespace.UI
     /// </summary>
     public class TiTSMinimap : VisualElement
     {
+        // Location type enumeration for map markers
+        public enum LocationType
+        {
+            Town,
+            Shop,
+            Farm,
+            Library,
+            Danger,
+            Capital,
+            Quest,
+            Friend
+        }
+
         // Map settings
         private const int MAP_SIZE = 200;
         private const int ICON_SIZE = 8;
@@ -351,19 +364,6 @@ namespace MyGameNamespace.UI
                 }
             }
         }
-    }
-
-    // Location type enumeration for map markers
-    public enum LocationType
-    {
-        Town,
-        Shop,
-        Farm,
-        Library,
-        Danger,
-        Capital,
-        Quest,
-        Friend
     }
 
     // Data structure for location information
