@@ -1,0 +1,234 @@
+/* MLP Game HUD Styles - Inspired by TiTS layout but family-friendly */
+
+.hud-main-container {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.hud-left-panel,
+.hud-right-panel {
+    background-color: rgba(20, 20, 30, 0.9);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 0 5px;
+    border-left: 2px solid #4a90e2;
+    border-right: 2px solid #4a90e2;
+}
+
+.hud-left-panel {
+    border-left-color: #ff6b9d;
+}
+
+.hud-right-panel {
+    border-right-color: #ff6b9d;
+}
+
+.hud-center-panel {
+    background-color: rgba(10, 10, 20, 0.7);
+    border-radius: 8px;
+    margin: 0 5px;
+    padding: 20px;
+}
+
+.hud-section {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: rgba(30, 30, 40, 0.8);
+    border-radius: 6px;
+    border: 1px solid rgba(100, 100, 120, 0.3);
+}
+
+.hud-section:last-child {
+    margin-bottom: 0;
+}
+
+/* Character Portrait */
+.character-portrait {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    border: 3px solid #ff6b9d;
+    align-self: center;
+    margin-bottom: 10px;
+}
+
+/* Location Info */
+.location-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.location-description {
+    font-size: 12px;
+    color: #cccccc;
+    text-align: center;
+    white-space: normal;
+}
+
+/* Minimap */
+.minimap-container {
+    background-color: #1a1a2e;
+    border-radius: 5px;
+    border: 2px solid #4a90e2;
+    align-self: center;
+}
+
+/* System Buttons */
+.buttons-grid {
+    justify-content: space-around;
+    align-items: center;
+}
+
+.system-button {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    background-color: #4a90e2;
+    border-radius: 8px;
+    border: 2px solid #2e5cb8;
+    color: white;
+    margin: 2px;
+    transition: all 0.2s ease;
+}
+
+.system-button:hover {
+    background-color: #5ba0f2;
+    transform: scale(1.05);
+}
+
+.system-button:active {
+    background-color: #2e5cb8;
+    transform: scale(0.95);
+}
+
+/* Character Name */
+.character-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff6b9d;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Stats */
+.stats-container {
+    padding: 5px;
+}
+
+.stat-row {
+    margin-bottom: 8px;
+    padding: 5px;
+    background-color: rgba(40, 40, 50, 0.6);
+    border-radius: 4px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.stat-bar {
+    margin: 0 10px;
+    height: 12px;
+    background-color: #333333;
+    border-radius: 6px;
+}
+
+.stat-bar .unity-progress-bar__progress {
+    background-color: #4a90e2;
+    border-radius: 6px;
+}
+
+.stat-value {
+    font-size: 12px;
+    color: #cccccc;
+}
+
+/* Status Effects */
+.status-effects {
+    padding: 5px;
+    min-height: 50px;
+}
+
+.status-effects:empty::before {
+    content: "No active effects";
+    font-size: 12px;
+    color: #888888;
+    font-style: italic;
+}
+
+/* Quick Actions */
+.quick-actions {
+    padding: 5px;
+}
+
+/* Main Display */
+.main-display {
+    background-color: rgba(20, 20, 30, 0.8);
+    border-radius: 8px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-label {
+    font-size: 24px;
+    color: #ff6b9d;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+/* Section Labels */
+.section-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #4a90e2;
+    text-align: center;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .hud-left-panel,
+    .hud-right-panel {
+        width: 250px;
+        min-width: 200px;
+    }
+
+    .character-portrait {
+        width: 100px;
+        height: 100px;
+    }
+
+    .minimap-container {
+        width: 180px;
+        height: 130px;
+    }
+}
+
+@media (max-width: 900px) {
+    .hud-main-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .hud-left-panel,
+    .hud-right-panel {
+        width: auto;
+        min-width: auto;
+        margin: 5px 0;
+    }
+
+    .hud-center-panel {
+        order: -1;
+        margin: 5px 0;
+    }
+}

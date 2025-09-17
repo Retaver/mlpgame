@@ -1,0 +1,43 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+  <Style src="project://database/Assets/Project/UI/MLPGameHUD.uss?fileID=7433441132597879392&amp;guid=8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b&amp;type=3#MLPGameHUD" />
+  <ui:VisualElement name="hud-main-container" class="hud-main-container">
+    <ui:VisualElement name="hud-left-panel" class="hud-left-panel">
+      <ui:VisualElement name="portrait-section" class="hud-section">
+        <ui:VisualElement name="character-portrait" class="character-portrait" />
+      </ui:VisualElement>
+      <ui:VisualElement name="location-section" class="hud-section">
+        <ui:Label name="location-name" class="location-name" text="Ponyville" />
+        <ui:Label name="location-description" class="location-description" text="A peaceful town in Equestria" />
+      </ui:VisualElement>
+      <ui:VisualElement name="minimap-section" class="hud-section">
+        <ui:Label name="minimap-label" class="section-label" text="Mini Map" />
+        <ui:VisualElement name="minimap-container" class="minimap-container" />
+      </ui:VisualElement>
+      <ui:VisualElement name="system-buttons" class="hud-section">
+        <ui:VisualElement name="buttons-grid" class="buttons-grid" />
+      </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="hud-center-panel" class="hud-center-panel">
+      <ui:VisualElement name="main-display" class="main-display">
+        <ui:Label name="welcome-label" class="welcome-label" text="Welcome to Equestria!" />
+      </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="hud-right-panel" class="hud-right-panel">
+      <ui:VisualElement name="character-name-section" class="hud-section">
+        <ui:Label name="character-name" class="character-name" text="Twilight Sparkle" />
+      </ui:VisualElement>
+      <ui:VisualElement name="stats-section" class="hud-section">
+        <ui:Label name="stats-label" class="section-label" text="Stats" />
+        <ui:VisualElement name="stats-container" class="stats-container" />
+      </ui:VisualElement>
+      <ui:VisualElement name="status-section" class="hud-section">
+        <ui:Label name="status-label" class="section-label" text="Status Effects" />
+        <ui:VisualElement name="status-effects" class="status-effects" />
+      </ui:VisualElement>
+      <ui:VisualElement name="actions-section" class="hud-section">
+        <ui:Label name="actions-label" class="section-label" text="Quick Actions" />
+        <ui:VisualElement name="quick-actions" class="quick-actions" />
+      </ui:VisualElement>
+    </ui:VisualElement>
+  </ui:VisualElement>
+</ui:UXML>
