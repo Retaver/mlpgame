@@ -340,23 +340,6 @@ namespace MyGameNamespace.UI
             }
         }
 
-        private void UpdateAllStats()
-        {
-            UpdateHealthBar();
-            UpdateEnergyBar();
-            UpdateMagicBar();
-            UpdateFriendshipBar();
-            UpdateDiscordBar();
-        }
-
-        private void UpdatePlayerPosition()
-        {
-            if (minimap != null)
-            {
-                minimap.UpdatePlayerPosition(playerPosition, playerRotation);
-            }
-        }
-
         private void ShowDemoNotifications()
         {
             if (notifications != null)
