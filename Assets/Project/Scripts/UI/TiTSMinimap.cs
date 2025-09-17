@@ -353,6 +353,7 @@ namespace MyGameNamespace.UI
         }
     }
 
+    // Location type enumeration for map markers
     public enum LocationType
     {
         Town,
@@ -365,6 +366,7 @@ namespace MyGameNamespace.UI
         Friend
     }
 
+    // Data structure for location information
     public class LocationData
     {
         public string Name { get; set; }
