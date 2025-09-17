@@ -30,7 +30,7 @@ namespace MyGameNamespace.UI
         private VisualElement characterPortrait;
         private Label locationName;
         private Label locationDescription;
-        private SimpleMinimap minimap;
+        private TiTSMinimap minimap;
         private VisualElement systemButtons;
 
         // Right Panel Components
@@ -195,7 +195,7 @@ namespace MyGameNamespace.UI
                 minimapSection.Add(minimapLabel);
 
                 // Create and add the minimap
-                minimap = new SimpleMinimap();
+                minimap = new TiTSMinimap();
                 minimapSection.Add(minimap);
             }
 
