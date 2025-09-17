@@ -153,7 +153,7 @@ namespace MyGameNamespace.UI
             characterPortrait.AddToClassList("character-portrait");
             characterPortrait.style.width = 120;
             characterPortrait.style.height = 120;
-            characterPortrait.style.backgroundColor = new Color(0.8f, 0.8f, 0.8f);
+            characterPortrait.style.backgroundColor = new Color(108/255f, 92/255f, 110/255f); /* Twilight button border color for portrait background */
             characterPortrait.style.borderTopLeftRadius = 10;
             characterPortrait.style.borderTopRightRadius = 10;
             characterPortrait.style.borderBottomLeftRadius = 10;
@@ -177,7 +177,7 @@ namespace MyGameNamespace.UI
                 locationDescription.name = "location-description";
                 locationDescription.AddToClassList("location-description");
                 locationDescription.style.fontSize = 12;
-                locationDescription.style.color = new Color(0.7f, 0.7f, 0.7f);
+                locationDescription.style.color = new Color(180/255f, 170/255f, 190/255f); /* Twilight text color for location description */
                 locationSection.Add(locationDescription);
             }
 
@@ -284,14 +284,14 @@ namespace MyGameNamespace.UI
             mainDisplay.name = "main-display";
             mainDisplay.AddToClassList("main-display");
             mainDisplay.style.flexGrow = 1;
-            mainDisplay.style.backgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.8f);
+            mainDisplay.style.backgroundColor = new Color(22/255f, 18/255f, 24/255f, 0.92f); /* Twilight menu card background for main display */
             centerPanel.Add(mainDisplay);
 
             var welcomeLabel = new Label("Welcome to Equestria!");
             welcomeLabel.name = "welcome-label";
             welcomeLabel.AddToClassList("welcome-label");
             welcomeLabel.style.fontSize = 24;
-            welcomeLabel.style.color = new Color(1f, 0.8f, 1f);
+            welcomeLabel.style.color = new Color(244/255f, 162/255f, 232/255f); /* Twilight title color for welcome label */
             welcomeLabel.style.alignSelf = Align.Center;
             welcomeLabel.style.marginTop = 50;
             mainDisplay.Add(welcomeLabel);
@@ -557,7 +557,7 @@ namespace MyGameNamespace.UI
             notificationLabel.style.display = DisplayStyle.None;
             notificationLabel.style.fontSize = 14;
             notificationLabel.style.color = Color.white;
-            notificationLabel.style.backgroundColor = new Color(0, 0, 0, 0.8f);
+            notificationLabel.style.backgroundColor = new Color(22/255f, 18/255f, 24/255f, 0.9f); /* Twilight menu card background for notifications */
             notificationLabel.style.paddingTop = 10;
             notificationLabel.style.paddingBottom = 10;
             notificationLabel.style.paddingLeft = 15;

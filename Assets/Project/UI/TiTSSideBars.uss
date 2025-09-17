@@ -1,0 +1,196 @@
+/* TiTS-Inspired Side Bars Styling - Unity 6.2 Compatible */
+
+.tits-side-bars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none; /* Allow clicks through to game world */
+}
+
+.tits-left-bars,
+.tits-right-bars {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tits-left-bars {
+    left: 20px;
+}
+
+.tits-right-bars {
+    right: 20px;
+}
+
+.tits-stat-bar-container {
+    flex-direction: row;
+    align-items: center;
+    background-color: rgba(10, 8, 12, 0.9); /* Twilight background */
+    border-radius: 8px;
+    border: 2px solid rgb(108, 92, 110); /* Twilight border */
+    padding: 8px;
+    margin: 2px 0;
+    backdrop-filter: blur(5px);
+    pointer-events: auto; /* Allow interaction with bars */
+    transition: all 0.3s ease;
+}
+
+.tits-stat-bar-container:hover {
+    border-color: rgb(244, 162, 232); /* Twilight accent on hover */
+    transform: scale(1.02);
+}
+
+.tits-stat-icon {
+    font-size: 18px;
+    margin-right: 8px;
+    color: rgb(226, 220, 234); /* Twilight text color */
+    text-shadow: 0 0 4px rgba(244, 162, 232, 0.5);
+}
+
+.tits-bar-wrapper {
+    flex-grow: 1;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.tits-stat-bar {
+    height: 12px;
+    border-radius: 6px;
+    background-color: rgba(52, 46, 62, 0.8); /* Twilight bar background */
+    border: 1px solid rgb(108, 92, 110);
+}
+
+.tits-stat-bar ProgressBar {
+    border-radius: 6px;
+}
+
+/* Unity ProgressBar styling */
+.tits-stat-bar .unity-progress-bar {
+    border-radius: 6px;
+}
+
+.tits-stat-bar .unity-progress-bar__background {
+    background-color: rgba(52, 46, 62, 0.8);
+    border-radius: 6px;
+}
+
+.tits-stat-bar .unity-progress-bar__progress {
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+/* Status-based styling */
+.tits-stat-bar.normal .unity-progress-bar__progress {
+    background-color: rgb(144, 238, 144); /* Green for normal */
+    box-shadow: 0 0 8px rgba(144, 238, 144, 0.4);
+}
+
+.tits-stat-bar.low .unity-progress-bar__progress {
+    background-color: rgb(255, 215, 0); /* Yellow for low */
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+}
+
+.tits-stat-bar.critical .unity-progress-bar__progress {
+    background-color: rgb(255, 69, 69); /* Red for critical */
+    box-shadow: 0 0 12px rgba(255, 69, 69, 0.6);
+    animation: pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
+
+.tits-stat-label {
+    font-size: 10px;
+    color: rgb(180, 170, 190); /* Twilight secondary text */
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Specific stat colors */
+.tits-health-bar .tits-stat-icon {
+    color: rgb(255, 100, 100);
+}
+
+.tits-energy-bar .tits-stat-icon {
+    color: rgb(100, 200, 255);
+}
+
+.tits-magic-bar .tits-stat-icon {
+    color: rgb(200, 100, 255);
+}
+
+.tits-friendship-bar .tits-stat-icon {
+    color: rgb(255, 200, 100);
+}
+
+.tits-discord-bar .tits-stat-icon {
+    color: rgb(150, 100, 200);
+}
+
+/* Health bar specific */
+.tits-health-bar .unity-progress-bar__progress {
+    background: linear-gradient(90deg, rgb(255, 100, 100) 0%, rgb(255, 150, 150) 100%);
+}
+
+/* Energy bar specific */
+.tits-energy-bar .unity-progress-bar__progress {
+    background: linear-gradient(90deg, rgb(100, 200, 255) 0%, rgb(150, 220, 255) 100%);
+}
+
+/* Magic bar specific */
+.tits-magic-bar .unity-progress-bar__progress {
+    background: linear-gradient(90deg, rgb(200, 100, 255) 0%, rgb(220, 150, 255) 100%);
+}
+
+/* Friendship bar specific */
+.tits-friendship-bar .unity-progress-bar__progress {
+    background: linear-gradient(90deg, rgb(255, 200, 100) 0%, rgb(255, 220, 150) 100%);
+}
+
+/* Discord bar specific */
+.tits-discord-bar .unity-progress-bar__progress {
+    background: linear-gradient(90deg, rgb(150, 100, 200) 0%, rgb(180, 130, 220) 100%);
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 1200px) {
+    .tits-left-bars,
+    .tits-right-bars {
+        width: 160px;
+    }
+
+    .tits-stat-bar-container {
+        padding: 6px;
+    }
+
+    .tits-stat-icon {
+        font-size: 16px;
+    }
+
+    .tits-stat-bar {
+        height: 10px;
+    }
+}
+
+@media (max-width: 800px) {
+    .tits-left-bars {
+        left: 10px;
+    }
+
+    .tits-right-bars {
+        right: 10px;
+    }
+
+    .tits-left-bars,
+    .tits-right-bars {
+        width: 140px;
+    }
+}

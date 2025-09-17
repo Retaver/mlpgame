@@ -1,0 +1,265 @@
+/* TiTS-Style Quick Actions Styling - Unity 6.2 Compatible */
+
+.tits-quick-actions {
+    background-color: rgba(10, 8, 12, 0.95); /* Twilight background */
+    border-radius: 12px;
+    border: 2px solid rgb(108, 92, 110); /* Twilight border */
+    padding: 12px;
+    width: 280px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.tits-quick-actions-container {
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tits-quick-actions-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(226, 220, 234); /* Twilight primary text */
+    text-align: center;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+    margin-bottom: 8px;
+}
+
+.tits-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.tits-action-button {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    background-color: rgba(42, 30, 46, 0.9); /* Twilight button background */
+    border: 1px solid rgb(108, 92, 110);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.tits-action-button:hover {
+    background-color: rgba(52, 40, 56, 0.9);
+    border-color: rgb(244, 162, 232); /* Twilight accent */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(244, 162, 232, 0.2);
+}
+
+.tits-action-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.tits-action-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.tits-action-icon {
+    font-size: 20px;
+    margin-bottom: 4px;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.tits-action-label {
+    font-size: 11px;
+    font-weight: bold;
+    color: rgb(180, 170, 190); /* Twilight secondary text */
+    text-align: center;
+    line-height: 1.2;
+}
+
+.tits-action-hotkey {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 8px;
+    color: rgb(150, 140, 160);
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+/* Highlighted state for hotkey activation */
+.tits-action-highlighted {
+    animation: quick-action-pulse 0.3s ease-out;
+    border-color: rgb(255, 255, 0);
+    box-shadow: 0 0 12px rgba(255, 255, 0, 0.4);
+}
+
+@keyframes quick-action-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Specific action colors */
+.tits-action-inventory .tits-action-icon {
+    color: rgb(150, 200, 255); /* Blue for inventory */
+}
+
+.tits-action-character .tits-action-icon {
+    color: rgb(255, 200, 150); /* Orange for character */
+}
+
+.tits-action-map .tits-action-icon {
+    color: rgb(150, 255, 150); /* Green for map */
+}
+
+.tits-action-quests .tits-action-icon {
+    color: rgb(200, 150, 255); /* Purple for quests */
+}
+
+.tits-action-spells .tits-action-icon {
+    color: rgb(255, 150, 200); /* Pink for spells */
+}
+
+.tits-action-items .tits-action-icon {
+    color: rgb(255, 215, 0); /* Gold for items */
+}
+
+.tits-action-social .tits-action-icon {
+    color: rgb(100, 255, 200); /* Teal for social */
+}
+
+.tits-action-settings .tits-action-icon {
+    color: rgb(150, 150, 150); /* Gray for settings */
+}
+
+/* Hover effects for specific actions */
+.tits-action-inventory:hover .tits-action-icon {
+    color: rgb(200, 230, 255);
+}
+
+.tits-action-character:hover .tits-action-icon {
+    color: rgb(255, 220, 180);
+}
+
+.tits-action-map:hover .tits-action-icon {
+    color: rgb(180, 255, 180);
+}
+
+.tits-action-quests:hover .tits-action-icon {
+    color: rgb(220, 180, 255);
+}
+
+.tits-action-spells:hover .tits-action-icon {
+    color: rgb(255, 180, 220);
+}
+
+.tits-action-items:hover .tits-action-icon {
+    color: rgb(255, 235, 100);
+}
+
+.tits-action-social:hover .tits-action-icon {
+    color: rgb(150, 255, 230);
+}
+
+.tits-action-settings:hover .tits-action-icon {
+    color: rgb(200, 200, 200);
+}
+
+.tits-hotkey-hints {
+    border-top: 1px solid rgb(108, 92, 110);
+    padding-top: 8px;
+    margin-top: 8px;
+}
+
+.tits-hints-label {
+    font-size: 10px;
+    color: rgb(150, 140, 160);
+    text-align: center;
+    font-style: italic;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+    .tits-quick-actions {
+        width: 240px;
+    }
+
+    .tits-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+
+    .tits-action-button {
+        height: 60px;
+    }
+
+    .tits-action-icon {
+        font-size: 18px;
+    }
+
+    .tits-action-label {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 800px) {
+    .tits-quick-actions {
+        width: 200px;
+    }
+
+    .tits-actions-grid {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .tits-action-button {
+        height: 50px;
+        flex-direction: row;
+        justify-content: flex-start;
+        padding-left: 12px;
+    }
+
+    .tits-action-icon {
+        font-size: 16px;
+        margin-bottom: 0;
+        margin-right: 8px;
+    }
+
+    .tits-action-label {
+        text-align: left;
+        flex-grow: 1;
+    }
+
+    .tits-action-hotkey {
+        position: static;
+        margin-left: auto;
+        margin-right: 8px;
+    }
+}
+
+@media (max-width: 600px) {
+    .tits-quick-actions {
+        width: 180px;
+    }
+
+    .tits-action-button {
+        height: 45px;
+        padding-left: 8px;
+    }
+
+    .tits-action-icon {
+        font-size: 14px;
+        margin-right: 6px;
+    }
+
+    .tits-action-label {
+        font-size: 9px;
+    }
+
+    .tits-action-hotkey {
+        font-size: 7px;
+        padding: 1px 3px;
+    }
+}

@@ -1,32 +1,33 @@
-/* MLP Game HUD Styles - Inspired by TiTS layout but family-friendly */
+/* MLP Game HUD Styles - Twilight Theme (matching Main Menu) */
 
 .hud-main-container {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(10, 8, 12, 0.95); /* Twilight main background */
     border-radius: 10px;
     padding: 10px;
     margin: 10px;
+    border: 2px solid rgb(92, 78, 70); /* Twilight border color */
 }
 
 .hud-left-panel,
 .hud-right-panel {
-    background-color: rgba(20, 20, 30, 0.9);
+    background-color: rgba(22, 18, 24, 0.92); /* Twilight menu card background */
     border-radius: 8px;
     padding: 15px;
     margin: 0 5px;
-    border-left: 2px solid #4a90e2;
-    border-right: 2px solid #4a90e2;
+    border-left: 2px solid rgb(108, 92, 110); /* Twilight button border */
+    border-right: 2px solid rgb(108, 92, 110);
 }
 
 .hud-left-panel {
-    border-left-color: #ff6b9d;
+    border-left-color: rgb(244, 162, 232); /* Twilight title color */
 }
 
 .hud-right-panel {
-    border-right-color: #ff6b9d;
+    border-right-color: rgb(244, 162, 232);
 }
 
 .hud-center-panel {
-    background-color: rgba(10, 10, 20, 0.7);
+    background-color: rgba(22, 20, 22, 0.8); /* Twilight root background */
     border-radius: 8px;
     margin: 0 5px;
     padding: 20px;
@@ -35,9 +36,9 @@
 .hud-section {
     margin-bottom: 15px;
     padding: 10px;
-    background-color: rgba(30, 30, 40, 0.8);
+    background-color: rgba(36, 30, 46, 0.8); /* Twilight panel background */
     border-radius: 6px;
-    border: 1px solid rgba(100, 100, 120, 0.3);
+    border: 1px solid rgb(108, 92, 110); /* Twilight button border */
 }
 
 .hud-section:last-child {
@@ -46,9 +47,9 @@
 
 /* Character Portrait */
 .character-portrait {
-    background-color: #f0f0f0;
+    background-color: rgb(52, 46, 62); /* Twilight character portrait background */
     border-radius: 10px;
-    border: 3px solid #ff6b9d;
+    border: 3px solid rgb(244, 162, 232); /* Twilight title color */
     align-self: center;
     margin-bottom: 10px;
 }
@@ -57,23 +58,23 @@
 .location-name {
     font-size: 16px;
     font-weight: bold;
-    color: #ffffff;
+    color: rgb(226, 220, 234); /* Twilight character name color */
     margin-bottom: 5px;
     text-align: center;
 }
 
 .location-description {
     font-size: 12px;
-    color: #cccccc;
+    color: rgb(180, 170, 190); /* Twilight character details color */
     text-align: center;
     white-space: normal;
 }
 
 /* Minimap */
 .minimap-container {
-    background-color: #1a1a2e;
+    background-color: rgb(22, 18, 24); /* Twilight menu card background */
     border-radius: 5px;
-    border: 2px solid #4a90e2;
+    border: 2px solid rgb(108, 92, 110); /* Twilight button border */
     align-self: center;
 }
 
@@ -87,21 +88,21 @@
     width: 40px;
     height: 40px;
     font-size: 18px;
-    background-color: #4a90e2;
+    background-color: rgba(42, 30, 46, 0.96); /* Twilight menu button background */
     border-radius: 8px;
-    border: 2px solid #2e5cb8;
-    color: white;
+    border: 2px solid rgb(108, 92, 110); /* Twilight button border */
+    color: rgb(226, 220, 234); /* Twilight character name color */
     margin: 2px;
     transition: all 0.2s ease;
 }
 
 .system-button:hover {
-    background-color: #5ba0f2;
+    background-color: rgba(52, 40, 56, 0.96); /* Slightly lighter on hover */
     transform: scale(1.05);
 }
 
 .system-button:active {
-    background-color: #2e5cb8;
+    background-color: rgb(92, 78, 70); /* Twilight border color when pressed */
     transform: scale(0.95);
 }
 
@@ -109,9 +110,10 @@
 .character-name {
     font-size: 18px;
     font-weight: bold;
-    color: #ff6b9d;
+    color: rgb(244, 162, 232); /* Twilight title color */
     text-align: center;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 2px rgba(60, 20, 70, 0.9); /* Twilight title shadow */
+    font-weight: bold;
 }
 
 /* Stats */
@@ -122,31 +124,31 @@
 .stat-row {
     margin-bottom: 8px;
     padding: 5px;
-    background-color: rgba(40, 40, 50, 0.6);
+    background-color: rgba(42, 30, 46, 0.8); /* Twilight menu button background */
     border-radius: 4px;
 }
 
 .stat-label {
     font-size: 14px;
-    color: #ffffff;
+    color: rgb(226, 220, 234); /* Twilight character name color */
     font-weight: bold;
 }
 
 .stat-bar {
     margin: 0 10px;
     height: 12px;
-    background-color: #333333;
+    background-color: rgb(52, 46, 62); /* Twilight character portrait background */
     border-radius: 6px;
 }
 
 .stat-bar .unity-progress-bar__progress {
-    background-color: #4a90e2;
+    background-color: rgb(244, 162, 232); /* Twilight title color */
     border-radius: 6px;
 }
 
 .stat-value {
     font-size: 12px;
-    color: #cccccc;
+    color: rgb(180, 170, 190); /* Twilight character details color */
 }
 
 /* Status Effects */
@@ -158,7 +160,7 @@
 .status-effects:empty::before {
     content: "No active effects";
     font-size: 12px;
-    color: #888888;
+    color: rgb(158, 146, 168); /* Twilight game version color */
     font-style: italic;
 }
 
@@ -169,7 +171,7 @@
 
 /* Main Display */
 .main-display {
-    background-color: rgba(20, 20, 30, 0.8);
+    background-color: rgba(36, 30, 46, 0.8); /* Twilight panel background */
     border-radius: 8px;
     padding: 20px;
     justify-content: center;
@@ -178,9 +180,9 @@
 
 .welcome-label {
     font-size: 24px;
-    color: #ff6b9d;
+    color: rgb(244, 162, 232); /* Twilight title color */
     text-align: center;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(60, 20, 70, 0.9); /* Twilight title shadow */
     font-weight: bold;
 }
 
@@ -188,7 +190,7 @@
 .section-label {
     font-size: 14px;
     font-weight: bold;
-    color: #4a90e2;
+    color: rgb(226, 206, 244); /* Twilight subtitle color */
     text-align: center;
     margin-bottom: 8px;
     text-transform: uppercase;

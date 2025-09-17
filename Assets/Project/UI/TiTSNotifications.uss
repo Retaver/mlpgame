@@ -1,0 +1,259 @@
+/* TiTS-Style Notification System Styling - Unity 6.2 Compatible */
+
+.tits-notifications {
+    pointer-events: none; /* Allow clicks through to game world */
+    z-index: 1000;
+}
+
+.tits-notification {
+    background-color: rgba(10, 8, 12, 0.95); /* Twilight background */
+    border-radius: 8px;
+    border-left: 4px solid rgb(108, 92, 110); /* Default border */
+    padding: 12px;
+    margin-bottom: 8px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    flex-direction: row;
+    align-items: flex-start;
+    pointer-events: auto; /* Allow interaction with notification */
+    transition: all 0.3s ease;
+    min-width: 300px;
+    max-width: 350px;
+}
+
+.tits-notification:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.tits-notification-icon {
+    font-size: 20px;
+    margin-right: 12px;
+    flex-shrink: 0;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.tits-notification-content {
+    flex-grow: 1;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tits-notification-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(226, 220, 234); /* Twilight primary text */
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+    line-height: 1.2;
+}
+
+.tits-notification-message {
+    font-size: 12px;
+    color: rgb(180, 170, 190); /* Twilight secondary text */
+    line-height: 1.3;
+    white-space: normal;
+}
+
+.tits-notification-close {
+    width: 20px;
+    height: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    color: rgb(150, 140, 160);
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-left: 8px;
+    transition: all 0.2s ease;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.tits-notification-close:hover {
+    color: rgb(244, 162, 232); /* Twilight accent */
+    background-color: rgba(244, 162, 232, 0.1);
+    border-radius: 4px;
+}
+
+/* Notification type specific styling */
+.tits-notification-info {
+    border-left-color: rgb(100, 200, 255); /* Blue for info */
+}
+
+.tits-notification-info .tits-notification-icon {
+    color: rgb(100, 200, 255);
+}
+
+.tits-notification-success {
+    border-left-color: rgb(100, 255, 150); /* Green for success */
+}
+
+.tits-notification-success .tits-notification-icon {
+    color: rgb(100, 255, 150);
+}
+
+.tits-notification-warning {
+    border-left-color: rgb(255, 200, 100); /* Orange for warning */
+}
+
+.tits-notification-warning .tits-notification-icon {
+    color: rgb(255, 200, 100);
+}
+
+.tits-notification-error {
+    border-left-color: rgb(255, 100, 100); /* Red for error */
+}
+
+.tits-notification-error .tits-notification-icon {
+    color: rgb(255, 100, 100);
+}
+
+.tits-notification-achievement {
+    border-left-color: rgb(255, 215, 0); /* Gold for achievements */
+    background: linear-gradient(135deg, rgba(10, 8, 12, 0.95) 0%, rgba(30, 25, 15, 0.95) 100%);
+}
+
+.tits-notification-achievement .tits-notification-icon {
+    color: rgb(255, 215, 0);
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+}
+
+.tits-notification-achievement .tits-notification-title {
+    color: rgb(255, 215, 0);
+}
+
+.tits-notification-quest {
+    border-left-color: rgb(200, 100, 255); /* Purple for quests */
+}
+
+.tits-notification-quest .tits-notification-icon {
+    color: rgb(200, 100, 255);
+}
+
+.tits-notification-levelup {
+    border-left-color: rgb(244, 162, 232); /* Twilight accent for level up */
+    background: linear-gradient(135deg, rgba(10, 8, 12, 0.95) 0%, rgba(35, 15, 30, 0.95) 100%);
+    animation: levelup-glow 2s ease-in-out infinite alternate;
+}
+
+.tits-notification-levelup .tits-notification-icon {
+    color: rgb(244, 162, 232);
+    text-shadow: 0 0 8px rgba(244, 162, 232, 0.6);
+}
+
+.tits-notification-levelup .tits-notification-title {
+    color: rgb(244, 162, 232);
+}
+
+@keyframes levelup-glow {
+    0% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 0 0 rgba(244, 162, 232, 0.4); }
+    100% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 0 8px rgba(244, 162, 232, 0.0); }
+}
+
+.tits-notification-item {
+    border-left-color: rgb(150, 255, 150); /* Light green for items */
+}
+
+.tits-notification-item .tits-notification-icon {
+    color: rgb(150, 255, 150);
+}
+
+/* Animation keyframes for slide in/out */
+@keyframes slide-in-right {
+    0% {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-out-right {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
+/* Pulse animation for urgent notifications */
+@keyframes pulse-notification {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.02);
+        opacity: 0.95;
+    }
+}
+
+.tits-notification-error,
+.tits-notification-warning {
+    animation: pulse-notification 2s ease-in-out infinite;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+    .tits-notifications {
+        right: 15px;
+        width: 300px;
+    }
+
+    .tits-notification {
+        min-width: 250px;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 800px) {
+    .tits-notifications {
+        right: 10px;
+        top: 15px;
+        width: 280px;
+    }
+
+    .tits-notification {
+        min-width: 200px;
+        max-width: 280px;
+        padding: 10px;
+    }
+
+    .tits-notification-icon {
+        font-size: 18px;
+        margin-right: 10px;
+    }
+
+    .tits-notification-title {
+        font-size: 13px;
+    }
+
+    .tits-notification-message {
+        font-size: 11px;
+    }
+
+    .tits-notification-close {
+        width: 18px;
+        height: 18px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 600px) {
+    .tits-notifications {
+        right: 5px;
+        width: 250px;
+    }
+
+    .tits-notification {
+        min-width: 180px;
+        max-width: 250px;
+    }
+}

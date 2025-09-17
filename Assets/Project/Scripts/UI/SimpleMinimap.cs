@@ -32,7 +32,7 @@ namespace MyGameNamespace.UI
             mapContainer.AddToClassList("minimap-background");
             mapContainer.style.width = MAP_SIZE;
             mapContainer.style.height = MAP_SIZE;
-            mapContainer.style.backgroundColor = new Color(0.1f, 0.1f, 0.2f);
+            mapContainer.style.backgroundColor = new Color(22/255f, 18/255f, 24/255f); /* Twilight menu card background */
             mapContainer.style.borderTopLeftRadius = 8;
             mapContainer.style.borderTopRightRadius = 8;
             mapContainer.style.borderBottomLeftRadius = 8;
@@ -41,10 +41,10 @@ namespace MyGameNamespace.UI
             mapContainer.style.borderBottomWidth = 2;
             mapContainer.style.borderLeftWidth = 2;
             mapContainer.style.borderRightWidth = 2;
-            mapContainer.style.borderTopColor = new Color(0.3f, 0.3f, 0.5f);
-            mapContainer.style.borderBottomColor = new Color(0.3f, 0.3f, 0.5f);
-            mapContainer.style.borderLeftColor = new Color(0.3f, 0.3f, 0.5f);
-            mapContainer.style.borderRightColor = new Color(0.3f, 0.3f, 0.5f);
+            mapContainer.style.borderTopColor = new Color(108/255f, 92/255f, 110/255f); /* Twilight button border */
+            mapContainer.style.borderBottomColor = new Color(108/255f, 92/255f, 110/255f);
+            mapContainer.style.borderLeftColor = new Color(108/255f, 92/255f, 110/255f);
+            mapContainer.style.borderRightColor = new Color(108/255f, 92/255f, 110/255f);
             Add(mapContainer);
 
             // Player icon (center of map)
@@ -56,7 +56,7 @@ namespace MyGameNamespace.UI
             playerIcon.style.height = ICON_SIZE;
             playerIcon.style.left = (MAP_SIZE - ICON_SIZE) / 2;
             playerIcon.style.top = (MAP_SIZE - ICON_SIZE) / 2;
-            playerIcon.style.backgroundColor = new Color(1f, 0.8f, 0.2f); // Golden color for player
+            playerIcon.style.backgroundColor = new Color(244/255f, 162/255f, 232/255f); /* Twilight title color for player */
             playerIcon.style.borderTopLeftRadius = ICON_SIZE / 2;
             playerIcon.style.borderTopRightRadius = ICON_SIZE / 2;
             playerIcon.style.borderBottomLeftRadius = ICON_SIZE / 2;
@@ -101,12 +101,12 @@ namespace MyGameNamespace.UI
         {
             switch (type)
             {
-                case LocationType.Farm: return new Color(0.2f, 0.8f, 0.2f); // Green
-                case LocationType.Shop: return new Color(0.8f, 0.4f, 0.8f); // Purple
-                case LocationType.Library: return new Color(0.4f, 0.6f, 0.9f); // Blue
-                case LocationType.Home: return new Color(0.9f, 0.6f, 0.4f); // Orange
-                case LocationType.Danger: return new Color(0.9f, 0.2f, 0.2f); // Red
-                default: return new Color(0.7f, 0.7f, 0.7f); // Gray
+                case LocationType.Farm: return new Color(108/255f, 92/255f, 110/255f); /* Twilight button border color for farms */
+                case LocationType.Shop: return new Color(244/255f, 162/255f, 232/255f); /* Twilight title color for shops */
+                case LocationType.Library: return new Color(180/255f, 120/255f, 200/255f); /* Twilight accent color for libraries */
+                case LocationType.Home: return new Color(150/255f, 100/255f, 180/255f); /* Twilight secondary color for homes */
+                case LocationType.Danger: return new Color(220/255f, 100/255f, 150/255f); /* Twilight warning color for danger */
+                default: return new Color(80/255f, 70/255f, 85/255f); /* Twilight muted color for default */
             }
         }
 
@@ -147,10 +147,10 @@ namespace MyGameNamespace.UI
                     icon.style.borderBottomWidth = 2;
                     icon.style.borderLeftWidth = 2;
                     icon.style.borderRightWidth = 2;
-                    icon.style.borderTopColor = Color.white;
-                    icon.style.borderBottomColor = Color.white;
-                    icon.style.borderLeftColor = Color.white;
-                    icon.style.borderRightColor = Color.white;
+                    icon.style.borderTopColor = new Color(244/255f, 162/255f, 232/255f); /* Twilight title color for highlight */
+                    icon.style.borderBottomColor = new Color(244/255f, 162/255f, 232/255f);
+                    icon.style.borderLeftColor = new Color(244/255f, 162/255f, 232/255f);
+                    icon.style.borderRightColor = new Color(244/255f, 162/255f, 232/255f);
                 }
                 else
                 {
