@@ -224,14 +224,14 @@ namespace MyGameNamespace
                     saveData.playerData = new PlayerSaveData
                     {
                         name = player.name,
-                        race = player.race,
+                        race = player.race.ToString(),
                         gender = player.gender,
                         level = player.level,
                         experience = player.experience,
-                        health = player.health,
-                        maxHealth = player.maxHealth,
-                        energy = player.energy,
-                        maxEnergy = player.maxEnergy,
+                        health = player.gameStats?.health ?? 0,
+                        maxHealth = player.gameStats?.maxHealth ?? 0,
+                        energy = player.gameStats?.energy ?? 0,
+                        maxEnergy = player.gameStats?.maxEnergy ?? 0,
                         bits = player.bits,
                         skillPoints = player.skillPoints
                     };
@@ -285,14 +285,20 @@ namespace MyGameNamespace
                 if (player != null)
                 {
                     player.name = saveData.playerData.name;
-                    player.race = saveData.playerData.race;
+                    if (System.Enum.TryParse<RaceType>(saveData.playerData.race, out RaceType raceType))
+                    {
+                        player.race = raceType;
+                    }
                     player.gender = saveData.playerData.gender;
                     player.level = saveData.playerData.level;
                     player.experience = saveData.playerData.experience;
-                    player.health = saveData.playerData.health;
-                    player.maxHealth = saveData.playerData.maxHealth;
-                    player.energy = saveData.playerData.energy;
-                    player.maxEnergy = saveData.playerData.maxEnergy;
+                    if (player.gameStats != null)
+                    {
+                        player.gameStats.health = saveData.playerData.health;
+                        player.gameStats.maxHealth = saveData.playerData.maxHealth;
+                        player.gameStats.energy = saveData.playerData.energy;
+                        player.gameStats.maxEnergy = saveData.playerData.maxEnergy;
+                    }
                     player.bits = saveData.playerData.bits;
                     player.skillPoints = saveData.playerData.skillPoints;
                 }
@@ -304,7 +310,7 @@ namespace MyGameNamespace
             {
                 foreach (var itemData in saveData.inventoryData.items)
                 {
-                    var item = ItemDatabase.GetItemById(itemData.id);
+                    var item = ItemDatabase.Get(itemData.id);
                     if (item != null)
                     {
                         inventorySystem.AddItem(item, itemData.quantity);

@@ -207,14 +207,16 @@ namespace MyGameNamespace.UI
                 button.AddToClassList("tits-action-highlighted");
 
                 // Remove highlight after a short time
-                StartCoroutine(RemoveHighlight(button));
+                RemoveHighlight(button);
             }
         }
 
-        private System.Collections.IEnumerator RemoveHighlight(VisualElement button)
+        private void RemoveHighlight(VisualElement button)
         {
-            yield return new WaitForSeconds(0.2f);
-            button.RemoveFromClassList("tits-action-highlighted");
+            button.schedule.Execute(() =>
+            {
+                button.RemoveFromClassList("tits-action-highlighted");
+            }).ExecuteLater(200); // 200ms delay
         }
 
         /// <summary>

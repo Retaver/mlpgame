@@ -341,6 +341,15 @@ namespace MyGameNamespace.UI
             UpdatePan();
         }
 
+        public void RefreshMinimap()
+        {
+            // Re-initialize locations and refresh the display
+            locationIcons.Clear();
+            discoveredLocations.Clear();
+            visitedLocations.Clear();
+            InitializeLocations();
+        }
+
         public void ShowLocation(string locationName, bool show = true)
         {
             if (locationIcons.ContainsKey(locationName))

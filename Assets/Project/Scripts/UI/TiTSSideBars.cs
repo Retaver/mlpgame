@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace MyGameNamespace.UI
@@ -27,8 +26,6 @@ namespace MyGameNamespace.UI
         private readonly Dictionary<string, VisualElement> statIcons = new();
 
         // Animation settings
-        private const float ANIMATION_DURATION = 0.8f;
-        private const float PULSE_DURATION = 0.6f;
         private const float LOW_THRESHOLD = 0.25f;
         private const float CRITICAL_THRESHOLD = 0.1f;
 
@@ -118,39 +115,20 @@ namespace MyGameNamespace.UI
             float percentage = maxValue > 0 ? (currentValue / maxValue) : 0f;
             float targetValue = percentage * 100f;
 
-            // Start animation
-            StartCoroutine(AnimateBar(bar, targetValue, statName));
+            // Animate bar directly (no coroutine needed for UI Toolkit)
+            AnimateBar(bar, targetValue, statName);
         }
 
-        private IEnumerator AnimateBar(ProgressBar bar, float targetValue, string statName)
+        private void AnimateBar(ProgressBar bar, float targetValue, string statName)
         {
-            float startValue = bar.value;
-            float duration = ANIMATION_DURATION;
-            float elapsed = 0f;
+            // Set the value directly for UI Toolkit
+            bar.value = targetValue;
 
             // Determine status class
             string statusClass = GetStatusClass(targetValue / 100f);
 
-            while (elapsed < duration)
-            {
-                elapsed += Time.deltaTime;
-                float t = elapsed / duration;
-                t = 1f - (1f - t) * (1f - t); // Ease out
-
-                bar.value = Mathf.Lerp(startValue, targetValue, t);
-                yield return null;
-            }
-
-            bar.value = targetValue;
-
             // Update status classes
             UpdateBarStatus(bar, statusClass);
-
-            // Pulse if critical
-            if (statusClass == "critical")
-            {
-                yield return StartCoroutine(PulseBar(bar));
-            }
         }
 
         private string GetStatusClass(float percentage)
@@ -166,39 +144,6 @@ namespace MyGameNamespace.UI
             bar.RemoveFromClassList("low");
             bar.RemoveFromClassList("critical");
             bar.AddToClassList(statusClass);
-        }
-
-        private IEnumerator PulseBar(ProgressBar bar)
-        {
-            var fill = bar.Q<VisualElement>("unity-progress-bar__progress");
-            if (fill == null) yield break;
-
-            Color originalColor = fill.style.backgroundColor.value;
-            float elapsed = 0f;
-
-            while (elapsed < PULSE_DURATION)
-            {
-                elapsed += Time.deltaTime;
-                float t = Mathf.PingPong(elapsed * 3f, 1f);
-
-                // Pulse between 0.7 and 1.3 scale
-                float scale = Mathf.Lerp(0.7f, 1.3f, t);
-                fill.style.scale = new Scale(new Vector3(scale, 1f, 1f));
-
-                // Pulse brightness
-                float brightness = Mathf.Lerp(0.7f, 1.2f, t);
-                fill.style.backgroundColor = new Color(
-                    originalColor.r * brightness,
-                    originalColor.g * brightness,
-                    originalColor.b * brightness,
-                    originalColor.a
-                );
-
-                yield return null;
-            }
-
-            fill.style.scale = Scale.None();
-            fill.style.backgroundColor = originalColor;
         }
 
         /// <summary>

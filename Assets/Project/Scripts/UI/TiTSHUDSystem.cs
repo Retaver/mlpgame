@@ -32,6 +32,23 @@ namespace MyGameNamespace.UI
         [SerializeField] private float discordValue = 25f;
         [SerializeField] private float maxDiscordValue = 100f;
 
+        // Public properties for external access
+        public bool EnableSideBars { get => enableSideBars; set => enableSideBars = value; }
+        public bool EnableEnhancedMinimap { get => enableEnhancedMinimap; set => enableEnhancedMinimap = value; }
+        public bool EnableNotifications { get => enableNotifications; set => enableNotifications = value; }
+        public bool EnableQuickActions { get => enableQuickActions; set => enableQuickActions = value; }
+
+        public float HealthValue { get => healthValue; set { healthValue = value; UpdateHealthBar(); } }
+        public float MaxHealthValue { get => maxHealthValue; set { maxHealthValue = value; UpdateHealthBar(); } }
+        public float EnergyValue { get => energyValue; set { energyValue = value; UpdateEnergyBar(); } }
+        public float MaxEnergyValue { get => maxEnergyValue; set { maxEnergyValue = value; UpdateEnergyBar(); } }
+        public float MagicValue { get => magicValue; set { magicValue = value; UpdateMagicBar(); } }
+        public float MaxMagicValue { get => maxMagicValue; set { maxMagicValue = value; UpdateMagicBar(); } }
+        public float FriendshipValue { get => friendshipValue; set { friendshipValue = value; UpdateFriendshipBar(); } }
+        public float MaxFriendshipValue { get => maxFriendshipValue; set { maxFriendshipValue = value; UpdateFriendshipBar(); } }
+        public float DiscordValue { get => discordValue; set { discordValue = value; UpdateDiscordBar(); } }
+        public float MaxDiscordValue { get => maxDiscordValue; set { maxDiscordValue = value; UpdateDiscordBar(); } }
+
         [Header("Minimap Settings")]
         [SerializeField] private Vector2 playerPosition = Vector2.zero;
         [SerializeField] private float playerRotation = 0f;
@@ -57,8 +74,8 @@ namespace MyGameNamespace.UI
             UpdateAllStats();
             UpdatePlayerPosition();
 
-            // Demo notifications
-            StartCoroutine(DemoNotifications());
+            // Demo notifications (call directly instead of coroutine)
+            ShowDemoNotifications();
         }
 
         private void InitializeHUD()
@@ -79,7 +96,7 @@ namespace MyGameNamespace.UI
             gameWorldOverlay.style.left = 0;
             gameWorldOverlay.style.right = 0;
             gameWorldOverlay.style.bottom = 0;
-            gameWorldOverlay.style.pointerEvents = PickingMode.Ignore;
+            gameWorldOverlay.pickingMode = PickingMode.Ignore;
             root.Add(gameWorldOverlay);
 
             // Initialize components
@@ -281,6 +298,73 @@ namespace MyGameNamespace.UI
         public TiTSMinimap Minimap => minimap;
         public TiTSNotifications Notifications => notifications;
         public TiTSQuickActions QuickActions => quickActions;
+
+        // Update methods for individual bars
+        private void UpdateHealthBar()
+        {
+            if (sideBars != null)
+            {
+                sideBars.UpdateHealthBar(healthValue, maxHealthValue);
+            }
+        }
+
+        private void UpdateEnergyBar()
+        {
+            if (sideBars != null)
+            {
+                sideBars.UpdateEnergyBar(energyValue, maxEnergyValue);
+            }
+        }
+
+        private void UpdateMagicBar()
+        {
+            if (sideBars != null)
+            {
+                sideBars.UpdateMagicBar(magicValue, maxMagicValue);
+            }
+        }
+
+        private void UpdateFriendshipBar()
+        {
+            if (sideBars != null)
+            {
+                sideBars.UpdateFriendshipBar(friendshipValue, maxFriendshipValue);
+            }
+        }
+
+        private void UpdateDiscordBar()
+        {
+            if (sideBars != null)
+            {
+                sideBars.UpdateDiscordBar(discordValue, maxDiscordValue);
+            }
+        }
+
+        private void UpdateAllStats()
+        {
+            UpdateHealthBar();
+            UpdateEnergyBar();
+            UpdateMagicBar();
+            UpdateFriendshipBar();
+            UpdateDiscordBar();
+        }
+
+        private void UpdatePlayerPosition()
+        {
+            if (minimap != null)
+            {
+                minimap.UpdatePlayerPosition(playerPosition, playerRotation);
+            }
+        }
+
+        private void ShowDemoNotifications()
+        {
+            if (notifications != null)
+            {
+                notifications.ShowNotification("Welcome to MLP Game!", 3f);
+                // Add more demo notifications as needed
+            }
+        }
 
         private void OnValidate()
         {

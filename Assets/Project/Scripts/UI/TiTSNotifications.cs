@@ -76,7 +76,7 @@ namespace MyGameNamespace.UI
 
             if (displayCoroutine == null)
             {
-                displayCoroutine = StartCoroutine(ProcessNotificationQueue());
+                ProcessNotificationQueue();
             }
         }
 
@@ -161,19 +161,14 @@ namespace MyGameNamespace.UI
             };
         }
 
-        private IEnumerator ProcessNotificationQueue()
+        private void ProcessNotificationQueue()
         {
-            while (notificationQueue.Count > 0 || activeNotifications.Count > 0)
+            // Show notifications up to the maximum
+            while (notificationQueue.Count > 0 && activeNotifications.Count < MAX_VISIBLE_NOTIFICATIONS)
             {
-                // Show notifications up to the maximum
-                while (notificationQueue.Count > 0 && activeNotifications.Count < MAX_VISIBLE_NOTIFICATIONS)
-                {
-                    var notificationData = notificationQueue.Dequeue();
-                    var notificationElement = CreateNotificationElement(notificationData);
-                    ShowNotificationElement(notificationElement, notificationData.Duration);
-                }
-
-                yield return null;
+                var notificationData = notificationQueue.Dequeue();
+                var notificationElement = CreateNotificationElement(notificationData);
+                ShowNotificationElement(notificationElement, notificationData.Duration);
             }
 
             displayCoroutine = null;
@@ -226,57 +221,50 @@ namespace MyGameNamespace.UI
             UpdateNotificationPositions();
 
             // Animate in
-            StartCoroutine(AnimateNotificationIn(notification, duration));
+            AnimateNotificationIn(notification, duration);
         }
 
-        private IEnumerator AnimateNotificationIn(VisualElement notification, float duration)
+        private void AnimateNotificationIn(VisualElement notification, float duration)
         {
-            float elapsed = 0f;
-            var startTranslate = new Translate(new Length(400, LengthUnit.Pixel), 0);
-            var endTranslate = new Translate(0, 0);
+            // Set initial state
+            notification.style.opacity = 0;
+            notification.style.translate = new Translate(new Length(400, LengthUnit.Pixel), 0);
 
-            while (elapsed < SLIDE_DURATION)
+            // Animate in using UIToolkit experimental animation
+            notification.experimental.animation.Start(0, 1, SLIDE_DURATION * 1000, (element, value) =>
             {
-                elapsed += Time.deltaTime;
-                float t = elapsed / SLIDE_DURATION;
-                t = 1f - (1f - t) * (1f - t); // Ease out
-
-                notification.style.opacity = t;
-                notification.style.translate = LerpTranslate(startTranslate, endTranslate, t);
-
-                yield return null;
-            }
-
-            notification.style.opacity = 1;
-            notification.style.translate = endTranslate;
-
-            // Wait for display duration
-            yield return new WaitForSeconds(duration);
-
-            // Animate out
-            yield return StartCoroutine(AnimateNotificationOut(notification));
+                float t = 1f - (1f - value) * (1f - value); // Ease out
+                element.style.opacity = value;
+                element.style.translate = LerpTranslate(
+                    new Translate(new Length(400, LengthUnit.Pixel), 0),
+                    new Translate(0, 0),
+                    value);
+            }).OnCompleted(() =>
+            {
+                // Animation complete, wait for duration then animate out
+                notification.schedule.Execute(() =>
+                {
+                    AnimateNotificationOut(notification);
+                }).ExecuteLater((long)(duration * 1000));
+            });
         }
 
-        private IEnumerator AnimateNotificationOut(VisualElement notification)
+        private void AnimateNotificationOut(VisualElement notification)
         {
-            float elapsed = 0f;
-            var startTranslate = new Translate(0, 0);
-            var endTranslate = new Translate(new Length(400, LengthUnit.Pixel), 0);
-
-            while (elapsed < SLIDE_DURATION)
+            // Animate out using UIToolkit experimental animation
+            notification.experimental.animation.Start(0, 1, SLIDE_DURATION * 1000, (element, value) =>
             {
-                elapsed += Time.deltaTime;
-                float t = elapsed / SLIDE_DURATION;
-                t = t * t; // Ease in
-
-                notification.style.opacity = 1f - t;
-                notification.style.translate = LerpTranslate(startTranslate, endTranslate, t);
-
-                yield return null;
-            }
-
-            // Remove notification
-            DismissNotification(notification);
+                float t = value * value; // Ease in
+                element.style.opacity = 1f - value;
+                element.style.translate = LerpTranslate(
+                    new Translate(0, 0),
+                    new Translate(new Length(400, LengthUnit.Pixel), 0),
+                    value);
+            }).OnCompleted(() =>
+            {
+                // Animation complete, remove notification
+                DismissNotification(notification);
+            });
         }
 
         private void DismissNotification(VisualElement notification)

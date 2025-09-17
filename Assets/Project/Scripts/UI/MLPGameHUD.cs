@@ -414,8 +414,8 @@ namespace MyGameNamespace.UI
                 if (player != null)
                 {
                     // Add stat bars (health, energy, etc.)
-                    AddStatBar("Health", player.health, player.maxHealth);
-                    AddStatBar("Energy", player.energy, player.maxEnergy);
+                    AddStatBar("Health", player.gameStats?.health ?? 0, player.gameStats?.maxHealth ?? 0);
+                    AddStatBar("Energy", player.gameStats?.energy ?? 0, player.gameStats?.maxEnergy ?? 0);
                     AddStatBar("Level", player.level, player.level + 1);
                 }
             }
@@ -547,7 +547,7 @@ namespace MyGameNamespace.UI
             notificationContainer.style.right = 20;
             notificationContainer.style.width = 300;
             notificationContainer.style.maxHeight = 100;
-            notificationContainer.style.zIndex = 1000;
+            // Note: zIndex is not available in IStyle, layering is handled by element order
             root.Add(notificationContainer);
 
             // Create notification label
